@@ -1,0 +1,32 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/ihw/workspace/kai_2025/build/yolo_ros",
+        "/home/ihw/workspace/kai_2025/install/yolo_ros/lib/python3.10/site-packages",
+        "/home/ihw/workspace/kai_2025/install/yolo_msgs/local/lib/python3.10/dist-packages",
+        "/home/ihw/workspace/kai_2025/build/simple_slam",
+        "/home/ihw/workspace/kai_2025/install/simple_slam/lib/python3.10/site-packages",
+        "/home/ihw/workspace/kai_2025/build/ros2_camera_lidar_fusion",
+        "/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion/lib/python3.10/site-packages",
+        "/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs/local/lib/python3.10/dist-packages",
+        "/home/ihw/workspace/kai_2025/build/hungarian_association",
+        "/home/ihw/workspace/kai_2025/install/hungarian_association/lib/python3.10/site-packages",
+        "/home/ihw/workspace/kai_2025/install/custom_interface/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/ihw/workspace/kai_2025/build/yolo_ros",
+        "/home/ihw/workspace/kai_2025/install/yolo_ros/lib/python3.10/site-packages",
+        "/home/ihw/workspace/kai_2025/install/yolo_msgs/local/lib/python3.10/dist-packages",
+        "/home/ihw/workspace/kai_2025/build/simple_slam",
+        "/home/ihw/workspace/kai_2025/install/simple_slam/lib/python3.10/site-packages",
+        "/home/ihw/workspace/kai_2025/build/ros2_camera_lidar_fusion",
+        "/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion/lib/python3.10/site-packages",
+        "/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs/local/lib/python3.10/dist-packages",
+        "/home/ihw/workspace/kai_2025/build/hungarian_association",
+        "/home/ihw/workspace/kai_2025/install/hungarian_association/lib/python3.10/site-packages",
+        "/home/ihw/workspace/kai_2025/install/custom_interface/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ]
+}

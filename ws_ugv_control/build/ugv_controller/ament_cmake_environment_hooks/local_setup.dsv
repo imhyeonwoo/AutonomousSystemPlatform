@@ -1,0 +1,2 @@
+source;share/ugv_controller/environment/ament_prefix_path.sh
+source;share/ugv_controller/environment/path.sh

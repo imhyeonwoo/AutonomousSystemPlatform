@@ -1,0 +1,10 @@
+[ 12%] Built target frame_transforms
+[35m[1mConsolidate compiler generated dependencies of target offboard_waypoint_map[0m
+[ 18%] [32mBuilding CXX object CMakeFiles/offboard_waypoint_map.dir/src/examples/offboard/offboard_waypoint_map.cpp.o[0m
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:19:10:[m[K [01;31m[Kfatal error: [m[Kvisualization_msgs/msg/marker.hpp: No such file or directory
+   19 | #include [01;31m[K<visualization_msgs/msg/marker.hpp>[m[K              // ★ RViz2 Marker
+      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+compilation terminated.
+gmake[2]: *** [CMakeFiles/offboard_waypoint_map.dir/build.make:76: CMakeFiles/offboard_waypoint_map.dir/src/examples/offboard/offboard_waypoint_map.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:333: CMakeFiles/offboard_waypoint_map.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

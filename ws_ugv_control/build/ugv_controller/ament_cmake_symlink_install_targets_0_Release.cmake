@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/build/ugv_controller/path_follower_node" "TARGETS" "path_follower_node" "DESTINATION" "lib/ugv_controller")

@@ -1,0 +1,109 @@
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:219:32:[m[K [01;31m[Kerror: [m[K‘[01m[KVehicle[m[K’ is not a member of ‘[01m[Kpx4_msgs::msg[m[K’
+  219 |   std::optional<px4_msgs::msg::[01;31m[KVehicle[m[K
+      |                                [01;31m[K^~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:219:32:[m[K [01;31m[Kerror: [m[Ktemplate argument 1 is invalid
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:219:39:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id at end of input
+  219 |   std::optional<px4_msgs::msg::Vehicle
+      |                                       [01;31m[K^[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:219:39:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K}[m[K’ at end of input
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:35:1:[m[K [01;36m[Knote: [m[Kto match this ‘[01m[K{[m[K’
+   35 | [01;36m[K{[m[K
+      | [01;36m[K^[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:[m[K In constructor ‘[01m[KOffboardWaypointMap::OffboardWaypointMap()[m[K’:
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:42:47:[m[K [01;31m[Kerror: [m[Kclass ‘[01m[KOffboardWaypointMap[m[K’ does not have any field named ‘[01m[Kstate_[m[K’
+   42 |     current_wp_idx_(0), offboard_counter_(0), [01;31m[Kstate_[m[K(State::WAIT_SIGNAL),
+      |                                               [01;31m[K^~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:43:5:[m[K [01;31m[Kerror: [m[Kclass ‘[01m[KOffboardWaypointMap[m[K’ does not have any field named ‘[01m[Kstart_signal_received_[m[K’
+   43 |     [01;31m[Kstart_signal_received_[m[K(false), takeoff_done_pub_(false)
+      |     [01;31m[K^~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:68:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kmap_frame_[m[K’ was not declared in this scope
+   68 |     [01;31m[Kmap_frame_[m[K  = get_parameter("map_frame").as_string();
+      |     [01;31m[K^~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:69:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kbase_frame_[m[K’ was not declared in this scope; did you mean ‘[01m[Kbasename[m[K’?
+   69 |     [01;31m[Kbase_frame_[m[K = get_parameter("base_frame").as_string();
+      |     [01;31m[K^~~~~~~~~~~[m[K
+      |     [32m[Kbasename[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:70:5:[m[K [01;31m[Kerror: [m[K‘[01m[Ktakeoff_alt_m_[m[K’ was not declared in this scope
+   70 |     [01;31m[Ktakeoff_alt_m_[m[K = get_parameter("takeoff_alt").as_double();
+      |     [01;31m[K^~~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:[m[K In member function ‘[01m[Kvoid OffboardWaypointMap::publishWaypointMarkers()[m[K’:
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:105:29:[m[K [01;31m[Kerror: [m[K‘[01m[Kmap_frame_[m[K’ was not declared in this scope
+  105 |       sph.header.frame_id = [01;31m[Kmap_frame_[m[K; sph.header.stamp = stamp;
+      |                             [01;31m[K^~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:[m[K In member function ‘[01m[Kvoid OffboardWaypointMap::localPosCb(px4_msgs::msg::VehicleLocalPosition_<std::allocator<void> >::UniquePtr)[m[K’:
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:128:79:[m[K [01;31m[Kerror: [m[K‘[01m[Klast_local_pos_[m[K’ was not declared in this scope
+  128 | const px4_msgs::msg::VehicleLocalPosition::UniquePtr msg) { [01;31m[Klast_local_pos_[m[K = *msg; }
+      |                                                             [01;31m[K^~~~~~~~~~~~~~~[m[K
+
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:[m[K In member function ‘[01m[Kvoid OffboardWaypointMap::oneFeedbackCb(std_msgs::msg::Int32_<std::allocator<void> >::SharedPtr)[m[K’:
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:132:28:[m[K [01;31m[Kerror: [m[K‘[01m[Kstart_signal_received_[m[K’ was not declared in this scope
+  132 |     if (msg->data == 1 && ![01;31m[Kstart_signal_received_[m[K) {
+      |                            [01;31m[K^~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:135:7:[m[K [01;31m[Kerror: [m[K‘[01m[Kstate_[m[K’ was not declared in this scope; did you mean ‘[01m[KState[m[K’?
+  135 |       [01;31m[Kstate_[m[K = State::INIT;
+      |       [01;31m[K^~~~~~[m[K
+      |       [32m[KState[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:[m[K In member function ‘[01m[Kstd::optional<OffboardWaypointMap::ENU> OffboardWaypointMap::currentENU()[m[K’:
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:143:44:[m[K [01;31m[Kerror: [m[K‘[01m[Kmap_frame_[m[K’ was not declared in this scope
+  143 |       auto tf = tf_buffer_.lookupTransform([01;31m[Kmap_frame_[m[K, base_frame_, tf2::TimePointZero, 20ms);
+      |                                            [01;31m[K^~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:143:56:[m[K [01;31m[Kerror: [m[K‘[01m[Kbase_frame_[m[K’ was not declared in this scope; did you mean ‘[01m[Kbasename[m[K’?
+  143 |       auto tf = tf_buffer_.lookupTransform(map_frame_, [01;31m[Kbase_frame_[m[K, tf2::TimePointZero, 20ms);
+      |                                                        [01;31m[K^~~~~~~~~~~[m[K
+      |                                                        [32m[Kbasename[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:[m[K In member function ‘[01m[Kvoid OffboardWaypointMap::timerCb()[m[K’:
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:154:10:[m[K [01;31m[Kerror: [m[K‘[01m[Klast_local_pos_[m[K’ was not declared in this scope
+  154 |     if (![01;31m[Klast_local_pos_[m[K) return;
+      |          [01;31m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:155:13:[m[K [01;31m[Kerror: [m[K‘[01m[Kstate_[m[K’ was not declared in this scope; did you mean ‘[01m[KState[m[K’?
+  155 |     switch ([01;31m[Kstate_[m[K) {
+      |             [01;31m[K^~~~~~[m[K
+      |             [32m[KState[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:[m[K In member function ‘[01m[Kvoid OffboardWaypointMap::handleInit()[m[K’:
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:172:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kstart_local_pos_[m[K’ was not declared in this scope
+  172 |     [01;31m[Kstart_local_pos_[m[K = last_local_pos_;
+      |     [01;31m[K^~~~~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:172:24:[m[K [01;31m[Kerror: [m[K‘[01m[Klast_local_pos_[m[K’ was not declared in this scope
+  172 |     start_local_pos_ = [01;31m[Klast_local_pos_[m[K;
+      |                        [01;31m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:174:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kstate_[m[K’ was not declared in this scope; did you mean ‘[01m[KState[m[K’?
+  174 |     [01;31m[Kstate_[m[K = State::TAKEOFF;
+      |     [01;31m[K^~~~~~[m[K
+      |     [32m[KState[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:[m[K In member function ‘[01m[Kvoid OffboardWaypointMap::handleTakeoff()[m[K’:
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:179:22:[m[K [01;31m[Kerror: [m[K‘[01m[Kstart_local_pos_[m[K’ was not declared in this scope
+  179 |     float target_z = [01;31m[Kstart_local_pos_[m[K->z - takeoff_alt_m_;
+      |                      [01;31m[K^~~~~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:179:44:[m[K [01;31m[Kerror: [m[K‘[01m[Ktakeoff_alt_m_[m[K’ was not declared in this scope
+  179 |     float target_z = start_local_pos_->z - [01;31m[Ktakeoff_alt_m_[m[K;
+      |                                            [01;31m[K^~~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:181:19:[m[K [01;31m[Kerror: [m[K‘[01m[Klast_local_pos_[m[K’ was not declared in this scope
+  181 |     if (std::fabs([01;31m[Klast_local_pos_[m[K->z - target_z) < 0.5f) {
+      |                   [01;31m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:183:7:[m[K [01;31m[Kerror: [m[K‘[01m[Kstate_[m[K’ was not declared in this scope; did you mean ‘[01m[KState[m[K’?
+  183 |       [01;31m[Kstate_[m[K = State::MISSION;
+      |       [01;31m[K^~~~~~[m[K
+      |       [32m[KState[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:[m[K In member function ‘[01m[Kvoid OffboardWaypointMap::handleMission()[m[K’:
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:190:116:[m[K [01;31m[Kerror: [m[K‘[01m[Kstate_[m[K’ was not declared in this scope; did you mean ‘[01m[KState[m[K’?
+  190 | leCmd(px4_msgs::msg::VehicleCommand::VEHICLE_CMD_NAV_LAND); [01;31m[Kstate_[m[K = State::LAND; return; }
+      |                                                             [01;31m[K^~~~~~[m[K
+      |                                                             [32m[KState[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:194:19:[m[K [01;31m[Kerror: [m[K‘[01m[Klast_local_pos_[m[K’ was not declared in this scope
+  194 |     float tgt_x = [01;31m[Klast_local_pos_[m[K->x + dN; float tgt_y = last_local_pos_->y + dE; float tgt_z = last_local_pos_->z - dU;
+      |                   [01;31m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:[m[K In member function ‘[01m[Kvoid OffboardWaypointMap::publishHoldSetpoint()[m[K’:
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:200:37:[m[K [01;31m[Kerror: [m[K‘[01m[Klast_local_pos_[m[K’ was not declared in this scope
+  200 |   void publishHoldSetpoint() { if (![01;31m[Klast_local_pos_[m[K) return; publishSetpointNED(last_local_pos_->x,last_local_pos_->y,last_local_pos_->z); }
+      |                                     [01;31m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:200:81:[m[K [01;31m[Kerror: [m[K‘[01m[Klast_local_pos_[m[K’ was not declared in this scope
+  200 | tpoint() { if (!last_local_pos_) return; publishSetpointNED([01;31m[Klast_local_pos_[m[K->x,last_local_pos_->y,last_local_pos_->z); }
+      |                                                             [01;31m[K^~~~~~~~~~~~~~~[m[K
+
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:[m[K At global scope:
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:219:39:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id at end of input
+  219 |   std::optional<px4_msgs::msg::Vehicle
+      |                                       [01;31m[K^[m[K
+gmake[2]: *** [CMakeFiles/offboard_waypoint_map.dir/build.make:76: CMakeFiles/offboard_waypoint_map.dir/src/examples/offboard/offboard_waypoint_map.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:333: CMakeFiles/offboard_waypoint_map.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

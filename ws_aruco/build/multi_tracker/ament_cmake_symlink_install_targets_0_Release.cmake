@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/multi_tracker/multi_tracker_node" "TARGETS" "multi_tracker_node" "DESTINATION" "lib/multi_tracker")

@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/utilities_pkg/keyboard_control_node" "TARGETS" "keyboard_control_node" "DESTINATION" "lib/utilities_pkg")

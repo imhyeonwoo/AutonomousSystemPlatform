@@ -1,0 +1,19 @@
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_trigger.cpp:[m[K In constructor ‘[01m[KTriggeredWaypointNode::TriggeredWaypointNode()[m[K’:
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_trigger.cpp:218:9:[m[K [01;35m[Kwarning: [m[K‘[01m[KTriggeredWaypointNode::state_[m[K’ will be initialized after [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+  218 |   State [01;35m[Kstate_[m[K; double takeoff_alt_;
+      |         [01;35m[K^~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_trigger.cpp:216:41:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kbool TriggeredWaypointNode::got_start_[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+  216 |   bool waiting_trigger_, next_trigger_, [01;35m[Kgot_start_[m[K, takeoff_done_;
+      |                                         [01;35m[K^~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_trigger.cpp:33:3:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+   33 |   [01;35m[KTriggeredWaypointNode[m[K()
+      |   [01;35m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_trigger.cpp:216:53:[m[K [01;35m[Kwarning: [m[K‘[01m[KTriggeredWaypointNode::takeoff_done_[m[K’ will be initialized after [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+  216 |   bool waiting_trigger_, next_trigger_, got_start_, [01;35m[Ktakeoff_done_[m[K;
+      |                                                     [01;35m[K^~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_trigger.cpp:215:37:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kuint8_t TriggeredWaypointNode::marker_tick_[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+  215 |   size_t wp_idx_; uint8_t off_cnt_, [01;35m[Kmarker_tick_[m[K;
+      |                                     [01;35m[K^~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_trigger.cpp:33:3:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+   33 |   [01;35m[KTriggeredWaypointNode[m[K()
+      |   [01;35m[K^~~~~~~~~~~~~~~~~~~~~[m[K

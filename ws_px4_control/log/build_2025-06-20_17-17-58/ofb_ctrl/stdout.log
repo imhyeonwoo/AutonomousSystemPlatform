@@ -1,0 +1,16 @@
+running develop
+running egg_info
+writing ofb_ctrl.egg-info/PKG-INFO
+writing dependency_links to ofb_ctrl.egg-info/dependency_links.txt
+writing entry points to ofb_ctrl.egg-info/entry_points.txt
+writing requirements to ofb_ctrl.egg-info/requires.txt
+writing top-level names to ofb_ctrl.egg-info/top_level.txt
+reading manifest file 'ofb_ctrl.egg-info/SOURCES.txt'
+writing manifest file 'ofb_ctrl.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/ofb_ctrl/lib/python3.10/site-packages/ofb-ctrl.egg-link (link to .)
+Installing offboard_control_node script to /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/ofb_ctrl/lib/ofb_ctrl
+Installing waypoint_offboard_node script to /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/ofb_ctrl/lib/ofb_ctrl
+
+Installed /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/ofb_ctrl
+running symlink_data

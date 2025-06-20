@@ -1,0 +1,1 @@
+/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_msgs/rosidl_generator_cpp/px4_msgs/msg/detail/mag_worker_data__type_support.hpp

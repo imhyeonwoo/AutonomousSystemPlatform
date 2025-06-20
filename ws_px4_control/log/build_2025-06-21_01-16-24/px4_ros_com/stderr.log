@@ -1,0 +1,15 @@
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:[m[K In constructor ‘[01m[KGimbalTargetPublisher::GimbalTargetPublisher()[m[K’:
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:61:32:[m[K [01;31m[Kerror: [m[Kunable to find numeric literal operator ‘[01m[Koperator""ms[m[K’
+   61 |     timer_ = create_wall_timer([01;31m[K100ms[m[K, [this]{ timerCb(); });
+      |                                [01;31m[K^~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:[m[K In member function ‘[01m[Kbool GimbalTargetPublisher::loadCSV(const string&)[m[K’:
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:79:14:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Koff[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
+   79 |       size_t [01;35m[Koff[m[K = (col.size()==7)?1:0;                      // id/ name 첫 col 구분
+      |              [01;35m[K^~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:[m[K In member function ‘[01m[Kvoid GimbalTargetPublisher::timerCb()[m[K’:
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:97:80:[m[K [01;31m[Kerror: [m[Kunable to find numeric literal operator ‘[01m[Koperator""ms[m[K’
+   97 |       tf = tf_buf_.lookupTransform(map_frame_, cam_frame_, tf2::TimePointZero, [01;31m[K50ms[m[K);
+      |                                                                                [01;31m[K^~~~[m[K
+gmake[2]: *** [CMakeFiles/gimbal_target_publisher.dir/build.make:76: CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publisher.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:361: CMakeFiles/gimbal_target_publisher.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

@@ -1,0 +1,172 @@
+[0.110s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--symlink-install', '--cmake-args', '-DCMAKE_BUILD_TYPE=Release', '--packages-select', 'px4_ros_com']
+[0.110s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=True, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=16, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=['px4_ros_com'], packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=['-DCMAKE_BUILD_TYPE=Release'], cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7e5368f4bc10>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7e53691ed780>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7e53691ed780>>)
+[0.269s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.269s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.269s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.269s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.269s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.269s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.269s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control'
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.269s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.270s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.283s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.283s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.283s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.283s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.283s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(src/ofb_ctrl) by extensions ['ignore', 'ignore_ament_install']
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(src/ofb_ctrl) by extension 'ignore'
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(src/ofb_ctrl) by extension 'ignore_ament_install'
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(src/ofb_ctrl) by extensions ['colcon_pkg']
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(src/ofb_ctrl) by extension 'colcon_pkg'
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(src/ofb_ctrl) by extensions ['colcon_meta']
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(src/ofb_ctrl) by extension 'colcon_meta'
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(src/ofb_ctrl) by extensions ['ros']
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(src/ofb_ctrl) by extension 'ros'
+[0.305s] DEBUG:colcon.colcon_core.package_identification:Package 'src/ofb_ctrl' with type 'ros.ament_python' and name 'ofb_ctrl'
+[0.305s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extensions ['ignore', 'ignore_ament_install']
+[0.305s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extension 'ignore'
+[0.305s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extension 'ignore_ament_install'
+[0.305s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extensions ['colcon_pkg']
+[0.305s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extension 'colcon_pkg'
+[0.305s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extensions ['colcon_meta']
+[0.305s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extension 'colcon_meta'
+[0.306s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extensions ['ros']
+[0.306s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extension 'ros'
+[0.307s] DEBUG:colcon.colcon_core.package_identification:Package 'src/px4_msgs' with type 'ros.ament_cmake' and name 'px4_msgs'
+[0.307s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_ros_com) by extensions ['ignore', 'ignore_ament_install']
+[0.307s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_ros_com) by extension 'ignore'
+[0.307s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_ros_com) by extension 'ignore_ament_install'
+[0.307s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_ros_com) by extensions ['colcon_pkg']
+[0.307s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_ros_com) by extension 'colcon_pkg'
+[0.307s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_ros_com) by extensions ['colcon_meta']
+[0.307s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_ros_com) by extension 'colcon_meta'
+[0.307s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_ros_com) by extensions ['ros']
+[0.307s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_ros_com) by extension 'ros'
+[0.309s] DEBUG:colcon.colcon_core.package_identification:Package 'src/px4_ros_com' with type 'ros.ament_cmake' and name 'px4_ros_com'
+[0.309s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.309s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.309s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.309s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.309s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.331s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'ofb_ctrl' in 'src/ofb_ctrl'
+[0.331s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'px4_msgs' in 'src/px4_msgs'
+[0.332s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.332s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.334s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 4 installed packages in /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install
+[0.335s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 20 installed packages in /home/ihw/workspace/kai_2025/install
+[0.336s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 292 installed packages in /opt/ros/humble
+[0.337s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.380s] Level 5:colcon.colcon_core.verb:set package 'px4_ros_com' build argument 'cmake_args' from command line to '['-DCMAKE_BUILD_TYPE=Release']'
+[0.380s] Level 5:colcon.colcon_core.verb:set package 'px4_ros_com' build argument 'cmake_target' from command line to 'None'
+[0.380s] Level 5:colcon.colcon_core.verb:set package 'px4_ros_com' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.380s] Level 5:colcon.colcon_core.verb:set package 'px4_ros_com' build argument 'cmake_clean_cache' from command line to 'False'
+[0.380s] Level 5:colcon.colcon_core.verb:set package 'px4_ros_com' build argument 'cmake_clean_first' from command line to 'False'
+[0.380s] Level 5:colcon.colcon_core.verb:set package 'px4_ros_com' build argument 'cmake_force_configure' from command line to 'False'
+[0.380s] Level 5:colcon.colcon_core.verb:set package 'px4_ros_com' build argument 'ament_cmake_args' from command line to 'None'
+[0.380s] Level 5:colcon.colcon_core.verb:set package 'px4_ros_com' build argument 'catkin_cmake_args' from command line to 'None'
+[0.380s] Level 5:colcon.colcon_core.verb:set package 'px4_ros_com' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.380s] DEBUG:colcon.colcon_core.verb:Building package 'px4_ros_com' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DCMAKE_BUILD_TYPE=Release'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com', 'merge_install': False, 'path': '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com', 'symlink_install': True, 'test_result_base': None}
+[0.380s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.381s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.382s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com' with build type 'ament_cmake'
+[0.382s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com'
+[0.385s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.386s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.386s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.400s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com': CMAKE_PREFIX_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/utilities_pkg:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com:/home/ihw/workspace/kai_2025/install/yolo_bringup:/home/ihw/workspace/kai_2025/install/yolo_msgs:/home/ihw/workspace/kai_2025/install/usb_cam:/home/ihw/workspace/kai_2025/install/reference_path_classifier:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/ofb_ctrl:/home/ihw/workspace/kai_2025/install/yolo_ros:/home/ihw/workspace/kai_2025/install/simple_slam:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_l:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_c:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/hungarian_association:/opt/ros/humble:/home/ihw/workspace/kai_2025/install/pure_pursuit_controller:/home/ihw/workspace/kai_2025/install/ouster_ros:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs:/home/ihw/workspace/kai_2025/install/motion_track_controller:/home/ihw/workspace/kai_2025/install/gps_global_planner:/home/ihw/workspace/kai_2025/install/cones_ukf:/home/ihw/workspace/kai_2025/install/cones_no_color:/home/ihw/workspace/kai_2025/install/cone_detection:/home/ihw/workspace/kai_2025/install/custom_interface:/home/ihw/workspace/kai_2025/install/ackermann_msgs LD_LIBRARY_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/lib:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib:/home/ihw/workspace/kai_2025/install/yolo_msgs/lib:/home/ihw/workspace/kai_2025/install/usb_cam/lib:/home/ihw/workspace/kai_2025/install/ouster_ros/lib:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs/lib:/home/ihw/workspace/kai_2025/install/custom_interface/lib:/home/ihw/workspace/kai_2025/install/ackermann_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com -- -j16 -l16
+[10.744s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com' returned '0': CMAKE_PREFIX_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/utilities_pkg:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com:/home/ihw/workspace/kai_2025/install/yolo_bringup:/home/ihw/workspace/kai_2025/install/yolo_msgs:/home/ihw/workspace/kai_2025/install/usb_cam:/home/ihw/workspace/kai_2025/install/reference_path_classifier:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/ofb_ctrl:/home/ihw/workspace/kai_2025/install/yolo_ros:/home/ihw/workspace/kai_2025/install/simple_slam:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_l:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_c:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/hungarian_association:/opt/ros/humble:/home/ihw/workspace/kai_2025/install/pure_pursuit_controller:/home/ihw/workspace/kai_2025/install/ouster_ros:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs:/home/ihw/workspace/kai_2025/install/motion_track_controller:/home/ihw/workspace/kai_2025/install/gps_global_planner:/home/ihw/workspace/kai_2025/install/cones_ukf:/home/ihw/workspace/kai_2025/install/cones_no_color:/home/ihw/workspace/kai_2025/install/cone_detection:/home/ihw/workspace/kai_2025/install/custom_interface:/home/ihw/workspace/kai_2025/install/ackermann_msgs LD_LIBRARY_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/lib:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib:/home/ihw/workspace/kai_2025/install/yolo_msgs/lib:/home/ihw/workspace/kai_2025/install/usb_cam/lib:/home/ihw/workspace/kai_2025/install/ouster_ros/lib:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs/lib:/home/ihw/workspace/kai_2025/install/custom_interface/lib:/home/ihw/workspace/kai_2025/install/ackermann_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com -- -j16 -l16
+[10.754s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com': CMAKE_PREFIX_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/utilities_pkg:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com:/home/ihw/workspace/kai_2025/install/yolo_bringup:/home/ihw/workspace/kai_2025/install/yolo_msgs:/home/ihw/workspace/kai_2025/install/usb_cam:/home/ihw/workspace/kai_2025/install/reference_path_classifier:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/ofb_ctrl:/home/ihw/workspace/kai_2025/install/yolo_ros:/home/ihw/workspace/kai_2025/install/simple_slam:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_l:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_c:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/hungarian_association:/opt/ros/humble:/home/ihw/workspace/kai_2025/install/pure_pursuit_controller:/home/ihw/workspace/kai_2025/install/ouster_ros:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs:/home/ihw/workspace/kai_2025/install/motion_track_controller:/home/ihw/workspace/kai_2025/install/gps_global_planner:/home/ihw/workspace/kai_2025/install/cones_ukf:/home/ihw/workspace/kai_2025/install/cones_no_color:/home/ihw/workspace/kai_2025/install/cone_detection:/home/ihw/workspace/kai_2025/install/custom_interface:/home/ihw/workspace/kai_2025/install/ackermann_msgs LD_LIBRARY_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/lib:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib:/home/ihw/workspace/kai_2025/install/yolo_msgs/lib:/home/ihw/workspace/kai_2025/install/usb_cam/lib:/home/ihw/workspace/kai_2025/install/ouster_ros/lib:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs/lib:/home/ihw/workspace/kai_2025/install/custom_interface/lib:/home/ihw/workspace/kai_2025/install/ackermann_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --install /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com
+[10.781s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(px4_ros_com)
+[10.781s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com' returned '0': CMAKE_PREFIX_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/utilities_pkg:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com:/home/ihw/workspace/kai_2025/install/yolo_bringup:/home/ihw/workspace/kai_2025/install/yolo_msgs:/home/ihw/workspace/kai_2025/install/usb_cam:/home/ihw/workspace/kai_2025/install/reference_path_classifier:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/ofb_ctrl:/home/ihw/workspace/kai_2025/install/yolo_ros:/home/ihw/workspace/kai_2025/install/simple_slam:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_l:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_c:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/hungarian_association:/opt/ros/humble:/home/ihw/workspace/kai_2025/install/pure_pursuit_controller:/home/ihw/workspace/kai_2025/install/ouster_ros:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs:/home/ihw/workspace/kai_2025/install/motion_track_controller:/home/ihw/workspace/kai_2025/install/gps_global_planner:/home/ihw/workspace/kai_2025/install/cones_ukf:/home/ihw/workspace/kai_2025/install/cones_no_color:/home/ihw/workspace/kai_2025/install/cone_detection:/home/ihw/workspace/kai_2025/install/custom_interface:/home/ihw/workspace/kai_2025/install/ackermann_msgs LD_LIBRARY_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/lib:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib:/home/ihw/workspace/kai_2025/install/yolo_msgs/lib:/home/ihw/workspace/kai_2025/install/usb_cam/lib:/home/ihw/workspace/kai_2025/install/ouster_ros/lib:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs/lib:/home/ihw/workspace/kai_2025/install/custom_interface/lib:/home/ihw/workspace/kai_2025/install/ackermann_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --install /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com
+[10.785s] Level 1:colcon.colcon_core.environment:checking '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com' for CMake module files
+[10.785s] Level 1:colcon.colcon_core.environment:checking '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com' for CMake config files
+[10.785s] Level 1:colcon.colcon_core.shell:create_environment_hook('px4_ros_com', 'cmake_prefix_path')
+[10.785s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/hook/cmake_prefix_path.ps1'
+[10.786s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/hook/cmake_prefix_path.dsv'
+[10.786s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/hook/cmake_prefix_path.sh'
+[10.786s] Level 1:colcon.colcon_core.environment:checking '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib'
+[10.786s] Level 1:colcon.colcon_core.shell:create_environment_hook('px4_ros_com', 'ld_library_path_lib')
+[10.787s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/hook/ld_library_path_lib.ps1'
+[10.787s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/hook/ld_library_path_lib.dsv'
+[10.787s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/hook/ld_library_path_lib.sh'
+[10.787s] Level 1:colcon.colcon_core.environment:checking '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/bin'
+[10.787s] Level 1:colcon.colcon_core.environment:checking '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib/pkgconfig/px4_ros_com.pc'
+[10.787s] Level 1:colcon.colcon_core.environment:checking '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib/python3.10/site-packages'
+[10.788s] Level 1:colcon.colcon_core.environment:checking '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/bin'
+[10.788s] INFO:colcon.colcon_core.shell:Creating package script '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/package.ps1'
+[10.788s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/package.dsv'
+[10.789s] INFO:colcon.colcon_core.shell:Creating package script '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/package.sh'
+[10.789s] INFO:colcon.colcon_core.shell:Creating package script '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/package.bash'
+[10.789s] INFO:colcon.colcon_core.shell:Creating package script '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/package.zsh'
+[10.790s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/colcon-core/packages/px4_ros_com)
+[10.790s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(px4_ros_com)
+[10.790s] Level 1:colcon.colcon_core.environment:checking '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com' for CMake module files
+[10.791s] Level 1:colcon.colcon_core.environment:checking '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com' for CMake config files
+[10.791s] Level 1:colcon.colcon_core.shell:create_environment_hook('px4_ros_com', 'cmake_prefix_path')
+[10.791s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/hook/cmake_prefix_path.ps1'
+[10.791s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/hook/cmake_prefix_path.dsv'
+[10.791s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/hook/cmake_prefix_path.sh'
+[10.792s] Level 1:colcon.colcon_core.environment:checking '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib'
+[10.792s] Level 1:colcon.colcon_core.shell:create_environment_hook('px4_ros_com', 'ld_library_path_lib')
+[10.792s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/hook/ld_library_path_lib.ps1'
+[10.792s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/hook/ld_library_path_lib.dsv'
+[10.792s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/hook/ld_library_path_lib.sh'
+[10.792s] Level 1:colcon.colcon_core.environment:checking '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/bin'
+[10.793s] Level 1:colcon.colcon_core.environment:checking '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib/pkgconfig/px4_ros_com.pc'
+[10.793s] Level 1:colcon.colcon_core.environment:checking '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib/python3.10/site-packages'
+[10.793s] Level 1:colcon.colcon_core.environment:checking '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/bin'
+[10.793s] INFO:colcon.colcon_core.shell:Creating package script '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/package.ps1'
+[10.793s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/package.dsv'
+[10.794s] INFO:colcon.colcon_core.shell:Creating package script '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/package.sh'
+[10.794s] INFO:colcon.colcon_core.shell:Creating package script '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/package.bash'
+[10.794s] INFO:colcon.colcon_core.shell:Creating package script '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/package.zsh'
+[10.794s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/colcon-core/packages/px4_ros_com)
+[10.794s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[10.795s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[10.795s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[10.795s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[10.802s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[10.802s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[10.802s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[10.810s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[10.811s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/local_setup.ps1'
+[10.812s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/_local_setup_util_ps1.py'
+[10.813s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/setup.ps1'
+[10.814s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/local_setup.sh'
+[10.815s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/_local_setup_util_sh.py'
+[10.815s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/setup.sh'
+[10.816s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/local_setup.bash'
+[10.817s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/setup.bash'
+[10.818s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/local_setup.zsh'
+[10.818s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/setup.zsh'

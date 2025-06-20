@@ -1,0 +1,21 @@
+[100%] Built target path_follower_node
+-- Install configuration: "Release"
+-- Execute custom install script
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/lib/ugv_controller/path_follower_node
+-- Symlinking: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/data/ugv_waypoint.csv
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/launch/path_follower.launch.py
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ament_index/resource_index/package_run_dependencies/ugv_controller
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ament_index/resource_index/parent_prefix_path/ugv_controller
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/environment/ament_prefix_path.sh
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/environment/ament_prefix_path.dsv
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/environment/path.sh
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/environment/path.dsv
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/local_setup.bash
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/local_setup.sh
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/local_setup.zsh
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/local_setup.dsv
+-- Symlinking: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/package.dsv
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ament_index/resource_index/packages/ugv_controller
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/cmake/ugv_controllerConfig.cmake
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/cmake/ugv_controllerConfig-version.cmake
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/package.xml

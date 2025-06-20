@@ -1,0 +1,28 @@
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:[m[K In constructor ‘[01m[KOffboardWaypointMap::OffboardWaypointMap()[m[K’:
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:274:9:[m[K [01;35m[Kwarning: [m[K‘[01m[KOffboardWaypointMap::state_[m[K’ will be initialized after [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+  274 |   State [01;35m[Kstate_[m[K;
+      |         [01;35m[K^~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:273:8:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kbool OffboardWaypointMap::start_signal_received_[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+  273 |   bool [01;35m[Kstart_signal_received_[m[K;
+      |        [01;35m[K^~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:36:3:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+   36 |   [01;35m[KOffboardWaypointMap[m[K()
+      |   [01;35m[K^~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:273:8:[m[K [01;35m[Kwarning: [m[K‘[01m[KOffboardWaypointMap::start_signal_received_[m[K’ will be initialized after [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+  273 |   bool [01;35m[Kstart_signal_received_[m[K;
+      |        [01;35m[K^~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:271:8:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kbool OffboardWaypointMap::takeoff_done_pub_[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+  271 |   bool [01;35m[Ktakeoff_done_pub_[m[K;
+      |        [01;35m[K^~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:36:3:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+   36 |   [01;35m[KOffboardWaypointMap[m[K()
+      |   [01;35m[K^~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:271:8:[m[K [01;35m[Kwarning: [m[K‘[01m[KOffboardWaypointMap::takeoff_done_pub_[m[K’ will be initialized after [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+  271 |   bool [01;35m[Ktakeoff_done_pub_[m[K;
+      |        [01;35m[K^~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:270:11:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kuint8_t OffboardWaypointMap::marker_tick_[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+  270 |   uint8_t [01;35m[Kmarker_tick_[m[K;
+      |           [01;35m[K^~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint_map.cpp:36:3:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+   36 |   [01;35m[KOffboardWaypointMap[m[K()
+      |   [01;35m[K^~~~~~~~~~~~~~~~~~~[m[K

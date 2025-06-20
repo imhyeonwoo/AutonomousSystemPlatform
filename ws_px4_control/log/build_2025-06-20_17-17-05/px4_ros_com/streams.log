@@ -1,0 +1,51 @@
+[0.012s] Invoking command in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com': AMENT_PREFIX_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs:/home/ihw/workspace/kai_2025/install/yolo_bringup:/home/ihw/workspace/kai_2025/install/yolo_msgs:/home/ihw/workspace/kai_2025/install/usb_cam:/home/ihw/workspace/kai_2025/install/reference_path_classifier:/home/ihw/workspace/kai_2025/install/yolo_ros:/home/ihw/workspace/kai_2025/install/simple_slam:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_l:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_c:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/hungarian_association:/opt/ros/humble:/home/ihw/workspace/kai_2025/install/pure_pursuit_controller:/home/ihw/workspace/kai_2025/install/ouster_ros:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs:/home/ihw/workspace/kai_2025/install/motion_track_controller:/home/ihw/workspace/kai_2025/install/gps_global_planner:/home/ihw/workspace/kai_2025/install/cones_ukf:/home/ihw/workspace/kai_2025/install/cones_no_color:/home/ihw/workspace/kai_2025/install/cone_detection:/home/ihw/workspace/kai_2025/install/custom_interface:/home/ihw/workspace/kai_2025/install/ackermann_msgs LD_LIBRARY_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com -- -j16 -l16
+[0.040s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.161s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.173s] -- Found builtin_interfaces: 1.2.1 (/opt/ros/humble/share/builtin_interfaces/cmake)
+[0.199s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.202s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.207s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.216s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.227s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.236s] -- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)
+[0.238s] -- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)
+[0.270s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.271s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[0.380s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.423s] -- Found rclpy: 3.3.16 (/opt/ros/humble/share/rclpy/cmake)
+[0.424s] -- Found px4_msgs: 2.0.1 (/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/share/px4_msgs/cmake)
+[0.432s] -- Found geometry_msgs: 4.8.0 (/opt/ros/humble/share/geometry_msgs/cmake)
+[0.445s] -- Found sensor_msgs: 4.8.0 (/opt/ros/humble/share/sensor_msgs/cmake)
+[0.459s] -- Found nav_msgs: 4.8.0 (/opt/ros/humble/share/nav_msgs/cmake)
+[0.473s] -- Found tf2_ros: 0.25.12 (/opt/ros/humble/share/tf2_ros/cmake)
+[0.545s] -- Found tf2_geometry_msgs: 0.25.12 (/opt/ros/humble/share/tf2_geometry_msgs/cmake)
+[0.551s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[0.553s] -- Found cv_bridge: 3.2.1 (/opt/ros/humble/share/cv_bridge/cmake)
+[0.564s] -- Found visualization_msgs: 4.8.0 (/opt/ros/humble/share/visualization_msgs/cmake)
+[0.657s] -- Configuring done
+[0.696s] -- Generating done
+[0.708s] -- Build files have been written to: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com
+[0.746s] [35m[1mConsolidate compiler generated dependencies of target vehicle_gps_position_listener[0m
+[0.746s] [35m[1mConsolidate compiler generated dependencies of target frame_transforms[0m
+[0.746s] [35m[1mConsolidate compiler generated dependencies of target sensor_combined_listener[0m
+[0.747s] [35m[1mConsolidate compiler generated dependencies of target offboard_control_srv[0m
+[0.747s] [35m[1mConsolidate compiler generated dependencies of target offboard_control[0m
+[0.748s] [35m[1mConsolidate compiler generated dependencies of target offboard_waypoint[0m
+[0.748s] [35m[1mConsolidate compiler generated dependencies of target debug_vect_advertiser[0m
+[0.749s] [35m[1mConsolidate compiler generated dependencies of target offboard_waypoint_map[0m
+[0.765s] [ 12%] Built target frame_transforms
+[0.766s] [ 25%] [32mBuilding CXX object CMakeFiles/offboard_waypoint.dir/src/examples/offboard/offboard_waypoint.cpp.o[0m
+[0.766s] [ 31%] Built target debug_vect_advertiser
+[0.766s] [ 43%] Built target offboard_control_srv
+[0.767s] [ 56%] Built target sensor_combined_listener
+[0.768s] [ 68%] Built target offboard_control
+[0.768s] [ 81%] Built target vehicle_gps_position_listener
+[0.770s] [ 93%] Built target offboard_waypoint_map
+[1.006s] [01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint.cpp:58:11:[m[K [01;31m[Kfatal error: [m[Ksensor_msgs/msg/camera_info.hpp: No such file or directory
+[1.006s]    58 |  #include [01;31m[K<sensor_msgs/msg/camera_info.hpp>[m[K
+[1.007s]       |           [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[1.007s] compilation terminated.
+[1.010s] gmake[2]: *** [CMakeFiles/offboard_waypoint.dir/build.make:76: CMakeFiles/offboard_waypoint.dir/src/examples/offboard/offboard_waypoint.cpp.o] Error 1
+[1.010s] gmake[1]: *** [CMakeFiles/Makefile2:307: CMakeFiles/offboard_waypoint.dir/all] Error 2
+[1.010s] gmake: *** [Makefile:146: all] Error 2
+[1.013s] Invoked command in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com' returned '2': AMENT_PREFIX_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs:/home/ihw/workspace/kai_2025/install/yolo_bringup:/home/ihw/workspace/kai_2025/install/yolo_msgs:/home/ihw/workspace/kai_2025/install/usb_cam:/home/ihw/workspace/kai_2025/install/reference_path_classifier:/home/ihw/workspace/kai_2025/install/yolo_ros:/home/ihw/workspace/kai_2025/install/simple_slam:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_l:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_c:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/hungarian_association:/opt/ros/humble:/home/ihw/workspace/kai_2025/install/pure_pursuit_controller:/home/ihw/workspace/kai_2025/install/ouster_ros:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs:/home/ihw/workspace/kai_2025/install/motion_track_controller:/home/ihw/workspace/kai_2025/install/gps_global_planner:/home/ihw/workspace/kai_2025/install/cones_ukf:/home/ihw/workspace/kai_2025/install/cones_no_color:/home/ihw/workspace/kai_2025/install/cone_detection:/home/ihw/workspace/kai_2025/install/custom_interface:/home/ihw/workspace/kai_2025/install/ackermann_msgs LD_LIBRARY_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com -- -j16 -l16

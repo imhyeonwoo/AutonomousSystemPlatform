@@ -1,0 +1,9 @@
+[0.023s] Invoking command in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/build/ugv_controller': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ihw/workspace/kai_2025/install/yolo_ros:/home/ihw/workspace/kai_2025/install/simple_slam:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/ouster_ros:/home/ihw/workspace/kai_2025/install/hungarian_association:/opt/ros/humble /usr/bin/cmake --build /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/build/ugv_controller -- -j16 -l16
+[0.086s] [35m[1mConsolidate compiler generated dependencies of target path_follower_node[0m
+[0.105s] [ 50%] [32mBuilding CXX object CMakeFiles/path_follower_node.dir/src/path_follower_node.cpp.o[0m
+[5.391s] gmake[2]: *** wait: No child processes.  Stop.
+[5.391s] gmake[2]: *** Waiting for unfinished jobs....
+[5.391s] gmake[2]: *** wait: No child processes.  Stop.
+[5.391s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/path_follower_node.dir/all] Error 2
+[5.391s] gmake: *** [Makefile:146: all] Interrupt
+[5.458s] Invoked command in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/build/ugv_controller' returned '-2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ihw/workspace/kai_2025/install/yolo_ros:/home/ihw/workspace/kai_2025/install/simple_slam:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/ouster_ros:/home/ihw/workspace/kai_2025/install/hungarian_association:/opt/ros/humble /usr/bin/cmake --build /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/build/ugv_controller -- -j16 -l16

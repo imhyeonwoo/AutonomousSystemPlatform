@@ -1,0 +1,51 @@
+# ========================================================
+#              Rviz2 화면 띄우기(TF Broadcast)
+# ========================================================
+
+cd ws_gazebo/
+source install/setup.bash
+ros2 launch gazebo_env_setup pose_tf_broadcaster.launch.py
+
+.rviz 파일에 자시플_프젝.rviz 띄우면됨
+
+
+# ========================================================
+#                   UAV -> csv 경로 주행
+# ========================================================
+------------------------<Optional>------------------------
+cd ws_px4_control
+source install/setup.bash
+ros2 run px4_ros_com publish_map_info.py
+
+cd ws_px4_control
+source install/setup.bash
+ros2 run px4_ros_com path_planner_node.py
+----------------------------------------------------------
+--------------------<단순 Waypoint 추종>--------------------
+cd ws_px4_control
+source install/setup.bash
+ros2 run px4_ros_com offboard_waypoint_map
+
+------------<다음 WP 이동 트리거 명령 기능 추가(임시)>------------
+cd ws_px4_control
+source install/setup.bash
+ros2 run px4_ros_com offboard_waypoint_trigger
+
+다른 터미널 창 -> 다음 WP로 이동 원할 시
+ros2 topic pub /next_waypoint std_msgs/Bool "data: true" --once
+
+-------<각 WP 별 Gimbal의 Desired Pose 계산 후 Publish>-------
+cd ws_px4_control
+source install/setup.bash
+ros2 run px4_ros_com gimbal_target_publisher
+
+
+# ========================================================
+#                   UGV -> csv 경로 주행
+# ========================================================
+
+cd ws_ugv_control/
+source install/setup.bash
+ros2 run ugv_controller path_follower_node
+
+

@@ -1,0 +1,59 @@
+[35m[1mConsolidate compiler generated dependencies of target gimbal_target_publisher[0m
+[ 33%] Built target sensor_combined_listener
+[ 33%] Built target frame_transforms
+[ 33%] Built target vehicle_gps_position_listener
+[ 44%] Built target offboard_control
+[ 55%] Built target debug_vect_advertiser
+[ 66%] Built target offboard_waypoint_trigger
+[ 77%] Built target offboard_control_srv
+[ 88%] Built target offboard_waypoint_map
+[ 94%] [32mBuilding CXX object CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publisher.cpp.o[0m
+[100%] [32m[1mLinking CXX executable gimbal_target_publisher[0m
+[100%] Built target gimbal_target_publisher
+-- Install configuration: "Release"
+-- Execute custom install script
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib/px4_ros_com/gimbal_target_publisher
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/include/px4_ros_com/frame_transforms.h
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com//launch/offboard_control.launch.py
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com//launch/offboard_control_launch.yaml
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com//launch/sensor_combined_listener.launch.py
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com//test/__init__.py
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com//test/pipeline_io_test.py
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com//test/test_input.py
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com//test/test_output.py
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/test1.csv
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/test2.csv
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/data/aruco_markers.csv
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/data/offboard_waypoints.csv
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib/px4_ros_com/path_planner_node.py
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib/px4_ros_com/publish_map_info.py
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/environment/library_path.sh
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/environment/library_path.dsv
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/ament_index/resource_index/package_run_dependencies/px4_ros_com
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/ament_index/resource_index/parent_prefix_path/px4_ros_com
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/environment/ament_prefix_path.sh
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/environment/ament_prefix_path.dsv
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/environment/path.sh
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/environment/path.dsv
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/local_setup.bash
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/local_setup.sh
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/local_setup.zsh
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/local_setup.dsv
+-- Symlinking: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/package.dsv
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/ament_index/resource_index/packages/px4_ros_com
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/cmake/ament_cmake_export_targets-extras.cmake
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/cmake/px4_ros_comConfig.cmake
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/cmake/px4_ros_comConfig-version.cmake
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/package.xml
+-- Up-to-date: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib/libframe_transforms.so
+-- Up-to-date: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib/px4_ros_com/sensor_combined_listener
+-- Up-to-date: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib/px4_ros_com/vehicle_gps_position_listener
+-- Up-to-date: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib/px4_ros_com/debug_vect_advertiser
+-- Up-to-date: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib/px4_ros_com/offboard_control
+-- Up-to-date: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib/px4_ros_com/offboard_control_srv
+-- Up-to-date: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib/px4_ros_com/offboard_waypoint_map
+-- Up-to-date: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib/px4_ros_com/offboard_waypoint_trigger
+-- Up-to-date: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/cmake/export_frame_transformsExport.cmake
+-- Up-to-date: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com/cmake/export_frame_transformsExport-release.cmake

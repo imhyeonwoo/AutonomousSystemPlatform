@@ -1,0 +1,3 @@
+[ 11%] Built target frame_transforms
+[35m[1mConsolidate compiler generated dependencies of target gimbal_target_publisher[0m
+[ 16%] [32mBuilding CXX object CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publisher.cpp.o[0m

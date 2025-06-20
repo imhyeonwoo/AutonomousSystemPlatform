@@ -1,0 +1,42 @@
+[0.012s] Invoking command in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/build/ugv_controller': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ihw/workspace/kai_2025/install/yolo_ros:/home/ihw/workspace/kai_2025/install/simple_slam:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/ouster_ros:/home/ihw/workspace/kai_2025/install/hungarian_association:/opt/ros/humble /usr/bin/cmake --build /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/build/ugv_controller -- -j16 -l16
+[0.064s] [35m[1mConsolidate compiler generated dependencies of target path_follower_node[0m
+[0.086s] [ 50%] [32mBuilding CXX object CMakeFiles/path_follower_node.dir/src/path_follower_node.cpp.o[0m
+[3.099s] [01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/src/ugv_controller/src/path_follower_node.cpp:[m[K In constructor ‘[01m[KPathFollower::PathFollower()[m[K’:
+[3.099s] [01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/src/ugv_controller/src/path_follower_node.cpp:246:41:[m[K [01;35m[Kwarning: [m[K‘[01m[KPathFollower::pose_received_[m[K’ will be initialized after [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+[3.099s]   246 |     bool origin_set_, navsat_received_, [01;35m[Kpose_received_[m[K;
+[3.099s]       |                                         [01;35m[K^~~~~~~~~~~~~~[m[K
+[3.099s] [01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/src/ugv_controller/src/path_follower_node.cpp:246:23:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kbool PathFollower::navsat_received_[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+[3.100s]   246 |     bool origin_set_, [01;35m[Knavsat_received_[m[K, pose_received_;
+[3.100s]       |                       [01;35m[K^~~~~~~~~~~~~~~~[m[K
+[3.100s] [01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/src/ugv_controller/src/path_follower_node.cpp:38:3:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+[3.100s]    38 |   [01;35m[KPathFollower[m[K()
+[3.100s]       |   [01;35m[K^~~~~~~~~~~~[m[K
+[3.131s] [01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/src/ugv_controller/src/path_follower_node.cpp:[m[K In member function ‘[01m[Kvoid PathFollower::navsat_callback(sensor_msgs::msg::NavSatFix_<std::allocator<void> >::SharedPtr)[m[K’:
+[3.131s] [01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/src/ugv_controller/src/path_follower_node.cpp:107:12:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Klon_rad[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
+[3.131s]   107 |     double [01;35m[Klon_rad[m[K = msg->longitude * M_PI / 180.0;
+[3.131s]       |            [01;35m[K^~~~~~~[m[K
+[19.513s] [100%] [32m[1mLinking CXX executable path_follower_node[0m
+[19.822s] [100%] Built target path_follower_node
+[19.835s] Invoked command in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/build/ugv_controller' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ihw/workspace/kai_2025/install/yolo_ros:/home/ihw/workspace/kai_2025/install/simple_slam:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/ouster_ros:/home/ihw/workspace/kai_2025/install/hungarian_association:/opt/ros/humble /usr/bin/cmake --build /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/build/ugv_controller -- -j16 -l16
+[19.847s] Invoking command in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/build/ugv_controller': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ihw/workspace/kai_2025/install/yolo_ros:/home/ihw/workspace/kai_2025/install/simple_slam:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/ouster_ros:/home/ihw/workspace/kai_2025/install/hungarian_association:/opt/ros/humble /usr/bin/cmake --install /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/build/ugv_controller
+[19.856s] -- Install configuration: "Release"
+[19.856s] -- Execute custom install script
+[19.857s] -- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/lib/ugv_controller/course_csv_creator.py
+[19.857s] -- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/launch/path_follower.launch.py
+[19.857s] -- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/lib/ugv_controller/path_follower_node
+[19.858s] -- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ament_index/resource_index/package_run_dependencies/ugv_controller
+[19.858s] -- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ament_index/resource_index/parent_prefix_path/ugv_controller
+[19.858s] -- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/environment/ament_prefix_path.sh
+[19.858s] -- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/environment/ament_prefix_path.dsv
+[19.858s] -- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/environment/path.sh
+[19.858s] -- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/environment/path.dsv
+[19.858s] -- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/local_setup.bash
+[19.859s] -- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/local_setup.sh
+[19.859s] -- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/local_setup.zsh
+[19.859s] -- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/local_setup.dsv
+[19.859s] -- Symlinking: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/package.dsv
+[19.870s] -- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ament_index/resource_index/packages/ugv_controller
+[19.871s] -- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/cmake/ugv_controllerConfig.cmake
+[19.871s] -- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/cmake/ugv_controllerConfig-version.cmake
+[19.871s] -- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/package.xml
+[19.873s] Invoked command in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/build/ugv_controller' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/ihw/workspace/kai_2025/install/yolo_ros:/home/ihw/workspace/kai_2025/install/simple_slam:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/ouster_ros:/home/ihw/workspace/kai_2025/install/hungarian_association:/opt/ros/humble /usr/bin/cmake --install /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/build/ugv_controller

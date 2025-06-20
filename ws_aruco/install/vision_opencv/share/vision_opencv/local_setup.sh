@@ -1,0 +1,1 @@
+/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/vision_opencv/ament_cmake_environment_hooks/local_setup.sh

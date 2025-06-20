@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-7930ab891a9597ec2813.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "utilities_pkg",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "keyboard_control_node::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-keyboard_control_node-Release-82d6b909dc2f7f0d0285.json",
+					"name" : "keyboard_control_node",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-Release-b559cbccfdb8f45c3313.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "utilities_pkg_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-utilities_pkg_uninstall-Release-8e26050c383d47ef0970.json",
+					"name" : "utilities_pkg_uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/utilities_pkg",
+		"source" : "/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/utilities_pkg"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

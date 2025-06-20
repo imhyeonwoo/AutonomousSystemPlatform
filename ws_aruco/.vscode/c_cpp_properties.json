@@ -1,0 +1,31 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/image_geometry/include/**",
+        "/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/cv_bridge/include/**",
+        "/home/ihw/workspace/kai_2025/install/yolo_msgs/include/**",
+        "/home/ihw/workspace/kai_2025/install/usb_cam/include/**",
+        "/home/ihw/workspace/kai_2025/install/ublox_serialization/include/**",
+        "/home/ihw/workspace/kai_2025/install/ouster_ros/include/**",
+        "/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs/include/**",
+        "/home/ihw/workspace/kai_2025/install/custom_interface/include/**",
+        "/opt/ros/humble/include/**",
+        "/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/src/multi_tracker/include/**",
+        "/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/src/vision_opencv/cv_bridge/include/**",
+        "/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/src/vision_opencv/image_geometry/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

@@ -1,0 +1,38 @@
+[35m[1mConsolidate compiler generated dependencies of target path_follower_node[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/path_follower_node.dir/src/path_follower_node.cpp.o[0m
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/src/ugv_controller/src/path_follower_node.cpp:[m[K In constructor ‘[01m[KPathFollower::PathFollower()[m[K’:
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/src/ugv_controller/src/path_follower_node.cpp:246:41:[m[K [01;35m[Kwarning: [m[K‘[01m[KPathFollower::pose_received_[m[K’ will be initialized after [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+  246 |     bool origin_set_, navsat_received_, [01;35m[Kpose_received_[m[K;
+      |                                         [01;35m[K^~~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/src/ugv_controller/src/path_follower_node.cpp:246:23:[m[K [01;35m[Kwarning: [m[K  ‘[01m[Kbool PathFollower::navsat_received_[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+  246 |     bool origin_set_, [01;35m[Knavsat_received_[m[K, pose_received_;
+      |                       [01;35m[K^~~~~~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/src/ugv_controller/src/path_follower_node.cpp:38:3:[m[K [01;35m[Kwarning: [m[K  when initialized here [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreorder-Wreorder]8;;[m[K]
+   38 |   [01;35m[KPathFollower[m[K()
+      |   [01;35m[K^~~~~~~~~~~~[m[K
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/src/ugv_controller/src/path_follower_node.cpp:[m[K In member function ‘[01m[Kvoid PathFollower::navsat_callback(sensor_msgs::msg::NavSatFix_<std::allocator<void> >::SharedPtr)[m[K’:
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/src/ugv_controller/src/path_follower_node.cpp:107:12:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Klon_rad[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
+  107 |     double [01;35m[Klon_rad[m[K = msg->longitude * M_PI / 180.0;
+      |            [01;35m[K^~~~~~~[m[K
+[100%] [32m[1mLinking CXX executable path_follower_node[0m
+[100%] Built target path_follower_node
+-- Install configuration: "Release"
+-- Execute custom install script
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/lib/ugv_controller/course_csv_creator.py
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/launch/path_follower.launch.py
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/lib/ugv_controller/path_follower_node
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ament_index/resource_index/package_run_dependencies/ugv_controller
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ament_index/resource_index/parent_prefix_path/ugv_controller
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/environment/ament_prefix_path.sh
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/environment/ament_prefix_path.dsv
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/environment/path.sh
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/environment/path.dsv
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/local_setup.bash
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/local_setup.sh
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/local_setup.zsh
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/local_setup.dsv
+-- Symlinking: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/package.dsv
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ament_index/resource_index/packages/ugv_controller
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/cmake/ugv_controllerConfig.cmake
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/cmake/ugv_controllerConfig-version.cmake
+-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/package.xml

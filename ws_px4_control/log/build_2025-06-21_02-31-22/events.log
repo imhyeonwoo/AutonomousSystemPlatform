@@ -1,0 +1,141 @@
+[0.000000] (-) TimerEvent: {}
+[0.000649] (-) JobUnselected: {'identifier': 'ofb_ctrl'}
+[0.000719] (-) JobUnselected: {'identifier': 'px4_msgs'}
+[0.000820] (px4_ros_com) JobQueued: {'identifier': 'px4_ros_com', 'dependencies': OrderedDict([('px4_msgs', '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs')])}
+[0.000853] (px4_ros_com) JobStarted: {'identifier': 'px4_ros_com'}
+[0.020137] (px4_ros_com) JobProgress: {'identifier': 'px4_ros_com', 'progress': 'cmake'}
+[0.021102] (px4_ros_com) JobProgress: {'identifier': 'px4_ros_com', 'progress': 'build'}
+[0.021569] (px4_ros_com) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com', '--', '-j16', '-l16'], 'cwd': '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_US:en'), ('USER', 'ihw'), ('LC_TIME', 'ko_KR.UTF-8'), ('ROS_PACKAGE_PATH', '/home/ihw/workspace/kai_2025/install/pure_pursuit_controller/share'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/lib:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib:/home/ihw/workspace/kai_2025/install/yolo_msgs/lib:/home/ihw/workspace/kai_2025/install/usb_cam/lib:/home/ihw/workspace/kai_2025/install/ouster_ros/lib:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs/lib:/home/ihw/workspace/kai_2025/install/custom_interface/lib:/home/ihw/workspace/kai_2025/install/ackermann_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/ihw'), ('OLDPWD', '/home/ihw/workspace/AutonomousVehiclePlatform'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'ko_KR.UTF-8'), ('MANAGERPID', '2180'), ('SYSTEMD_EXEC_PID', '2696'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator23558193cd9818af7fe4d2c2f5bd9d00f'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '6857'), ('COLCON_PREFIX_PATH', '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install:/home/ihw/workspace/kai_2025/install'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'ihw'), ('JOURNAL_STREAM', '8:25603'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/ihw/workspace/kai_2025/install/pure_pursuit_controller/lib/x86_64-linux-gnu/pkgconfig:/home/ihw/workspace/kai_2025/install/pure_pursuit_controller/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'ihw'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/opt/ros/humble/bin:/home/ihw/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/ihw:@/tmp/.ICE-unix/2510,unix/ihw:/tmp/.ICE-unix/2510'), ('INVOCATION_ID', '88ef528b14aa48f0bf76fd463a3843f4'), ('PAPERSIZE', 'a4'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'ko_KR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':1'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('IBUS_DISABLE_SNOOPER', '1'), ('LC_TELEPHONE', 'ko_KR.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/utilities_pkg:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/ofb_ctrl:/home/ihw/workspace/kai_2025/install/yolo_bringup:/home/ihw/workspace/kai_2025/install/yolo_ros:/home/ihw/workspace/kai_2025/install/yolo_msgs:/home/ihw/workspace/kai_2025/install/usb_cam:/home/ihw/workspace/kai_2025/install/simple_slam:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_l:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_c:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/reference_path_classifier:/home/ihw/workspace/kai_2025/install/ouster_ros:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs:/home/ihw/workspace/kai_2025/install/motion_track_controller:/home/ihw/workspace/kai_2025/install/hungarian_association:/home/ihw/workspace/kai_2025/install/gps_global_planner:/home/ihw/workspace/kai_2025/install/cones_ukf:/home/ihw/workspace/kai_2025/install/cones_no_color:/home/ihw/workspace/kai_2025/install/cone_detection:/home/ihw/workspace/kai_2025/install/custom_interface:/home/ihw/workspace/kai_2025/install/ackermann_msgs:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'ko_KR.UTF-8'), ('TERMINATOR_UUID', 'urn:uuid:07bbc573-1668-4a3a-b9df-3e276bb68b1a'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'ko_KR.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('LC_IDENTIFICATION', 'ko_KR.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/local/lib/python3.10/dist-packages:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/ofb_ctrl:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/ofb_ctrl/lib/python3.10/site-packages:/home/ihw/workspace/kai_2025/build/yolo_ros:/home/ihw/workspace/kai_2025/install/yolo_ros/lib/python3.10/site-packages:/home/ihw/workspace/kai_2025/install/yolo_msgs/local/lib/python3.10/dist-packages:/home/ihw/workspace/kai_2025/build/simple_slam:/home/ihw/workspace/kai_2025/install/simple_slam/lib/python3.10/site-packages:/home/ihw/workspace/kai_2025/build/ros2_camera_lidar_fusion_l:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_l/lib/python3.10/site-packages:/home/ihw/workspace/kai_2025/build/ros2_camera_lidar_fusion_c:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_c/lib/python3.10/site-packages:/home/ihw/workspace/kai_2025/build/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion/lib/python3.10/site-packages:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs/local/lib/python3.10/dist-packages:/home/ihw/workspace/kai_2025/build/hungarian_association:/home/ihw/workspace/kai_2025/install/hungarian_association/lib/python3.10/site-packages:/home/ihw/workspace/kai_2025/install/custom_interface/local/lib/python3.10/dist-packages:/home/ihw/workspace/kai_2025/install/ackermann_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'ko_KR.UTF-8'), ('LC_PAPER', 'ko_KR.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/utilities_pkg:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com:/home/ihw/workspace/kai_2025/install/yolo_bringup:/home/ihw/workspace/kai_2025/install/yolo_msgs:/home/ihw/workspace/kai_2025/install/usb_cam:/home/ihw/workspace/kai_2025/install/reference_path_classifier:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/ofb_ctrl:/home/ihw/workspace/kai_2025/install/yolo_ros:/home/ihw/workspace/kai_2025/install/simple_slam:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_l:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_c:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/hungarian_association:/opt/ros/humble:/home/ihw/workspace/kai_2025/install/pure_pursuit_controller:/home/ihw/workspace/kai_2025/install/ouster_ros:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs:/home/ihw/workspace/kai_2025/install/motion_track_controller:/home/ihw/workspace/kai_2025/install/gps_global_planner:/home/ihw/workspace/kai_2025/install/cones_ukf:/home/ihw/workspace/kai_2025/install/cones_no_color:/home/ihw/workspace/kai_2025/install/cone_detection:/home/ihw/workspace/kai_2025/install/custom_interface:/home/ihw/workspace/kai_2025/install/ackermann_msgs')]), 'shell': False}
+[0.098915] (px4_ros_com) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.099722] (-) TimerEvent: {}
+[0.199940] (-) TimerEvent: {}
+[0.273214] (px4_ros_com) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[0.288601] (px4_ros_com) StdoutLine: {'line': b'-- Found builtin_interfaces: 1.2.1 (/opt/ros/humble/share/builtin_interfaces/cmake)\n'}
+[0.300044] (-) TimerEvent: {}
+[0.322588] (px4_ros_com) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[0.325735] (px4_ros_com) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.332730] (px4_ros_com) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[0.342126] (px4_ros_com) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.354407] (px4_ros_com) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.366402] (px4_ros_com) StdoutLine: {'line': b'-- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)\n'}
+[0.368205] (px4_ros_com) StdoutLine: {'line': b'-- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[0.400106] (px4_ros_com) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[0.400406] (-) TimerEvent: {}
+[0.402620] (px4_ros_com) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.500528] (-) TimerEvent: {}
+[0.520029] (px4_ros_com) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[0.569653] (px4_ros_com) StdoutLine: {'line': b'-- Found rclpy: 3.3.16 (/opt/ros/humble/share/rclpy/cmake)\n'}
+[0.570082] (px4_ros_com) StdoutLine: {'line': b'-- Found px4_msgs: 2.0.1 (/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/share/px4_msgs/cmake)\n'}
+[0.580524] (px4_ros_com) StdoutLine: {'line': b'-- Found geometry_msgs: 4.8.0 (/opt/ros/humble/share/geometry_msgs/cmake)\n'}
+[0.591544] (px4_ros_com) StdoutLine: {'line': b'-- Found sensor_msgs: 4.8.0 (/opt/ros/humble/share/sensor_msgs/cmake)\n'}
+[0.600653] (-) TimerEvent: {}
+[0.605689] (px4_ros_com) StdoutLine: {'line': b'-- Found nav_msgs: 4.8.0 (/opt/ros/humble/share/nav_msgs/cmake)\n'}
+[0.619854] (px4_ros_com) StdoutLine: {'line': b'-- Found tf2_ros: 0.25.12 (/opt/ros/humble/share/tf2_ros/cmake)\n'}
+[0.697446] (px4_ros_com) StdoutLine: {'line': b'-- Found tf2_geometry_msgs: 0.25.12 (/opt/ros/humble/share/tf2_geometry_msgs/cmake)\n'}
+[0.700733] (-) TimerEvent: {}
+[0.702548] (px4_ros_com) StdoutLine: {'line': b'-- Ensuring Eigen3 include directory is part of orocos-kdl CMake target\n'}
+[0.703650] (px4_ros_com) StdoutLine: {'line': b'-- Found cv_bridge: 3.2.1 (/opt/ros/humble/share/cv_bridge/cmake)\n'}
+[0.711611] (px4_ros_com) StdoutLine: {'line': b'-- Found visualization_msgs: 4.8.0 (/opt/ros/humble/share/visualization_msgs/cmake)\n'}
+[0.800835] (-) TimerEvent: {}
+[0.821043] (px4_ros_com) StdoutLine: {'line': b'-- Configuring done\n'}
+[0.877287] (px4_ros_com) StdoutLine: {'line': b'-- Generating done\n'}
+[0.893194] (px4_ros_com) StdoutLine: {'line': b'-- Build files have been written to: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com\n'}
+[0.900954] (-) TimerEvent: {}
+[0.932380] (px4_ros_com) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target gimbal_target_publisher\x1b[0m\n'}
+[0.932729] (px4_ros_com) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target frame_transforms\x1b[0m\n'}
+[0.932802] (px4_ros_com) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target offboard_control_srv\x1b[0m\n'}
+[0.932862] (px4_ros_com) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target vehicle_gps_position_listener\x1b[0m\n'}
+[0.932931] (px4_ros_com) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target debug_vect_advertiser\x1b[0m\n'}
+[0.932984] (px4_ros_com) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target sensor_combined_listener\x1b[0m\n'}
+[0.933037] (px4_ros_com) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target offboard_waypoint_trigger\x1b[0m\n'}
+[0.933124] (px4_ros_com) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target offboard_control\x1b[0m\n'}
+[0.933549] (px4_ros_com) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target offboard_waypoint_map\x1b[0m\n'}
+[0.960292] (px4_ros_com) StdoutLine: {'line': b'[ 11%] Built target frame_transforms\n'}
+[0.963800] (px4_ros_com) StdoutLine: {'line': b'[ 33%] Built target sensor_combined_listener\n'}
+[0.964039] (px4_ros_com) StdoutLine: {'line': b'[ 33%] Built target offboard_control_srv\n'}
+[0.964190] (px4_ros_com) StdoutLine: {'line': b'[ 55%] Built target debug_vect_advertiser\n'}
+[0.964939] (px4_ros_com) StdoutLine: {'line': b'[ 55%] Built target vehicle_gps_position_listener\n'}
+[0.965071] (px4_ros_com) StdoutLine: {'line': b'[ 77%] Built target offboard_waypoint_map\n'}
+[0.965126] (px4_ros_com) StdoutLine: {'line': b'[ 77%] Built target offboard_waypoint_trigger\n'}
+[0.965183] (px4_ros_com) StdoutLine: {'line': b'[ 83%] \x1b[32mBuilding CXX object CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publisher.cpp.o\x1b[0m\n'}
+[0.969447] (px4_ros_com) StdoutLine: {'line': b'[ 94%] Built target offboard_control\n'}
+[1.001048] (-) TimerEvent: {}
+[1.101343] (-) TimerEvent: {}
+[1.201639] (-) TimerEvent: {}
+[1.301939] (-) TimerEvent: {}
+[1.402329] (-) TimerEvent: {}
+[1.502707] (-) TimerEvent: {}
+[1.603024] (-) TimerEvent: {}
+[1.703348] (-) TimerEvent: {}
+[1.803708] (-) TimerEvent: {}
+[1.904254] (-) TimerEvent: {}
+[2.004587] (-) TimerEvent: {}
+[2.104922] (-) TimerEvent: {}
+[2.205241] (-) TimerEvent: {}
+[2.305554] (-) TimerEvent: {}
+[2.405858] (-) TimerEvent: {}
+[2.506257] (-) TimerEvent: {}
+[2.606586] (-) TimerEvent: {}
+[2.707085] (-) TimerEvent: {}
+[2.807495] (-) TimerEvent: {}
+[2.907844] (-) TimerEvent: {}
+[3.008334] (-) TimerEvent: {}
+[3.108741] (-) TimerEvent: {}
+[3.209141] (-) TimerEvent: {}
+[3.309600] (-) TimerEvent: {}
+[3.409932] (-) TimerEvent: {}
+[3.510349] (-) TimerEvent: {}
+[3.610949] (-) TimerEvent: {}
+[3.711365] (-) TimerEvent: {}
+[3.811679] (-) TimerEvent: {}
+[3.814840] (px4_ros_com) StderrLine: {'line': b'\x1b[01m\x1b[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:\x1b[m\x1b[K In member function \xe2\x80\x98\x1b[01m\x1b[Kuint64_t GimbalTargetPublisher::nowUs() const\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[3.815072] (px4_ros_com) StderrLine: {'line': b'\x1b[01m\x1b[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:182:57:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kpassing \xe2\x80\x98\x1b[01m\x1b[Kstd::__shared_ptr_access<const rclcpp::Clock, __gnu_cxx::_S_atomic, false, false>::element_type\x1b[m\x1b[K\xe2\x80\x99 {aka \xe2\x80\x98\x1b[01m\x1b[Kconst rclcpp::Clock\x1b[m\x1b[K\xe2\x80\x99} as \xe2\x80\x98\x1b[01m\x1b[Kthis\x1b[m\x1b[K\xe2\x80\x99 argument discards qualifiers [\x1b[01;31m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-fpermissive\x07-fpermissive\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[3.815128] (px4_ros_com) StderrLine: {'line': b'  182 |   uint64_t nowUs() const { return \x1b[01;31m\x1b[Kthis->get_clock()->now()\x1b[m\x1b[K.nanoseconds()/1000ULL; }\n'}
+[3.815173] (px4_ros_com) StderrLine: {'line': b'      |                                   \x1b[01;31m\x1b[K~~~~~~~~~~~~~~~~~~~~~~^~\x1b[m\x1b[K\n'}
+[3.815214] (px4_ros_com) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/timer.hpp:27\x1b[m\x1b[K,\n'}
+[3.815252] (px4_ros_com) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/callback_group.hpp:30\x1b[m\x1b[K,\n'}
+[3.815287] (px4_ros_com) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:20\x1b[m\x1b[K,\n'}
+[3.815315] (px4_ros_com) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25\x1b[m\x1b[K,\n'}
+[3.815342] (px4_ros_com) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18\x1b[m\x1b[K,\n'}
+[3.815370] (px4_ros_com) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20\x1b[m\x1b[K,\n'}
+[3.815397] (px4_ros_com) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37\x1b[m\x1b[K,\n'}
+[3.815423] (px4_ros_com) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25\x1b[m\x1b[K,\n'}
+[3.815449] (px4_ros_com) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21\x1b[m\x1b[K,\n'}
+[3.815475] (px4_ros_com) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155\x1b[m\x1b[K,\n'}
+[3.815501] (px4_ros_com) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:5\x1b[m\x1b[K:\n'}
+[3.815532] (px4_ros_com) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/clock.hpp:87:3:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  in call to \xe2\x80\x98\x1b[01m\x1b[Krclcpp::Time rclcpp::Clock::now()\x1b[m\x1b[K\xe2\x80\x99\n'}
+[3.815563] (px4_ros_com) StderrLine: {'line': b'   87 |   \x1b[01;36m\x1b[Know\x1b[m\x1b[K();\n'}
+[3.815590] (px4_ros_com) StderrLine: {'line': b'      |   \x1b[01;36m\x1b[K^~~\x1b[m\x1b[K\n'}
+[3.911784] (-) TimerEvent: {}
+[4.012182] (-) TimerEvent: {}
+[4.112515] (-) TimerEvent: {}
+[4.212854] (-) TimerEvent: {}
+[4.313167] (-) TimerEvent: {}
+[4.413453] (-) TimerEvent: {}
+[4.513815] (-) TimerEvent: {}
+[4.614115] (-) TimerEvent: {}
+[4.714455] (-) TimerEvent: {}
+[4.814870] (-) TimerEvent: {}
+[4.915261] (-) TimerEvent: {}
+[5.015647] (-) TimerEvent: {}
+[5.116051] (-) TimerEvent: {}
+[5.216397] (-) TimerEvent: {}
+[5.316726] (-) TimerEvent: {}
+[5.417060] (-) TimerEvent: {}
+[5.517469] (-) TimerEvent: {}
+[5.617798] (-) TimerEvent: {}
+[5.718080] (-) TimerEvent: {}
+[5.818565] (-) TimerEvent: {}
+[5.919158] (-) TimerEvent: {}
+[6.019547] (-) TimerEvent: {}
+[6.119841] (-) TimerEvent: {}
+[6.220171] (-) TimerEvent: {}
+[6.320542] (-) TimerEvent: {}
+[6.420944] (-) TimerEvent: {}
+[6.521321] (-) TimerEvent: {}
+[6.581126] (px4_ros_com) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/gimbal_target_publisher.dir/build.make:76: CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publisher.cpp.o] Error 1\n'}
+[6.581479] (px4_ros_com) StderrLine: {'line': b'gmake[1]: *** [CMakeFiles/Makefile2:361: CMakeFiles/gimbal_target_publisher.dir/all] Error 2\n'}
+[6.581813] (px4_ros_com) StderrLine: {'line': b'gmake: *** [Makefile:146: all] Error 2\n'}
+[6.585066] (px4_ros_com) CommandEnded: {'returncode': 2}
+[6.602082] (px4_ros_com) JobEnded: {'identifier': 'px4_ros_com', 'rc': 2}
+[6.612700] (-) EventReactorShutdown: {}

@@ -1,0 +1,60 @@
+[0.021s] Invoking command in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com': CMAKE_PREFIX_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/utilities_pkg:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com:/home/ihw/workspace/kai_2025/install/yolo_bringup:/home/ihw/workspace/kai_2025/install/yolo_msgs:/home/ihw/workspace/kai_2025/install/usb_cam:/home/ihw/workspace/kai_2025/install/reference_path_classifier:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/ofb_ctrl:/home/ihw/workspace/kai_2025/install/yolo_ros:/home/ihw/workspace/kai_2025/install/simple_slam:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_l:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_c:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/hungarian_association:/opt/ros/humble:/home/ihw/workspace/kai_2025/install/pure_pursuit_controller:/home/ihw/workspace/kai_2025/install/ouster_ros:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs:/home/ihw/workspace/kai_2025/install/motion_track_controller:/home/ihw/workspace/kai_2025/install/gps_global_planner:/home/ihw/workspace/kai_2025/install/cones_ukf:/home/ihw/workspace/kai_2025/install/cones_no_color:/home/ihw/workspace/kai_2025/install/cone_detection:/home/ihw/workspace/kai_2025/install/custom_interface:/home/ihw/workspace/kai_2025/install/ackermann_msgs LD_LIBRARY_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/lib:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib:/home/ihw/workspace/kai_2025/install/yolo_msgs/lib:/home/ihw/workspace/kai_2025/install/usb_cam/lib:/home/ihw/workspace/kai_2025/install/ouster_ros/lib:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs/lib:/home/ihw/workspace/kai_2025/install/custom_interface/lib:/home/ihw/workspace/kai_2025/install/ackermann_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com -- -j16 -l16
+[0.069s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.304s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.324s] -- Found builtin_interfaces: 1.2.1 (/opt/ros/humble/share/builtin_interfaces/cmake)
+[0.365s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.369s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.380s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.397s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.419s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.438s] -- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)
+[0.441s] -- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)
+[0.490s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.493s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[0.672s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.751s] -- Found rclpy: 3.3.16 (/opt/ros/humble/share/rclpy/cmake)
+[0.751s] -- Found px4_msgs: 2.0.1 (/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/share/px4_msgs/cmake)
+[0.764s] -- Found geometry_msgs: 4.8.0 (/opt/ros/humble/share/geometry_msgs/cmake)
+[0.779s] -- Found sensor_msgs: 4.8.0 (/opt/ros/humble/share/sensor_msgs/cmake)
+[0.799s] -- Found nav_msgs: 4.8.0 (/opt/ros/humble/share/nav_msgs/cmake)
+[0.819s] -- Found tf2_ros: 0.25.12 (/opt/ros/humble/share/tf2_ros/cmake)
+[0.942s] -- Found tf2_geometry_msgs: 0.25.12 (/opt/ros/humble/share/tf2_geometry_msgs/cmake)
+[0.950s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[0.952s] -- Found cv_bridge: 3.2.1 (/opt/ros/humble/share/cv_bridge/cmake)
+[0.963s] -- Found visualization_msgs: 4.8.0 (/opt/ros/humble/share/visualization_msgs/cmake)
+[1.145s] -- Configuring done
+[1.226s] -- Generating done
+[1.256s] -- Build files have been written to: /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com
+[1.312s] [35m[1mConsolidate compiler generated dependencies of target offboard_waypoint_trigger[0m
+[1.312s] [35m[1mConsolidate compiler generated dependencies of target frame_transforms[0m
+[1.313s] [35m[1mConsolidate compiler generated dependencies of target debug_vect_advertiser[0m
+[1.313s] [35m[1mConsolidate compiler generated dependencies of target sensor_combined_listener[0m
+[1.313s] [35m[1mConsolidate compiler generated dependencies of target offboard_waypoint_map[0m
+[1.314s] [35m[1mConsolidate compiler generated dependencies of target offboard_control[0m
+[1.314s] [35m[1mConsolidate compiler generated dependencies of target vehicle_gps_position_listener[0m
+[1.316s] [35m[1mConsolidate compiler generated dependencies of target offboard_control_srv[0m
+[1.335s] [  5%] [32mBuilding CXX object CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publisher.cpp.o[0m
+[1.346s] [ 38%] Built target debug_vect_advertiser
+[1.346s] [ 38%] Built target frame_transforms
+[1.346s] [ 38%] Built target vehicle_gps_position_listener
+[1.349s] [ 50%] Built target offboard_waypoint_trigger
+[1.352s] [ 61%] Built target sensor_combined_listener
+[1.355s] [ 83%] Built target offboard_control_srv
+[1.356s] [ 83%] Built target offboard_waypoint_map
+[1.356s] [ 94%] Built target offboard_control
+[5.507s] [01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:[m[K In constructor ‘[01m[KGimbalTargetPublisher::GimbalTargetPublisher()[m[K’:
+[5.507s] [01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:61:32:[m[K [01;31m[Kerror: [m[Kunable to find numeric literal operator ‘[01m[Koperator""ms[m[K’
+[5.507s]    61 |     timer_ = create_wall_timer([01;31m[K100ms[m[K, [this]{ timerCb(); });
+[5.507s]       |                                [01;31m[K^~~~~[m[K
+[5.512s] [01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:[m[K In member function ‘[01m[Kbool GimbalTargetPublisher::loadCSV(const string&)[m[K’:
+[5.512s] [01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:79:14:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Koff[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
+[5.512s]    79 |       size_t [01;35m[Koff[m[K = (col.size()==7)?1:0;                      // id/ name 첫 col 구분
+[5.512s]       |              [01;35m[K^~~[m[K
+[5.512s] [01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:[m[K In member function ‘[01m[Kvoid GimbalTargetPublisher::timerCb()[m[K’:
+[5.512s] [01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:97:80:[m[K [01;31m[Kerror: [m[Kunable to find numeric literal operator ‘[01m[Koperator""ms[m[K’
+[5.512s]    97 |       tf = tf_buf_.lookupTransform(map_frame_, cam_frame_, tf2::TimePointZero, [01;31m[K50ms[m[K);
+[5.512s]       |                                                                                [01;31m[K^~~~[m[K
+[9.590s] gmake[2]: *** [CMakeFiles/gimbal_target_publisher.dir/build.make:76: CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publisher.cpp.o] Error 1
+[9.591s] gmake[1]: *** [CMakeFiles/Makefile2:361: CMakeFiles/gimbal_target_publisher.dir/all] Error 2
+[9.591s] gmake: *** [Makefile:146: all] Error 2
+[9.595s] Invoked command in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com' returned '2': CMAKE_PREFIX_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/utilities_pkg:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com:/home/ihw/workspace/kai_2025/install/yolo_bringup:/home/ihw/workspace/kai_2025/install/yolo_msgs:/home/ihw/workspace/kai_2025/install/usb_cam:/home/ihw/workspace/kai_2025/install/reference_path_classifier:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/ofb_ctrl:/home/ihw/workspace/kai_2025/install/yolo_ros:/home/ihw/workspace/kai_2025/install/simple_slam:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_l:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion_c:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/hungarian_association:/opt/ros/humble:/home/ihw/workspace/kai_2025/install/pure_pursuit_controller:/home/ihw/workspace/kai_2025/install/ouster_ros:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs:/home/ihw/workspace/kai_2025/install/motion_track_controller:/home/ihw/workspace/kai_2025/install/gps_global_planner:/home/ihw/workspace/kai_2025/install/cones_ukf:/home/ihw/workspace/kai_2025/install/cones_no_color:/home/ihw/workspace/kai_2025/install/cone_detection:/home/ihw/workspace/kai_2025/install/custom_interface:/home/ihw/workspace/kai_2025/install/ackermann_msgs LD_LIBRARY_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/lib:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib:/home/ihw/workspace/kai_2025/install/yolo_msgs/lib:/home/ihw/workspace/kai_2025/install/usb_cam/lib:/home/ihw/workspace/kai_2025/install/ouster_ros/lib:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs/lib:/home/ihw/workspace/kai_2025/install/custom_interface/lib:/home/ihw/workspace/kai_2025/install/ackermann_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com -- -j16 -l16

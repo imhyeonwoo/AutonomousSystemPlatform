@@ -1,0 +1,10 @@
+[35m[1mConsolidate compiler generated dependencies of target gimbal_target_publisher[0m
+[ 11%] Built target frame_transforms
+[ 27%] Built target vehicle_gps_position_listener
+[ 33%] Built target sensor_combined_listener
+[ 55%] Built target offboard_waypoint_trigger
+[ 55%] Built target debug_vect_advertiser
+[ 72%] Built target offboard_waypoint_map
+[ 77%] Built target offboard_control_srv
+[ 88%] [32mBuilding CXX object CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publisher.cpp.o[0m
+[ 94%] Built target offboard_control

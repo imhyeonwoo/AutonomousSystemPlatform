@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "px4_msgs__py",
+		"source" : "/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_msgs/px4_msgs__py"
+	}
+}

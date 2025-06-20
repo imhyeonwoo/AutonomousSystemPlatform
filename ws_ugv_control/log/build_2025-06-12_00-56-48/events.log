@@ -1,0 +1,353 @@
+[0.000000] (-) TimerEvent: {}
+[0.000371] (ugv_controller) JobQueued: {'identifier': 'ugv_controller', 'dependencies': OrderedDict()}
+[0.000611] (ugv_controller) JobStarted: {'identifier': 'ugv_controller'}
+[0.047232] (ugv_controller) JobProgress: {'identifier': 'ugv_controller', 'progress': 'cmake'}
+[0.048473] (ugv_controller) JobProgress: {'identifier': 'ugv_controller', 'progress': 'build'}
+[0.049516] (ugv_controller) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/build/ugv_controller', '--', '-j16', '-l16'], 'cwd': '/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/build/ugv_controller', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_US:en'), ('USER', 'ihw'), ('LC_TIME', 'ko_KR.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('GIT_ASKPASS', '/usr/share/code/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/ihw/workspace/kai_2025/install/yolo_msgs/lib:/home/ihw/workspace/kai_2025/install/usb_cam/lib:/home/ihw/workspace/kai_2025/install/ouster_ros/lib:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs/lib:/home/ihw/workspace/kai_2025/install/custom_interface/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/ihw'), ('CHROME_DESKTOP', 'code.desktop'), ('OLDPWD', '/home/ihw/workspace/AutonomousVehiclePlatform'), ('TERM_PROGRAM_VERSION', '1.99.3'), ('DESKTOP_SESSION', 'ubuntu'), ('GIO_LAUNCHED_DESKTOP_FILE', '/usr/share/applications/code.desktop'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('VSCODE_GIT_ASKPASS_MAIN', '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'ko_KR.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/usr/share/code/code'), ('MANAGERPID', '2171'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('SYSTEMD_EXEC_PID', '2513'), ('BUNDLED_DEBUGPY_PATH', '/home/ihw/.vscode/extensions/ms-python.debugpy-2025.8.0-linux-x64/bundled/libs/debugpy'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '3618'), ('COLCON_PREFIX_PATH', '/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install:/home/ihw/workspace/kai_2025/install'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'ihw'), ('JOURNAL_STREAM', '8:20471'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'ihw'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/ihw/.local/bin:/opt/ros/humble/bin:/home/ihw/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/ihw/.vscode/extensions/ms-python.debugpy-2025.8.0-linux-x64/bundled/scripts/noConfigScripts:/home/ihw/.config/Code/User/globalStorage/github.copilot-chat/debugCommand'), ('SESSION_MANAGER', 'local/ihw:@/tmp/.ICE-unix/2486,unix/ihw:/tmp/.ICE-unix/2486'), ('INVOCATION_ID', 'dd96c90d9aa94ba4a9d7b31ce0fb421d'), ('PAPERSIZE', 'a4'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'ko_KR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':1'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/ihw/.vscode/extensions/ms-python.debugpy-2025.8.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-0f3c1fac9dcba40b.txt'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('LC_TELEPHONE', 'ko_KR.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-c8c2f3ded9.sock'), ('TERM_PROGRAM', 'vscode'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller:/home/ihw/workspace/kai_2025/install/yolo_bringup:/home/ihw/workspace/kai_2025/install/yolo_ros:/home/ihw/workspace/kai_2025/install/yolo_msgs:/home/ihw/workspace/kai_2025/install/usb_cam:/home/ihw/workspace/kai_2025/install/ublox_serialization:/home/ihw/workspace/kai_2025/install/simple_slam:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/ouster_ros:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs:/home/ihw/workspace/kai_2025/install/hungarian_association:/home/ihw/workspace/kai_2025/install/gps_global_planner:/home/ihw/workspace/kai_2025/install/cones_ukf:/home/ihw/workspace/kai_2025/install/cones_no_color:/home/ihw/workspace/kai_2025/install/cone_detection:/home/ihw/workspace/kai_2025/install/custom_interface:/opt/ros/humble'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('LC_NAME', 'ko_KR.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'ko_KR.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('LC_IDENTIFICATION', 'ko_KR.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/build/ugv_controller'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/ihw/workspace/kai_2025/build/yolo_ros:/home/ihw/workspace/kai_2025/install/yolo_ros/lib/python3.10/site-packages:/home/ihw/workspace/kai_2025/install/yolo_msgs/local/lib/python3.10/dist-packages:/home/ihw/workspace/kai_2025/build/simple_slam:/home/ihw/workspace/kai_2025/install/simple_slam/lib/python3.10/site-packages:/home/ihw/workspace/kai_2025/build/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion/lib/python3.10/site-packages:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs/local/lib/python3.10/dist-packages:/home/ihw/workspace/kai_2025/build/hungarian_association:/home/ihw/workspace/kai_2025/install/hungarian_association/lib/python3.10/site-packages:/home/ihw/workspace/kai_2025/install/custom_interface/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'ko_KR.UTF-8'), ('LC_PAPER', 'ko_KR.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller:/home/ihw/workspace/kai_2025/install/yolo_bringup:/home/ihw/workspace/kai_2025/install/yolo_msgs:/home/ihw/workspace/kai_2025/install/usb_cam:/home/ihw/workspace/kai_2025/install/ublox_serialization:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs:/home/ihw/workspace/kai_2025/install/gps_global_planner:/home/ihw/workspace/kai_2025/install/cones_ukf:/home/ihw/workspace/kai_2025/install/cones_no_color:/home/ihw/workspace/kai_2025/install/cone_detection:/home/ihw/workspace/kai_2025/install/custom_interface:/home/ihw/workspace/kai_2025/install/yolo_ros:/home/ihw/workspace/kai_2025/install/simple_slam:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/ouster_ros:/home/ihw/workspace/kai_2025/install/hungarian_association:/opt/ros/humble')]), 'shell': False}
+[0.101318] (-) TimerEvent: {}
+[0.210450] (-) TimerEvent: {}
+[0.316012] (-) TimerEvent: {}
+[0.318498] (ugv_controller) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target path_follower_node\x1b[0m\n'}
+[0.417048] (-) TimerEvent: {}
+[0.419398] (ugv_controller) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/path_follower_node.dir/src/path_follower_node.cpp.o\x1b[0m\n'}
+[0.516752] (-) TimerEvent: {}
+[0.617138] (-) TimerEvent: {}
+[0.717709] (-) TimerEvent: {}
+[0.822734] (-) TimerEvent: {}
+[0.924126] (-) TimerEvent: {}
+[1.024782] (-) TimerEvent: {}
+[1.126418] (-) TimerEvent: {}
+[1.231696] (-) TimerEvent: {}
+[1.340653] (-) TimerEvent: {}
+[1.442796] (-) TimerEvent: {}
+[1.544457] (-) TimerEvent: {}
+[1.649179] (-) TimerEvent: {}
+[1.752210] (-) TimerEvent: {}
+[1.859766] (-) TimerEvent: {}
+[1.960221] (-) TimerEvent: {}
+[2.060567] (-) TimerEvent: {}
+[2.162745] (-) TimerEvent: {}
+[2.267579] (-) TimerEvent: {}
+[2.368004] (-) TimerEvent: {}
+[2.469279] (-) TimerEvent: {}
+[2.574735] (-) TimerEvent: {}
+[2.676745] (-) TimerEvent: {}
+[2.779660] (-) TimerEvent: {}
+[2.880207] (-) TimerEvent: {}
+[2.985074] (-) TimerEvent: {}
+[3.087572] (-) TimerEvent: {}
+[3.191256] (-) TimerEvent: {}
+[3.292917] (-) TimerEvent: {}
+[3.396341] (-) TimerEvent: {}
+[3.498306] (-) TimerEvent: {}
+[3.605333] (-) TimerEvent: {}
+[3.709792] (-) TimerEvent: {}
+[3.810993] (-) TimerEvent: {}
+[3.913942] (-) TimerEvent: {}
+[4.014793] (-) TimerEvent: {}
+[4.115187] (-) TimerEvent: {}
+[4.216729] (-) TimerEvent: {}
+[4.320882] (-) TimerEvent: {}
+[4.425534] (-) TimerEvent: {}
+[4.530328] (-) TimerEvent: {}
+[4.632408] (-) TimerEvent: {}
+[4.733946] (-) TimerEvent: {}
+[4.838989] (-) TimerEvent: {}
+[4.939799] (-) TimerEvent: {}
+[5.041367] (-) TimerEvent: {}
+[5.142912] (-) TimerEvent: {}
+[5.244698] (-) TimerEvent: {}
+[5.353072] (-) TimerEvent: {}
+[5.454703] (-) TimerEvent: {}
+[5.556704] (-) TimerEvent: {}
+[5.661190] (-) TimerEvent: {}
+[5.763489] (-) TimerEvent: {}
+[5.867329] (-) TimerEvent: {}
+[5.969384] (-) TimerEvent: {}
+[6.078057] (-) TimerEvent: {}
+[6.178486] (-) TimerEvent: {}
+[6.278913] (-) TimerEvent: {}
+[6.380791] (-) TimerEvent: {}
+[6.485227] (-) TimerEvent: {}
+[6.587099] (-) TimerEvent: {}
+[6.687896] (-) TimerEvent: {}
+[6.789022] (-) TimerEvent: {}
+[6.889884] (-) TimerEvent: {}
+[6.990380] (-) TimerEvent: {}
+[7.091768] (-) TimerEvent: {}
+[7.196504] (-) TimerEvent: {}
+[7.296885] (-) TimerEvent: {}
+[7.401546] (-) TimerEvent: {}
+[7.503135] (-) TimerEvent: {}
+[7.603710] (-) TimerEvent: {}
+[7.705541] (-) TimerEvent: {}
+[7.811612] (-) TimerEvent: {}
+[7.911912] (-) TimerEvent: {}
+[8.012254] (-) TimerEvent: {}
+[8.114067] (-) TimerEvent: {}
+[8.220585] (-) TimerEvent: {}
+[8.321047] (-) TimerEvent: {}
+[8.422430] (-) TimerEvent: {}
+[8.531450] (-) TimerEvent: {}
+[8.633271] (-) TimerEvent: {}
+[8.735952] (-) TimerEvent: {}
+[8.844135] (-) TimerEvent: {}
+[8.944618] (-) TimerEvent: {}
+[9.051287] (-) TimerEvent: {}
+[9.152262] (-) TimerEvent: {}
+[9.252811] (-) TimerEvent: {}
+[9.353211] (-) TimerEvent: {}
+[9.454641] (-) TimerEvent: {}
+[9.557612] (-) TimerEvent: {}
+[9.658081] (-) TimerEvent: {}
+[9.758407] (-) TimerEvent: {}
+[9.858680] (-) TimerEvent: {}
+[9.960104] (-) TimerEvent: {}
+[10.062797] (-) TimerEvent: {}
+[10.163166] (-) TimerEvent: {}
+[10.264431] (-) TimerEvent: {}
+[10.370155] (-) TimerEvent: {}
+[10.474119] (-) TimerEvent: {}
+[10.577558] (-) TimerEvent: {}
+[10.677993] (-) TimerEvent: {}
+[10.779451] (-) TimerEvent: {}
+[10.881838] (-) TimerEvent: {}
+[10.982589] (-) TimerEvent: {}
+[11.083791] (-) TimerEvent: {}
+[11.187389] (-) TimerEvent: {}
+[11.289764] (-) TimerEvent: {}
+[11.391699] (-) TimerEvent: {}
+[11.496203] (-) TimerEvent: {}
+[11.603954] (-) TimerEvent: {}
+[11.705533] (-) TimerEvent: {}
+[11.808981] (-) TimerEvent: {}
+[11.913742] (-) TimerEvent: {}
+[12.017890] (-) TimerEvent: {}
+[12.118328] (-) TimerEvent: {}
+[12.219180] (-) TimerEvent: {}
+[12.319501] (-) TimerEvent: {}
+[12.420781] (-) TimerEvent: {}
+[12.524626] (-) TimerEvent: {}
+[12.626325] (-) TimerEvent: {}
+[12.731329] (-) TimerEvent: {}
+[12.834245] (-) TimerEvent: {}
+[12.935545] (-) TimerEvent: {}
+[13.036389] (-) TimerEvent: {}
+[13.137685] (-) TimerEvent: {}
+[13.240056] (-) TimerEvent: {}
+[13.343337] (-) TimerEvent: {}
+[13.448722] (-) TimerEvent: {}
+[13.554138] (-) TimerEvent: {}
+[13.658983] (-) TimerEvent: {}
+[13.762026] (-) TimerEvent: {}
+[13.863113] (-) TimerEvent: {}
+[13.964157] (-) TimerEvent: {}
+[14.065282] (-) TimerEvent: {}
+[14.165663] (-) TimerEvent: {}
+[14.271458] (-) TimerEvent: {}
+[14.377295] (-) TimerEvent: {}
+[14.481622] (-) TimerEvent: {}
+[14.583216] (-) TimerEvent: {}
+[14.687636] (-) TimerEvent: {}
+[14.788011] (-) TimerEvent: {}
+[14.889123] (-) TimerEvent: {}
+[14.993041] (-) TimerEvent: {}
+[15.094801] (-) TimerEvent: {}
+[15.199571] (-) TimerEvent: {}
+[15.304276] (-) TimerEvent: {}
+[15.408610] (-) TimerEvent: {}
+[15.511462] (-) TimerEvent: {}
+[15.611776] (-) TimerEvent: {}
+[15.713515] (-) TimerEvent: {}
+[15.815149] (-) TimerEvent: {}
+[15.918145] (-) TimerEvent: {}
+[16.023645] (-) TimerEvent: {}
+[16.126977] (-) TimerEvent: {}
+[16.233806] (-) TimerEvent: {}
+[16.335588] (-) TimerEvent: {}
+[16.442605] (-) TimerEvent: {}
+[16.553617] (-) TimerEvent: {}
+[16.663550] (-) TimerEvent: {}
+[16.765307] (-) TimerEvent: {}
+[16.869646] (-) TimerEvent: {}
+[16.971027] (-) TimerEvent: {}
+[17.073152] (-) TimerEvent: {}
+[17.175429] (-) TimerEvent: {}
+[17.279038] (-) TimerEvent: {}
+[17.380528] (-) TimerEvent: {}
+[17.487185] (-) TimerEvent: {}
+[17.587563] (-) TimerEvent: {}
+[17.687948] (-) TimerEvent: {}
+[17.789559] (-) TimerEvent: {}
+[17.894130] (-) TimerEvent: {}
+[17.996742] (-) TimerEvent: {}
+[18.106964] (-) TimerEvent: {}
+[18.216338] (-) TimerEvent: {}
+[18.317463] (-) TimerEvent: {}
+[18.417945] (-) TimerEvent: {}
+[18.518518] (-) TimerEvent: {}
+[18.619971] (-) TimerEvent: {}
+[18.725230] (-) TimerEvent: {}
+[18.829588] (-) TimerEvent: {}
+[18.942497] (-) TimerEvent: {}
+[19.043297] (-) TimerEvent: {}
+[19.145548] (-) TimerEvent: {}
+[19.250177] (-) TimerEvent: {}
+[19.355626] (-) TimerEvent: {}
+[19.459154] (-) TimerEvent: {}
+[19.563052] (-) TimerEvent: {}
+[19.669760] (-) TimerEvent: {}
+[19.772692] (-) TimerEvent: {}
+[19.875140] (-) TimerEvent: {}
+[19.980119] (-) TimerEvent: {}
+[20.086891] (-) TimerEvent: {}
+[20.190601] (-) TimerEvent: {}
+[20.292142] (-) TimerEvent: {}
+[20.397160] (-) TimerEvent: {}
+[20.497949] (-) TimerEvent: {}
+[20.599884] (-) TimerEvent: {}
+[20.702326] (-) TimerEvent: {}
+[20.805353] (-) TimerEvent: {}
+[20.906576] (-) TimerEvent: {}
+[21.012331] (-) TimerEvent: {}
+[21.114306] (-) TimerEvent: {}
+[21.221700] (-) TimerEvent: {}
+[21.328749] (-) TimerEvent: {}
+[21.433212] (-) TimerEvent: {}
+[21.533579] (-) TimerEvent: {}
+[21.634022] (-) TimerEvent: {}
+[21.734330] (-) TimerEvent: {}
+[21.835603] (-) TimerEvent: {}
+[21.939810] (-) TimerEvent: {}
+[22.040220] (-) TimerEvent: {}
+[22.145513] (-) TimerEvent: {}
+[22.246096] (-) TimerEvent: {}
+[22.346643] (-) TimerEvent: {}
+[22.447236] (-) TimerEvent: {}
+[22.547554] (-) TimerEvent: {}
+[22.649520] (-) TimerEvent: {}
+[22.758589] (-) TimerEvent: {}
+[22.860076] (-) TimerEvent: {}
+[22.963396] (-) TimerEvent: {}
+[23.068112] (-) TimerEvent: {}
+[23.169733] (-) TimerEvent: {}
+[23.276434] (-) TimerEvent: {}
+[23.376872] (-) TimerEvent: {}
+[23.479235] (-) TimerEvent: {}
+[23.585547] (-) TimerEvent: {}
+[23.690901] (-) TimerEvent: {}
+[23.795685] (-) TimerEvent: {}
+[23.896054] (-) TimerEvent: {}
+[23.999155] (-) TimerEvent: {}
+[24.101796] (-) TimerEvent: {}
+[24.203718] (-) TimerEvent: {}
+[24.310146] (-) TimerEvent: {}
+[24.411834] (-) TimerEvent: {}
+[24.512223] (-) TimerEvent: {}
+[24.612961] (-) TimerEvent: {}
+[24.714385] (-) TimerEvent: {}
+[24.819595] (-) TimerEvent: {}
+[24.921472] (-) TimerEvent: {}
+[25.024891] (-) TimerEvent: {}
+[25.130492] (-) TimerEvent: {}
+[25.234260] (-) TimerEvent: {}
+[25.336652] (-) TimerEvent: {}
+[25.438707] (-) TimerEvent: {}
+[25.541108] (-) TimerEvent: {}
+[25.641442] (-) TimerEvent: {}
+[25.743191] (-) TimerEvent: {}
+[25.854221] (-) TimerEvent: {}
+[25.958750] (-) TimerEvent: {}
+[26.060450] (-) TimerEvent: {}
+[26.167658] (-) TimerEvent: {}
+[26.272924] (-) TimerEvent: {}
+[26.373706] (-) TimerEvent: {}
+[26.476158] (-) TimerEvent: {}
+[26.582360] (-) TimerEvent: {}
+[26.684493] (-) TimerEvent: {}
+[26.786163] (-) TimerEvent: {}
+[26.896026] (-) TimerEvent: {}
+[26.999145] (-) TimerEvent: {}
+[27.099515] (-) TimerEvent: {}
+[27.199878] (-) TimerEvent: {}
+[27.300224] (-) TimerEvent: {}
+[27.400569] (-) TimerEvent: {}
+[27.500941] (-) TimerEvent: {}
+[27.601363] (-) TimerEvent: {}
+[27.702248] (-) TimerEvent: {}
+[27.805162] (-) TimerEvent: {}
+[27.906980] (-) TimerEvent: {}
+[28.007696] (-) TimerEvent: {}
+[28.109768] (-) TimerEvent: {}
+[28.210593] (-) TimerEvent: {}
+[28.312451] (-) TimerEvent: {}
+[28.416055] (-) TimerEvent: {}
+[28.518847] (-) TimerEvent: {}
+[28.620036] (-) TimerEvent: {}
+[28.722637] (-) TimerEvent: {}
+[28.823603] (-) TimerEvent: {}
+[28.926527] (-) TimerEvent: {}
+[29.029154] (-) TimerEvent: {}
+[29.130467] (-) TimerEvent: {}
+[29.233144] (-) TimerEvent: {}
+[29.333456] (-) TimerEvent: {}
+[29.434481] (-) TimerEvent: {}
+[29.538395] (-) TimerEvent: {}
+[29.639369] (-) TimerEvent: {}
+[29.739722] (-) TimerEvent: {}
+[29.840041] (-) TimerEvent: {}
+[29.942023] (-) TimerEvent: {}
+[30.050700] (-) TimerEvent: {}
+[30.151002] (-) TimerEvent: {}
+[30.252961] (-) TimerEvent: {}
+[30.354818] (-) TimerEvent: {}
+[30.455161] (-) TimerEvent: {}
+[30.556267] (-) TimerEvent: {}
+[30.660690] (-) TimerEvent: {}
+[30.761236] (-) TimerEvent: {}
+[30.862984] (-) TimerEvent: {}
+[30.967240] (-) TimerEvent: {}
+[31.072334] (-) TimerEvent: {}
+[31.173427] (-) TimerEvent: {}
+[31.277349] (-) TimerEvent: {}
+[31.384663] (-) TimerEvent: {}
+[31.487367] (-) TimerEvent: {}
+[31.527498] (ugv_controller) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable path_follower_node\x1b[0m\n'}
+[31.587240] (-) TimerEvent: {}
+[31.690249] (-) TimerEvent: {}
+[31.796704] (-) TimerEvent: {}
+[31.903357] (-) TimerEvent: {}
+[32.009003] (-) TimerEvent: {}
+[32.118377] (-) TimerEvent: {}
+[32.221221] (-) TimerEvent: {}
+[32.327380] (-) TimerEvent: {}
+[32.353960] (ugv_controller) StdoutLine: {'line': b'[100%] Built target path_follower_node\n'}
+[32.383612] (ugv_controller) CommandEnded: {'returncode': 0}
+[32.385875] (ugv_controller) JobProgress: {'identifier': 'ugv_controller', 'progress': 'install'}
+[32.411811] (ugv_controller) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/build/ugv_controller'], 'cwd': '/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/build/ugv_controller', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_US:en'), ('USER', 'ihw'), ('LC_TIME', 'ko_KR.UTF-8'), ('XDG_SESSION_TYPE', 'x11'), ('GIT_ASKPASS', '/usr/share/code/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/ihw/workspace/kai_2025/install/yolo_msgs/lib:/home/ihw/workspace/kai_2025/install/usb_cam/lib:/home/ihw/workspace/kai_2025/install/ouster_ros/lib:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs/lib:/home/ihw/workspace/kai_2025/install/custom_interface/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/ihw'), ('CHROME_DESKTOP', 'code.desktop'), ('OLDPWD', '/home/ihw/workspace/AutonomousVehiclePlatform'), ('TERM_PROGRAM_VERSION', '1.99.3'), ('DESKTOP_SESSION', 'ubuntu'), ('GIO_LAUNCHED_DESKTOP_FILE', '/usr/share/applications/code.desktop'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('VSCODE_GIT_ASKPASS_MAIN', '/usr/share/code/resources/app/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'ko_KR.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/usr/share/code/code'), ('MANAGERPID', '2171'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('SYSTEMD_EXEC_PID', '2513'), ('BUNDLED_DEBUGPY_PATH', '/home/ihw/.vscode/extensions/ms-python.debugpy-2025.8.0-linux-x64/bundled/libs/debugpy'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '3618'), ('COLCON_PREFIX_PATH', '/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install:/home/ihw/workspace/kai_2025/install'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'ihw'), ('JOURNAL_STREAM', '8:20471'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'ihw'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/ihw/.local/bin:/opt/ros/humble/bin:/home/ihw/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/ihw/.vscode/extensions/ms-python.debugpy-2025.8.0-linux-x64/bundled/scripts/noConfigScripts:/home/ihw/.config/Code/User/globalStorage/github.copilot-chat/debugCommand'), ('SESSION_MANAGER', 'local/ihw:@/tmp/.ICE-unix/2486,unix/ihw:/tmp/.ICE-unix/2486'), ('INVOCATION_ID', 'dd96c90d9aa94ba4a9d7b31ce0fb421d'), ('PAPERSIZE', 'a4'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'ko_KR.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':1'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/ihw/.vscode/extensions/ms-python.debugpy-2025.8.0-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-0f3c1fac9dcba40b.txt'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('LC_TELEPHONE', 'ko_KR.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-c8c2f3ded9.sock'), ('TERM_PROGRAM', 'vscode'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller:/home/ihw/workspace/kai_2025/install/yolo_bringup:/home/ihw/workspace/kai_2025/install/yolo_ros:/home/ihw/workspace/kai_2025/install/yolo_msgs:/home/ihw/workspace/kai_2025/install/usb_cam:/home/ihw/workspace/kai_2025/install/ublox_serialization:/home/ihw/workspace/kai_2025/install/simple_slam:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/ouster_ros:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs:/home/ihw/workspace/kai_2025/install/hungarian_association:/home/ihw/workspace/kai_2025/install/gps_global_planner:/home/ihw/workspace/kai_2025/install/cones_ukf:/home/ihw/workspace/kai_2025/install/cones_no_color:/home/ihw/workspace/kai_2025/install/cone_detection:/home/ihw/workspace/kai_2025/install/custom_interface:/opt/ros/humble'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('LC_NAME', 'ko_KR.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'ko_KR.UTF-8'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('LC_IDENTIFICATION', 'ko_KR.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/build/ugv_controller'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/ihw/workspace/kai_2025/build/yolo_ros:/home/ihw/workspace/kai_2025/install/yolo_ros/lib/python3.10/site-packages:/home/ihw/workspace/kai_2025/install/yolo_msgs/local/lib/python3.10/dist-packages:/home/ihw/workspace/kai_2025/build/simple_slam:/home/ihw/workspace/kai_2025/install/simple_slam/lib/python3.10/site-packages:/home/ihw/workspace/kai_2025/build/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion/lib/python3.10/site-packages:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs/local/lib/python3.10/dist-packages:/home/ihw/workspace/kai_2025/build/hungarian_association:/home/ihw/workspace/kai_2025/install/hungarian_association/lib/python3.10/site-packages:/home/ihw/workspace/kai_2025/install/custom_interface/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'ko_KR.UTF-8'), ('LC_PAPER', 'ko_KR.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller:/home/ihw/workspace/kai_2025/install/yolo_bringup:/home/ihw/workspace/kai_2025/install/yolo_msgs:/home/ihw/workspace/kai_2025/install/usb_cam:/home/ihw/workspace/kai_2025/install/ublox_serialization:/home/ihw/workspace/kai_2025/install/ouster_sensor_msgs:/home/ihw/workspace/kai_2025/install/gps_global_planner:/home/ihw/workspace/kai_2025/install/cones_ukf:/home/ihw/workspace/kai_2025/install/cones_no_color:/home/ihw/workspace/kai_2025/install/cone_detection:/home/ihw/workspace/kai_2025/install/custom_interface:/home/ihw/workspace/kai_2025/install/yolo_ros:/home/ihw/workspace/kai_2025/install/simple_slam:/home/ihw/workspace/kai_2025/install/ros2_camera_lidar_fusion:/home/ihw/workspace/kai_2025/install/ouster_ros:/home/ihw/workspace/kai_2025/install/hungarian_association:/opt/ros/humble')]), 'shell': False}
+[32.428612] (-) TimerEvent: {}
+[32.437941] (ugv_controller) StdoutLine: {'line': b'-- Install configuration: "Release"\n'}
+[32.438628] (ugv_controller) StdoutLine: {'line': b'-- Execute custom install script\n'}
+[32.438834] (ugv_controller) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/lib/ugv_controller/course_csv_creator.py\n'}
+[32.438967] (ugv_controller) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/lib/ugv_controller/path_follower_node.py\n'}
+[32.439656] (ugv_controller) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/launch/path_follower.launch.py\n'}
+[32.440159] (ugv_controller) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/lib/ugv_controller/path_follower_node\n'}
+[32.440416] (ugv_controller) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ament_index/resource_index/package_run_dependencies/ugv_controller\n'}
+[32.440550] (ugv_controller) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ament_index/resource_index/parent_prefix_path/ugv_controller\n'}
+[32.440714] (ugv_controller) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/environment/ament_prefix_path.sh\n'}
+[32.441019] (ugv_controller) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/environment/ament_prefix_path.dsv\n'}
+[32.441163] (ugv_controller) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/environment/path.sh\n'}
+[32.441307] (ugv_controller) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/environment/path.dsv\n'}
+[32.441438] (ugv_controller) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/local_setup.bash\n'}
+[32.441561] (ugv_controller) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/local_setup.sh\n'}
+[32.441713] (ugv_controller) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/local_setup.zsh\n'}
+[32.442006] (ugv_controller) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/local_setup.dsv\n'}
+[32.442354] (ugv_controller) StdoutLine: {'line': b'-- Symlinking: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/package.dsv\n'}
+[32.480115] (ugv_controller) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ament_index/resource_index/packages/ugv_controller\n'}
+[32.480341] (ugv_controller) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/cmake/ugv_controllerConfig.cmake\n'}
+[32.480425] (ugv_controller) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/cmake/ugv_controllerConfig-version.cmake\n'}
+[32.480521] (ugv_controller) StdoutLine: {'line': b'-- Up-to-date symlink: /home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/install/ugv_controller/share/ugv_controller/package.xml\n'}
+[32.484720] (ugv_controller) CommandEnded: {'returncode': 0}
+[32.528307] (-) TimerEvent: {}
+[32.541109] (ugv_controller) JobEnded: {'identifier': 'ugv_controller', 'rc': 0}
+[32.541682] (-) EventReactorShutdown: {}

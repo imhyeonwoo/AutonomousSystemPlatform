@@ -1,0 +1,18 @@
+[2.676s] Invoking command in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/ofb_ctrl': PYTHONPATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/ofb_ctrl/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/ofb_ctrl/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/ofb_ctrl/build --no-deps symlink_data
+[3.684s] running develop
+[4.216s] running egg_info
+[4.217s] writing ofb_ctrl.egg-info/PKG-INFO
+[4.218s] writing dependency_links to ofb_ctrl.egg-info/dependency_links.txt
+[4.218s] writing entry points to ofb_ctrl.egg-info/entry_points.txt
+[4.219s] writing requirements to ofb_ctrl.egg-info/requires.txt
+[4.219s] writing top-level names to ofb_ctrl.egg-info/top_level.txt
+[4.227s] reading manifest file 'ofb_ctrl.egg-info/SOURCES.txt'
+[4.229s] writing manifest file 'ofb_ctrl.egg-info/SOURCES.txt'
+[4.232s] running build_ext
+[4.237s] Creating /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/ofb_ctrl/lib/python3.10/site-packages/ofb-ctrl.egg-link (link to .)
+[4.240s] Installing offboard_control_node script to /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/ofb_ctrl/lib/ofb_ctrl
+[4.242s] Installing waypoint_offboard_node script to /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/ofb_ctrl/lib/ofb_ctrl
+[4.243s] 
+[4.243s] Installed /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/ofb_ctrl
+[4.244s] running symlink_data
+[4.516s] Invoked command in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/ofb_ctrl' returned '0': PYTHONPATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/ofb_ctrl/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/ofb_ctrl/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/ofb_ctrl/build --no-deps symlink_data

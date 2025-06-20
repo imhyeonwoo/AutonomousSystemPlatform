@@ -1,0 +1,7 @@
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/offboard_waypoint.cpp:58:11:[m[K [01;31m[Kfatal error: [m[Ksensor_msgs/msg/camera_info.hpp: No such file or directory
+   58 |  #include [01;31m[K<sensor_msgs/msg/camera_info.hpp>[m[K
+      |           [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+compilation terminated.
+gmake[2]: *** [CMakeFiles/offboard_waypoint.dir/build.make:76: CMakeFiles/offboard_waypoint.dir/src/examples/offboard/offboard_waypoint.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:307: CMakeFiles/offboard_waypoint.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

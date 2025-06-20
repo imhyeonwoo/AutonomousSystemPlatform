@@ -1,0 +1,39 @@
+[35m[1mConsolidate compiler generated dependencies of target gimbal_target_publisher[0m
+[ 44%] Built target offboard_waypoint_map
+[ 44%] Built target vehicle_gps_position_listener
+[ 44%] Built target debug_vect_advertiser
+[ 44%] Built target frame_transforms
+[ 66%] Built target offboard_control
+[ 66%] Built target sensor_combined_listener
+[ 77%] Built target offboard_waypoint_trigger
+[ 88%] Built target offboard_control_srv
+[ 94%] [32mBuilding CXX object CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publisher.cpp.o[0m
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:[m[K In member function ‘[01m[Kvoid GimbalTargetPublisher::publishGoals()[m[K’:
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:131:26:[m[K [01;31m[Kerror: [m[Kno match for ‘[01m[Koperator=[m[K’ (operand types are ‘[01m[Kvisualization_msgs::msg::Marker_<std::allocator<void> >::_color_type[m[K’ {aka ‘[01m[Kstd_msgs::msg::ColorRGBA_<std::allocator<void> >[m[K’} and ‘[01m[K<brace-enclosed initializer list>[m[K’)
+  131 |       mk.color = {1,0,0,1[01;31m[K}[m[K;
+      |                          [01;31m[K^[m[K
+In file included from [01m[K/opt/ros/humble/include/visualization_msgs/visualization_msgs/msg/detail/marker__struct.hpp:27[m[K,
+                 from [01m[K/opt/ros/humble/include/visualization_msgs/visualization_msgs/msg/marker.hpp:7[m[K,
+                 from [01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:11[m[K:
+[01m[K/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/color_rgba__struct.hpp:32:8:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kconstexpr std_msgs::msg::ColorRGBA_<std::allocator<void> >& std_msgs::msg::ColorRGBA_<std::allocator<void> >::operator=(const std_msgs::msg::ColorRGBA_<std::allocator<void> >&)[m[K’
+   32 | struct [01;36m[KColorRGBA_[m[K
+      |        [01;36m[K^~~~~~~~~~[m[K
+[01m[K/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/color_rgba__struct.hpp:32:8:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[K<brace-enclosed initializer list>[m[K’ to ‘[01m[Kconst std_msgs::msg::ColorRGBA_<std::allocator<void> >&[m[K’
+[01m[K/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/color_rgba__struct.hpp:32:8:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kconstexpr std_msgs::msg::ColorRGBA_<std::allocator<void> >& std_msgs::msg::ColorRGBA_<std::allocator<void> >::operator=(std_msgs::msg::ColorRGBA_<std::allocator<void> >&&)[m[K’
+[01m[K/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/color_rgba__struct.hpp:32:8:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[K<brace-enclosed initializer list>[m[K’ to ‘[01m[Kstd_msgs::msg::ColorRGBA_<std::allocator<void> >&&[m[K’
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:[m[K In member function ‘[01m[Kvoid GimbalTargetPublisher::publishReal()[m[K’:
+[01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:143:24:[m[K [01;31m[Kerror: [m[Kno match for ‘[01m[Koperator=[m[K’ (operand types are ‘[01m[Kvisualization_msgs::msg::Marker_<std::allocator<void> >::_color_type[m[K’ {aka ‘[01m[Kstd_msgs::msg::ColorRGBA_<std::allocator<void> >[m[K’} and ‘[01m[K<brace-enclosed initializer list>[m[K’)
+  143 |     mk.color = {0,1,1,1[01;31m[K}[m[K;          // 민트
+      |                        [01;31m[K^[m[K
+In file included from [01m[K/opt/ros/humble/include/visualization_msgs/visualization_msgs/msg/detail/marker__struct.hpp:27[m[K,
+                 from [01m[K/opt/ros/humble/include/visualization_msgs/visualization_msgs/msg/marker.hpp:7[m[K,
+                 from [01m[K/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/gimbal_target_publisher.cpp:11[m[K:
+[01m[K/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/color_rgba__struct.hpp:32:8:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kconstexpr std_msgs::msg::ColorRGBA_<std::allocator<void> >& std_msgs::msg::ColorRGBA_<std::allocator<void> >::operator=(const std_msgs::msg::ColorRGBA_<std::allocator<void> >&)[m[K’
+   32 | struct [01;36m[KColorRGBA_[m[K
+      |        [01;36m[K^~~~~~~~~~[m[K
+[01m[K/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/color_rgba__struct.hpp:32:8:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[K<brace-enclosed initializer list>[m[K’ to ‘[01m[Kconst std_msgs::msg::ColorRGBA_<std::allocator<void> >&[m[K’
+[01m[K/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/color_rgba__struct.hpp:32:8:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kconstexpr std_msgs::msg::ColorRGBA_<std::allocator<void> >& std_msgs::msg::ColorRGBA_<std::allocator<void> >::operator=(std_msgs::msg::ColorRGBA_<std::allocator<void> >&&)[m[K’
+[01m[K/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/color_rgba__struct.hpp:32:8:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[K<brace-enclosed initializer list>[m[K’ to ‘[01m[Kstd_msgs::msg::ColorRGBA_<std::allocator<void> >&&[m[K’
+gmake[2]: *** [CMakeFiles/gimbal_target_publisher.dir/build.make:76: CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publisher.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:361: CMakeFiles/gimbal_target_publisher.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

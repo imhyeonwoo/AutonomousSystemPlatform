@@ -1,0 +1,1 @@
+/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/src/px4_ros_com/src/examples/offboard/path_planner_node.py

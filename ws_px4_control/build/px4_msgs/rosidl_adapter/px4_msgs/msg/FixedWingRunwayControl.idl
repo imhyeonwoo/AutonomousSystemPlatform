@@ -1,0 +1,26 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from px4_msgs/msg/FixedWingRunwayControl.msg
+// generated code does not contain a copyright notice
+
+
+module px4_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "Auxiliary control fields for fixed-wing runway takeoff/landing")
+    struct FixedWingRunwayControl {
+      @verbatim (language="comment", text=
+        "Passes information from the FixedWingModeManager to the FixedWingAttitudeController" "\n"
+        "[us] time since system start")
+      @unit (value="us")
+      uint64 timestamp;
+
+      @verbatim (language="comment", text=
+        "Flag that enables the wheel steering.")
+      boolean wheel_steering_enabled;
+
+      @verbatim (language="comment", text=
+        "[norm] [@range -1, 1] [FRD] Manual wheel nudging, added to controller output. NAN is interpreted as 0.")
+      float wheel_steering_nudging_rate;
+    };
+  };
+};

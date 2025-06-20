@@ -1,0 +1,56 @@
+[0.503s] Invoking command in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/src/vision_opencv/opencv_tests': AMENT_PREFIX_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/cv_bridge:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/cv_bridge:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/cv_bridge/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/opencv_tests/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/opencv_tests/lib/python3.10/site-packages:/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/cv_bridge/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../build/opencv_tests build --build-base /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/opencv_tests/build install --record /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/opencv_tests/install.log --single-version-externally-managed install_data
+[0.642s] /home/ihw/.local/lib/python3.10/site-packages/setuptools/_distutils/dist.py:289: UserWarning: Unknown distribution option: 'tests_require'
+[0.642s]   warnings.warn(msg)
+[0.663s] /home/ihw/.local/lib/python3.10/site-packages/setuptools/dist.py:759: SetuptoolsDeprecationWarning: License classifiers are deprecated.
+[0.663s] !!
+[0.664s] 
+[0.664s]         ********************************************************************************
+[0.664s]         Please consider removing the following classifiers in favor of a SPDX license expression:
+[0.664s] 
+[0.664s]         License :: OSI Approved :: Apache Software License
+[0.664s] 
+[0.664s]         See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
+[0.664s]         ********************************************************************************
+[0.664s] 
+[0.664s] !!
+[0.664s]   self._finalize_license_expression()
+[0.706s] running egg_info
+[0.715s] creating ../../../build/opencv_tests/opencv_tests.egg-info
+[0.715s] writing ../../../build/opencv_tests/opencv_tests.egg-info/PKG-INFO
+[0.716s] writing dependency_links to ../../../build/opencv_tests/opencv_tests.egg-info/dependency_links.txt
+[0.716s] writing entry points to ../../../build/opencv_tests/opencv_tests.egg-info/entry_points.txt
+[0.716s] writing requirements to ../../../build/opencv_tests/opencv_tests.egg-info/requires.txt
+[0.716s] writing top-level names to ../../../build/opencv_tests/opencv_tests.egg-info/top_level.txt
+[0.716s] writing manifest file '../../../build/opencv_tests/opencv_tests.egg-info/SOURCES.txt'
+[0.739s] reading manifest file '../../../build/opencv_tests/opencv_tests.egg-info/SOURCES.txt'
+[0.739s] writing manifest file '../../../build/opencv_tests/opencv_tests.egg-info/SOURCES.txt'
+[0.740s] running build
+[0.740s] running build_py
+[0.740s] creating /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/opencv_tests/build/lib/opencv_tests
+[0.740s] copying opencv_tests/broadcast.py -> /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/opencv_tests/build/lib/opencv_tests
+[0.740s] copying opencv_tests/rosfacedetect.py -> /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/opencv_tests/build/lib/opencv_tests
+[0.740s] copying opencv_tests/source.py -> /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/opencv_tests/build/lib/opencv_tests
+[0.740s] copying opencv_tests/__init__.py -> /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/opencv_tests/build/lib/opencv_tests
+[0.741s] running install
+[0.744s] running install_lib
+[0.755s] creating /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/opencv_tests/lib/python3.10/site-packages/opencv_tests
+[0.755s] copying /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/opencv_tests/build/lib/opencv_tests/broadcast.py -> /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/opencv_tests/lib/python3.10/site-packages/opencv_tests
+[0.755s] copying /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/opencv_tests/build/lib/opencv_tests/rosfacedetect.py -> /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/opencv_tests/lib/python3.10/site-packages/opencv_tests
+[0.755s] copying /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/opencv_tests/build/lib/opencv_tests/source.py -> /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/opencv_tests/lib/python3.10/site-packages/opencv_tests
+[0.755s] copying /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/opencv_tests/build/lib/opencv_tests/__init__.py -> /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/opencv_tests/lib/python3.10/site-packages/opencv_tests
+[0.756s] byte-compiling /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/opencv_tests/lib/python3.10/site-packages/opencv_tests/broadcast.py to broadcast.cpython-310.pyc
+[0.756s] byte-compiling /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/opencv_tests/lib/python3.10/site-packages/opencv_tests/rosfacedetect.py to rosfacedetect.cpython-310.pyc
+[0.757s] byte-compiling /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/opencv_tests/lib/python3.10/site-packages/opencv_tests/source.py to source.cpython-310.pyc
+[0.758s] byte-compiling /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/opencv_tests/lib/python3.10/site-packages/opencv_tests/__init__.py to __init__.cpython-310.pyc
+[0.758s] running install_data
+[0.758s] creating /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/opencv_tests/share/ament_index/resource_index/packages
+[0.758s] copying resource/opencv_tests -> /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/opencv_tests/share/ament_index/resource_index/packages
+[0.758s] copying package.xml -> /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/opencv_tests/share/opencv_tests
+[0.758s] running install_egg_info
+[0.770s] Copying ../../../build/opencv_tests/opencv_tests.egg-info to /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/opencv_tests/lib/python3.10/site-packages/opencv_tests-3.2.1-py3.10.egg-info
+[0.771s] running install_scripts
+[0.790s] Installing broadcast script to /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/opencv_tests/lib/opencv_tests
+[0.790s] Installing rosfacedetect script to /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/opencv_tests/lib/opencv_tests
+[0.790s] Installing source script to /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/opencv_tests/lib/opencv_tests
+[0.791s] writing list of installed files to '/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/opencv_tests/install.log'
+[0.812s] Invoked command in '/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/src/vision_opencv/opencv_tests' returned '0': AMENT_PREFIX_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/cv_bridge:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/cv_bridge:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/cv_bridge/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/opencv_tests/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/opencv_tests/lib/python3.10/site-packages:/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/cv_bridge/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../build/opencv_tests build --build-base /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/opencv_tests/build install --record /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/opencv_tests/install.log --single-version-externally-managed install_data
