@@ -1,0 +1,25 @@
+<?xml version="1.0" ?><sdf version="1.6">
+  <model name="marker_0">
+    <static>true</static>
+    <link name="link">
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://marker_0/meshes/marker_0.dae</uri>
+          <scale>2.0 2.0 2.0</scale></mesh>
+        </geometry>
+      </visual>
+    </link>
+
+    <plugin
+    filename="gz-sim-pose-publisher-system"
+    name="gz::sim::systems::PosePublisher">
+      <publish_link_pose>true</publish_link_pose>
+      <use_pose_vector_msg>true</use_pose_vector_msg>
+      <publish_nested_model_pose>true</publish_nested_model_pose>
+      <static_publisher>true</static_publisher>
+      <static_update_frequency>1</static_update_frequency>
+    </plugin>
+
+  </model>
+</sdf>

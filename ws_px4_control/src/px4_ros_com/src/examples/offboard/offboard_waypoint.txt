@@ -1,0 +1,631 @@
+/****************************************************************************
+ *
+ * Copyright 2020-2023 PX4 Development Team. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * 3. Neither the name of the copyright holder nor the names of its contributors
+ * may be used to endorse or promote products derived from this software without
+ * specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ ****************************************************************************/
+
+ #include <chrono>
+ #include <cmath>
+ #include <cstring>
+ #include <filesystem>
+ #include <fstream>
+ #include <iomanip>
+ #include <iostream>
+ #include <limits>
+ #include <memory>
+ #include <sstream>
+ #include <string>
+ #include <vector>
+ #include <tuple>
+ 
+ #include <rclcpp/rclcpp.hpp>
+ 
+ // PX4-ROS2 메시지 타입
+ #include <px4_msgs/msg/offboard_control_mode.hpp>
+ #include <px4_msgs/msg/trajectory_setpoint.hpp>
+ #include <px4_msgs/msg/vehicle_command.hpp>
+ 
+ // ROS2 표준 메시지 타입
+ #include <geometry_msgs/msg/point_stamped.hpp>
+ #include <geometry_msgs/msg/pose_stamped.hpp>
+ #include <geometry_msgs/msg/transform_stamped.hpp>
+ #include <sensor_msgs/msg/camera_info.hpp>
+ #include <sensor_msgs/msg/image.hpp>
+ 
+ // TF2 관련 헤더
+ #include <tf2/LinearMath/Quaternion.h>
+ #include <tf2_ros/buffer.h>
+ #include <tf2_ros/transform_broadcaster.h>
+ #include <tf2_ros/transform_listener.h>
+ #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
+ 
+ // OpenCV 및 CV_Bridge 관련 헤더
+ #include <cv_bridge/cv_bridge.h>
+ #include <opencv2/aruco.hpp>
+ #include <opencv2/calib3d.hpp>
+ #include <opencv2/imgproc.hpp>
+ 
+ using namespace std::chrono;
+ using namespace std::chrono_literals;
+ 
+ // PX4 메시지 타입 별칭
+ using OffboardControlMode = px4_msgs::msg::OffboardControlMode;
+ using TrajectorySetpoint = px4_msgs::msg::TrajectorySetpoint;
+ using VehicleCommand = px4_msgs::msg::VehicleCommand;
+ 
+ // ─── 미션 파라미터 ───────────────────────────────────
+ constexpr double ACTIVATE_X = -135.027; // 미션 시작을 위한 트럭의 목표 x 좌표 (map frame)
+ constexpr double ACTIVATE_Y = 62.169;   // 미션 시작을 위한 트럭의 목표 y 좌표 (map frame)
+ constexpr double ACTIVATE_RADIUS = 1.0; // [m] 허용 오차 반경
+ // ───────────────────────────────────────────────────
+ 
+ // 미션 상태를 나타내는 열거형
+ enum class MissionState {
+     WAIT_FOR_POSE,    // 초기 TF 좌표 수신 대기
+     HOLD_ON_TRUCK,    // 트럭 위에서 출발 지점 도착 대기
+     INIT,             // Offboard 모드 진입 및 Arm
+     TAKEOFF,          // 이륙
+     GOTO_WAYPOINT,    // 웨이포인트로 이동
+     SEARCH_FOR_MARKER,// ArUco 마커 탐색
+     DONE              // 모든 미션 완료 (착륙)
+ };
+ 
+ class OffboardControl : public rclcpp::Node {
+ public:
+     OffboardControl()
+         : Node("offboard_control"),
+           mission_state_(MissionState::WAIT_FOR_POSE),
+           step_(0),
+           current_wp_idx_(0),
+           origin_offset_set_(false),
+           should_process_image_(false),
+           marker_detected_(false),
+           camera_tilt_sent_(false),
+           wp_loaded_(false),
+           route_planned_(false)
+     {
+         // ROS2 퍼블리셔, 서브스크라이버, 타이머, TF 설정
+         offb_pub_ = create_publisher<OffboardControlMode>("/fmu/in/offboard_control_mode", 10);
+         traj_pub_ = create_publisher<TrajectorySetpoint>("/fmu/in/trajectory_setpoint", 10);
+         cmd_pub_ = create_publisher<VehicleCommand>("/fmu/in/vehicle_command", 10);
+ 
+         tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
+         tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
+         tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
+ 
+         auto sub_qos = rclcpp::QoS(1).best_effort();
+         auto pub_qos = rclcpp::QoS(10).reliable();
+         image_sub_ = create_subscription<sensor_msgs::msg::Image>(
+             "/world/default/model/x500_gimbal_0/link/camera_link/sensor/camera/image", sub_qos,
+             std::bind(&OffboardControl::image_callback, this, std::placeholders::_1));
+         camera_info_sub_ = create_subscription<sensor_msgs::msg::CameraInfo>(
+             "/world/default/model/x500_gimbal_0/link/camera_link/sensor/camera/camera_info", sub_qos,
+             std::bind(&OffboardControl::camera_info_callback, this, std::placeholders::_1));
+         image_pub_ = create_publisher<sensor_msgs::msg::Image>("/offboard_control/image_proc", pub_qos);
+ 
+         // ArUco 관련 초기화
+         aruco_dictionary_ = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_4X4_50);
+         aruco_detector_params_ = cv::aruco::DetectorParameters::create();
+ 
+         // 100ms 주기의 메인 루프 타이머
+         timer_ = create_wall_timer(100ms, std::bind(&OffboardControl::timer_callback, this));
+ 
+         RCLCPP_INFO(get_logger(), "[OffboardControl] 노드 시작. 초기 위치 대기 중...");
+     }
+ 
+ private:
+     // 멤버 함수 선언
+     void timer_callback();
+     void update_drone_position();
+     void publish_offboard_mode();
+     TrajectorySetpoint make_sp(float x, float y, float z, float yaw);
+     void send_vehicle_command(uint16_t command, float param1, float param2 = 0.0f);
+     void send_gimbal_tilt(float pitch_deg);
+     bool load_waypoints();
+     void transform_and_adjust_waypoints();
+     std::vector<size_t> compute_tsp_route();
+     void image_callback(const sensor_msgs::msg::Image::SharedPtr msg);
+     void camera_info_callback(const sensor_msgs::msg::CameraInfo::SharedPtr msg);
+     void annotate_image(cv_bridge::CvImagePtr image);
+ 
+     // ROS 관련 멤버
+     rclcpp::Publisher<OffboardControlMode>::SharedPtr offb_pub_;
+     rclcpp::Publisher<TrajectorySetpoint>::SharedPtr traj_pub_;
+     rclcpp::Publisher<VehicleCommand>::SharedPtr cmd_pub_;
+     rclcpp::TimerBase::SharedPtr timer_;
+     std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
+     std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
+     std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
+     rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr image_sub_;
+     rclcpp::Subscription<sensor_msgs::msg::CameraInfo>::SharedPtr camera_info_sub_;
+     rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr image_pub_;
+ 
+     // 상태 및 데이터 멤버
+     MissionState mission_state_;
+     int step_;
+     const float NANF = std::numeric_limits<float>::quiet_NaN();
+     const float TAKEOFF_ALTITUDE = -15.0f; // NED 좌표계 기준 -15m (상공 15m)
+ 
+     // 드론 현재 위치 (local frame: px4_origin)
+     float cur_x_{0.0f}, cur_y_{0.0f}, cur_z_{0.0f};
+ 
+     // TF 및 좌표계 관련
+     geometry_msgs::msg::Transform origin_offset_;
+     bool origin_offset_set_;
+ 
+     // 웨이포인트 관련
+     std::vector<std::tuple<float, float, float>> waypoints_;
+     std::vector<size_t> planned_route_;
+     size_t current_wp_idx_;
+     bool wp_loaded_;
+     bool route_planned_;
+ 
+     // ArUco 마커 탐지 관련
+     bool should_process_image_;
+     cv::Ptr<cv::aruco::Dictionary> aruco_dictionary_;
+     cv::Ptr<cv::aruco::DetectorParameters> aruco_detector_params_;
+     cv::Mat camera_matrix_;
+     cv::Mat dist_coeffs_;
+     double marker_size_{0.5};
+     cv::Vec3d marker_relative_position_;
+     bool marker_detected_;
+ 
+     // 짐벌 제어 플래그
+     bool camera_tilt_sent_;
+ };
+ 
+ /**
+  * @brief 100ms 주기로 호출되는 메인 콜백 함수. 미션 상태에 따라 적절한 동작을 수행합니다.
+  */
+ void OffboardControl::timer_callback() {
+     // 1. 최초 1회, 드론의 시작 위치를 기반으로 px4_origin 프레임을 설정
+     if (!origin_offset_set_) {
+         try {
+             auto t_map_drone_initial = tf_buffer_->lookupTransform("map", "x500_gimbal_0", tf2::TimePointZero);
+ 
+             // px4_origin의 위치는 드론의 시작 위치, 방향은 ENU->NED 변환 고정값 사용
+             origin_offset_.translation = t_map_drone_initial.transform.translation;
+             tf2::Quaternion q_enu_to_ned;
+             q_enu_to_ned.setRPY(M_PI, 0, M_PI_2); // Roll=PI, Pitch=0, Yaw=PI/2
+             origin_offset_.rotation = tf2::toMsg(q_enu_to_ned);
+ 
+             origin_offset_set_ = true;
+             RCLCPP_INFO(get_logger(), "px4_origin이 드론 시작점에 고정되었습니다.");
+ 
+         } catch (const tf2::TransformException& ex) {
+             RCLCPP_INFO_THROTTLE(get_logger(), *get_clock(), 1000, "초기 TF 변환 대기 중... %s", ex.what());
+             return; // 아직 TF 준비 안됐으면 콜백 종료
+         }
+     }
+ 
+     // 2. 설정된 px4_origin을 계속해서 TF로 브로드캐스트
+     geometry_msgs::msg::TransformStamped tf_msg;
+     tf_msg.header.stamp = this->get_clock()->now();
+     tf_msg.header.frame_id = "map";
+     tf_msg.child_frame_id = "px4_origin";
+     tf_msg.transform = origin_offset_;
+     tf_broadcaster_->sendTransform(tf_msg);
+ 
+     // 3. 드론의 현재 위치 업데이트
+     update_drone_position();
+ 
+     // 4. 미션 상태 머신 실행
+     switch (mission_state_) {
+         case MissionState::WAIT_FOR_POSE:
+         case MissionState::HOLD_ON_TRUCK:
+             // update_drone_position() 내부에서 도착 여부를 체크하여 상태 전이
+             break;
+ 
+         case MissionState::INIT:
+             if (step_ <= 20) { // 2초간 현재 위치 유지하며 Offboard 모드 진입 시도
+                 publish_offboard_mode();
+                 traj_pub_->publish(make_sp(cur_x_, cur_y_, cur_z_, NANF));
+                 if (step_ == 10) { // 1초 후 Offboard/Arm 명령 전송
+                     send_vehicle_command(VehicleCommand::VEHICLE_CMD_DO_SET_MODE, 1.0f, 6.0f); // Offboard
+                     send_vehicle_command(VehicleCommand::VEHICLE_CMD_COMPONENT_ARM_DISARM, 1.0f); // Arm
+                     RCLCPP_INFO(get_logger(), "[INIT] Offboard + Arm 명령 전송");
+                 }
+                 step_++;
+             } else {
+                 publish_offboard_mode();
+                 traj_pub_->publish(make_sp(cur_x_, cur_y_, cur_z_, NANF));
+ 
+                 if (!wp_loaded_ && load_waypoints()) {
+                     transform_and_adjust_waypoints();
+                     wp_loaded_ = true;
+                     RCLCPP_INFO(get_logger(), "[INIT] 웨이포인트 로드 및 변환 완료 (%zu개)", waypoints_.size());
+                 }
+                 if (wp_loaded_ && !route_planned_) {
+                     planned_route_ = compute_tsp_route();
+                     current_wp_idx_ = 0;
+                     route_planned_ = true;
+                 }
+ 
+                 if (route_planned_) {
+                     mission_state_ = MissionState::TAKEOFF;
+                     step_ = 0;
+                     RCLCPP_INFO(get_logger(), "[INIT] 경로 계획 완료 → TAKEOFF");
+                 }
+             }
+             break;
+ 
+         case MissionState::TAKEOFF:
+         {
+             publish_offboard_mode();
+             traj_pub_->publish(make_sp(cur_x_, cur_y_, TAKEOFF_ALTITUDE, NANF));
+ 
+             // 이륙 직후 1초간(step < 10) 짐벌 틸트 명령 반복 전송하여 확실히 적용
+             if (!camera_tilt_sent_) {
+                 if (step_ < 10) {
+                     send_gimbal_tilt(-90.0f);
+                     step_++;
+                 } else {
+                     camera_tilt_sent_ = true;
+                     RCLCPP_INFO(get_logger(), "[TAKEOFF] 짐벌 틸팅 완료");
+                 }
+             }
+ 
+             if (std::abs(cur_z_ - TAKEOFF_ALTITUDE) < 1.0) { // 목표 고도 1m 이내 도달 시
+                 RCLCPP_INFO(get_logger(), "[TAKEOFF] 목표 고도 도달 → GOTO_WAYPOINT");
+                 mission_state_ = MissionState::GOTO_WAYPOINT;
+             }
+             break;
+         }
+ 
+         case MissionState::GOTO_WAYPOINT:
+         {
+             publish_offboard_mode();
+             if (current_wp_idx_ >= planned_route_.size()) {
+                 mission_state_ = MissionState::DONE;
+                 RCLCPP_INFO(get_logger(), "모든 웨이포인트 완료 → DONE");
+                 break;
+             }
+             
+             // 목표 웨이포인트의 map 좌표를 local 좌표(px4_origin)로 변환
+             size_t target_idx = planned_route_[current_wp_idx_];
+             const auto& [wp_x, wp_y, wp_z] = waypoints_[target_idx];
+             
+             traj_pub_->publish(make_sp(wp_x, wp_y, wp_z, M_PI_2)); // 북쪽(Y+)을 바라보도록 Yaw 설정
+             
+             should_process_image_ = false; // 마커 탐색 비활성화
+ 
+             const double dist_xy = std::hypot(cur_x_ - wp_x, cur_y_ - wp_y);
+             if (dist_xy < 1.5) { // 목표 WP 1.5m 이내 도착 시
+                 RCLCPP_INFO(get_logger(), "WP #%zu 도착 → SEARCH_FOR_MARKER", target_idx);
+                 mission_state_ = MissionState::SEARCH_FOR_MARKER;
+             }
+             break;
+         }
+ 
+         case MissionState::SEARCH_FOR_MARKER:
+         {
+             publish_offboard_mode();
+             traj_pub_->publish(make_sp(cur_x_, cur_y_, cur_z_, NANF)); // 현재 위치에서 호버링
+ 
+             should_process_image_ = true; // 마커 탐색 활성화
+ 
+             if (marker_detected_) {
+                 RCLCPP_INFO(get_logger(), "마커 확인! → 다음 웨이포인트로 이동");
+                 marker_detected_ = false;
+                 should_process_image_ = false;
+                 current_wp_idx_++; // 다음 웨이포인트 인덱스
+                 mission_state_ = MissionState::GOTO_WAYPOINT;
+             }
+             break;
+         }
+ 
+         case MissionState::DONE:
+             send_vehicle_command(VehicleCommand::VEHICLE_CMD_NAV_LAND, 0.0f);
+             RCLCPP_INFO_ONCE(get_logger(), "[DONE] 착륙 명령 전송. 미션 완료.");
+             break;
+     }
+ }
+ 
+ /**
+  * @brief TF를 이용해 드론의 현재 위치(global-map, local-ned)를 업데이트하고, 트럭 출발 조건을 확인합니다.
+  */
+ void OffboardControl::update_drone_position() {
+     if (!origin_offset_set_) return;
+ 
+     try {
+         auto t_map_drone = tf_buffer_->lookupTransform("map", "x500_gimbal_0", tf2::TimePointZero);
+         auto t_local_drone = tf_buffer_->lookupTransform("px4_origin", "x500_gimbal_0", tf2::TimePointZero);
+ 
+         cur_x_ = t_local_drone.transform.translation.x;
+         cur_y_ = t_local_drone.transform.translation.y;
+         cur_z_ = t_local_drone.transform.translation.z;
+ 
+         RCLCPP_DEBUG(get_logger(),
+                     "Coords | Global(map): [x: %7.2f, y: %7.2f, z: %7.2f] | Local(ned): [x: %7.2f, y: %7.2f, z: %7.2f]",
+                     t_map_drone.transform.translation.x, t_map_drone.transform.translation.y, t_map_drone.transform.translation.z,
+                     cur_x_, cur_y_, cur_z_);
+ 
+         if (mission_state_ == MissionState::WAIT_FOR_POSE) {
+             mission_state_ = MissionState::HOLD_ON_TRUCK;
+             RCLCPP_INFO(get_logger(), "→ HOLD_ON_TRUCK (트럭 출발 대기)");
+         }
+ 
+         if (mission_state_ == MissionState::HOLD_ON_TRUCK) {
+             const double dist_xy = std::hypot(t_map_drone.transform.translation.x - ACTIVATE_X,
+                                               t_map_drone.transform.translation.y - ACTIVATE_Y);
+             if (dist_xy < ACTIVATE_RADIUS) {
+                 RCLCPP_INFO(get_logger(), "트럭 하차 지점 도착! (%.2f m) → INIT 단계 진입", dist_xy);
+                 mission_state_ = MissionState::INIT;
+                 step_ = 0;
+             }
+         }
+     } catch (const tf2::TransformException& ex) {
+         RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 1000, "TF 변환 대기 중... %s", ex.what());
+     }
+ }
+ 
+ /**
+  * @brief OffboardControlMode 메시지를 퍼블리시 (위치 제어 활성화)
+  */
+ void OffboardControl::publish_offboard_mode() {
+     OffboardControlMode msg{};
+     msg.timestamp = now().nanoseconds() / 1000;
+     msg.position = true;
+     msg.velocity = false;
+     msg.acceleration = false;
+     msg.attitude = false;
+     msg.body_rate = false;
+     offb_pub_->publish(msg);
+ }
+ 
+ /**
+  * @brief TrajectorySetpoint 메시지를 생성
+  */
+ TrajectorySetpoint OffboardControl::make_sp(float x, float y, float z, float yaw) {
+     TrajectorySetpoint sp{};
+     sp.timestamp = now().nanoseconds() / 1000;
+     sp.position[0] = x;
+     sp.position[1] = y;
+     sp.position[2] = z;
+     sp.yaw = yaw;
+     sp.yawspeed = NANF;
+     for (int i = 0; i < 3; ++i) {
+         sp.velocity[i] = NANF;
+         sp.acceleration[i] = NANF;
+         sp.jerk[i] = NANF;
+     }
+     return sp;
+ }
+ 
+ /**
+  * @brief VehicleCommand 메시지를 퍼블리시 (ARM, Disarm, Land 등)
+  */
+ void OffboardControl::send_vehicle_command(uint16_t command, float param1, float param2) {
+     VehicleCommand msg{};
+     msg.timestamp = now().nanoseconds() / 1000;
+     msg.command = command;
+     msg.param1 = param1;
+     msg.param2 = param2;
+     msg.target_system = 1;
+     msg.target_component = 1;
+     msg.from_external = true;
+     cmd_pub_->publish(msg);
+ }
+ 
+ /**
+  * @brief 짐벌 틸트(pitch)를 제어하는 VehicleCommand 전송
+  */
+ void OffboardControl::send_gimbal_tilt(float pitch_deg) {
+     VehicleCommand msg{};
+     msg.timestamp = now().nanoseconds() / 1000;
+     msg.command = VehicleCommand::VEHICLE_CMD_DO_MOUNT_CONTROL;
+     msg.param1 = pitch_deg; // Pitch
+     msg.param2 = 0.0f;      // Roll
+     msg.param3 = 0.0f;      // Yaw
+     msg.param7 = 2.0f;      // MAV_MOUNT_MODE_MAVLINK_TARGETING
+     msg.target_system = 1;
+     msg.target_component = 1;
+     msg.from_external = true;
+     cmd_pub_->publish(msg);
+     RCLCPP_INFO(this->get_logger(), "짐벌을 %.1f°로 틸트 명령", pitch_deg);
+ }
+ 
+ /**
+  * @brief 카메라 정보를 수신하여 내부 변수(camera_matrix_, dist_coeffs_)를 설정
+  */
+ void OffboardControl::camera_info_callback(const sensor_msgs::msg::CameraInfo::SharedPtr msg) {
+     if (camera_matrix_.empty()) {
+         camera_matrix_ = cv::Mat(3, 3, CV_64F, const_cast<double*>(msg->k.data())).clone();
+         dist_coeffs_ = cv::Mat(msg->d.size(), 1, CV_64F, const_cast<double*>(msg->d.data())).clone();
+         RCLCPP_INFO(this->get_logger(), "카메라 정보 수신 완료.");
+     }
+ }
+ 
+ /**
+  * @brief 이미지에서 ArUco 마커를 탐지하고, 마커의 글로벌(map) 좌표를 계산하여 CSV 파일에 저장
+  */
+ void OffboardControl::image_callback(const sensor_msgs::msg::Image::SharedPtr msg) {
+     if (!should_process_image_ || camera_matrix_.empty() || dist_coeffs_.empty()) {
+         marker_detected_ = false;
+         return;
+     }
+     try {
+         cv_bridge::CvImagePtr cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
+         std::vector<int> ids;
+         std::vector<std::vector<cv::Point2f>> corners;
+         cv::aruco::detectMarkers(cv_ptr->image, aruco_dictionary_, corners, ids, aruco_detector_params_);
+ 
+         marker_detected_ = false;
+         if (!ids.empty()) {
+             std::vector<cv::Vec3d> rvecs, tvecs;
+             cv::aruco::estimatePoseSingleMarkers(corners, marker_size_, camera_matrix_, dist_coeffs_, rvecs, tvecs);
+ 
+             for (size_t i = 0; i < ids.size(); ++i) {
+                 // 1. 마커의 상대 위치(카메라 기준)를 geometry_msgs/PoseStamped로 변환
+                 geometry_msgs::msg::PoseStamped pose_in_camera;
+                 pose_in_camera.header.stamp = rclcpp::Time(0); // 최신 변환을 위해 0으로 설정
+                 pose_in_camera.header.frame_id = "x500_gimbal_0/camera_link";
+                 pose_in_camera.pose.position.x = tvecs[i][2]; // OpenCV to ROS: X->Z, Y->-X, Z->-Y (카메라 광축이 Z)
+                 pose_in_camera.pose.position.y = -tvecs[i][0];
+                 pose_in_camera.pose.position.z = -tvecs[i][1];
+                 
+                 cv::Mat rot_mat;
+                 cv::Rodrigues(rvecs[i], rot_mat);
+                 tf2::Matrix3x3 tf_rot_mat(rot_mat.at<double>(0,0), rot_mat.at<double>(0,1), rot_mat.at<double>(0,2),
+                                          rot_mat.at<double>(1,0), rot_mat.at<double>(1,1), rot_mat.at<double>(1,2),
+                                          rot_mat.at<double>(2,0), rot_mat.at<double>(2,1), rot_mat.at<double>(2,2));
+                 tf2::Quaternion q;
+                 tf_rot_mat.getRotation(q);
+ 
+                 tf2::Quaternion q_optical_to_ros;
+                 q_optical_to_ros.setRPY(-M_PI/2, 0, -M_PI/2);
+                 q = q_optical_to_ros * q;
+                 pose_in_camera.pose.orientation = tf2::toMsg(q);
+ 
+ 
+                 // 2. TF를 이용해 글로벌 'map' 좌표계로 변환
+                 try {
+                     auto pose_in_map = tf_buffer_->transform(pose_in_camera, "map");
+ 
+                     // 3. 변환된 글로벌 좌표를 CSV 파일에 저장
+                     const char* home_dir = getenv("HOME");
+                     if (home_dir) {
+                         std::filesystem::path file_path = std::filesystem::path(home_dir) / "workspace/test2.csv";
+                         std::filesystem::create_directories(file_path.parent_path());
+                         std::ofstream outfile(file_path, std::ios_base::app);
+                         if (outfile.is_open()) {
+                             outfile << std::fixed << std::setprecision(6)
+                                     << ids[i] << ","
+                                     << pose_in_map.pose.position.x << "," << pose_in_map.pose.position.y << "," << pose_in_map.pose.position.z << ","
+                                     << pose_in_map.pose.orientation.x << "," << pose_in_map.pose.orientation.y << "," << pose_in_map.pose.orientation.z << "," << pose_in_map.pose.orientation.w << "\n";
+                             
+                             RCLCPP_INFO(get_logger(), "[CSV SAVED] Marker ID: %d, Global Pos: (%.3f, %.3f, %.3f)",
+                                         ids[i], pose_in_map.pose.position.x, pose_in_map.pose.position.y, pose_in_map.pose.position.z);
+                         }
+                     }
+                     marker_detected_ = true; // 성공적으로 저장 후 상태 플래그 설정
+                     break; // 첫 번째 마커만 처리
+                 } catch (const tf2::TransformException& ex) {
+                     RCLCPP_WARN(get_logger(), "ArUco 마커 좌표 변환 실패: %s", ex.what());
+                 }
+             }
+         }
+         annotate_image(cv_ptr);
+         image_pub_->publish(*cv_ptr->toImageMsg());
+     } catch (const cv_bridge::Exception& e) {
+         RCLCPP_ERROR(get_logger(), "cv_bridge exception: %s", e.what());
+     }
+ }
+ 
+ 
+ /**
+  * @brief 이미지에 마커의 상대 좌표 텍스트를 추가
+  */
+ void OffboardControl::annotate_image(cv_bridge::CvImagePtr image) {
+     if (!marker_detected_) return;
+     std::ostringstream stream;
+     stream << std::fixed << std::setprecision(2)
+            << "X:" << marker_relative_position_[0] << " Y:" << marker_relative_position_[1] << " Z:" << marker_relative_position_[2];
+     cv::putText(image->image, stream.str(), cv::Point(10, 30), cv::FONT_HERSHEY_SIMPLEX, 0.8, cv::Scalar(0, 255, 255), 2);
+ }
+ 
+ /**
+  * @brief CSV 파일들로부터 웨이포인트를 읽어옴
+  */
+ bool OffboardControl::load_waypoints() {
+     const char* home_dir = getenv("HOME");
+     if (!home_dir) {
+         RCLCPP_ERROR(get_logger(), "HOME 환경 변수를 찾을 수 없습니다.");
+         return false;
+     }
+ 
+     std::filesystem::path wp_path = std::filesystem::path(home_dir) / "worksapce/uav_wp.csv";
+     std::filesystem::path goal_path = std::filesystem::path(home_dir) / "worksapce/rendezvous.csv";
+ 
+     waypoints_.clear();
+     std::string line;
+ 
+     std::ifstream fin(wp_path);
+     if (!fin) {
+         RCLCPP_ERROR(get_logger(), "'%s' 파일을 열 수 없습니다.", wp_path.c_str());
+         return false;
+     }
+     while (std::getline(fin, line)) {
+         std::stringstream ss(line);
+         float x, y, z;
+         char c;
+         if ((ss >> x >> c >> y >> c >> z)) waypoints_.emplace_back(x, y, z);
+     }
+     fin.close();
+ 
+     std::ifstream goalfin(goal_path);
+     if (!goalfin) {
+         RCLCPP_ERROR(get_logger(), "'%s' 파일을 열 수 없습니다.", goal_path.c_str());
+         return false;
+     }
+     if (std::getline(goalfin, line)) {
+         std::stringstream ss(line);
+         float x, y, z;
+         char c;
+         if ((ss >> x >> c >> y >> c >> z)) waypoints_.emplace_back(x, y, z);
+     }
+     goalfin.close();
+ 
+     return !waypoints_.empty();
+ }
+ 
+ /**
+  * @brief 로드된 웨이포인트(ENU)를 NED 좌표계로 변환하고 고도를 조정
+  */
+ void OffboardControl::transform_and_adjust_waypoints() {
+     std::vector<std::tuple<float, float, float>> transformed_wps;
+     for (const auto& wp : waypoints_) {
+         // ENU 좌표를 NED로 변환 (NED_X=ENU_Y, NED_Y=ENU_X, NED_Z=-ENU_Z)
+         // 여기에 추가로 고도를 TAKEOFF_ALTITUDE로 설정
+         transformed_wps.emplace_back(std::get<1>(wp), std::get<0>(wp), TAKEOFF_ALTITUDE);
+     }
+     waypoints_ = transformed_wps;
+ }
+ 
+ /**
+  * @brief 사용자 지정 경로 순서를 반환. (TSP 알고리즘 대신 하드코딩된 경로)
+  */
+ std::vector<size_t> OffboardControl::compute_tsp_route() {
+     RCLCPP_INFO(this->get_logger(), "사용자 지정 경로를 생성합니다.");
+     // 방문 순서(인덱스)를 직접 지정
+     std::vector<size_t> route = {0, 5, 1, 4, 3, 2};
+     // 경로 마지막에 최종 목적지 인덱스 추가 (항상 마지막 웨이포인트)
+     if (!waypoints_.empty()) {
+         route.push_back(waypoints_.size() - 1);
+     }
+     return route;
+ }
+ 
+ int main(int argc, char** argv) {
+     setvbuf(stdout, NULL, _IONBF, BUFSIZ);
+     rclcpp::init(argc, argv);
+     rclcpp::spin(std::make_shared<OffboardControl>());
+     rclcpp::shutdown();
+     return 0;
+ }

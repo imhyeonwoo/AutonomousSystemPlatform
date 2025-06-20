@@ -1,0 +1,244 @@
+#
+# Copyright (c) 2022 ZettaScale Technology
+#
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# http://www.eclipse.org/legal/epl-2.0, or the Apache License, Version 2.0
+# which is available at https://www.apache.org/licenses/LICENSE-2.0.
+#
+# SPDX-License-Identifier: EPL-2.0 OR Apache-2.0
+#
+# Contributors:
+#   ZettaScale Zenoh Team, <zenoh@zettascale.tech>
+#
+name: build-check
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  run_tests:
+    name: Run unit tests on ubuntu-latest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build & run tests
+        run: |
+          sudo apt install -y ninja-build
+          CMAKE_GENERATOR=Ninja make test
+
+  check_format:
+    name: Check codebase format with clang-format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run clang-format dry-run
+        run: find include/ src/ tests/ examples/ -iname "*.ino" -o -iname "*.h" -o -iname "*.c" | xargs clang-format -n -Werror
+
+  c99_build:
+    name: Check c99 compilation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build with C99
+        run: |
+          sudo apt install -y ninja-build
+          FORCE_C99=ON CMAKE_GENERATOR=Ninja make
+
+  raweth_build:
+    name: Build raweth transport on ubuntu-latest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build raweth
+        run: |
+          sudo apt install -y ninja-build
+          Z_FEATURE_RAWETH_TRANSPORT=1 CMAKE_GENERATOR=Ninja make
+
+  zenoh_build:
+    name: Build Zenoh from source
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-name: ${{ steps.main.outputs.artifact-name }}
+    steps:
+      - id: main
+        name: Build Zenoh
+        uses: eclipse-zenoh/ci/build-crates-standalone@main
+        with:
+          repo: eclipse-zenoh/zenoh
+          branch: dev/1.0.0
+          artifact-patterns: |
+            ^zenohd$
+            ^libzenoh_plugin_rest.so$
+            ^libzenoh_plugin_storage_manager.so$
+
+  modular_build:
+    needs: zenoh_build
+    name: Modular build on ubuntu-latest
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        feature_publication: [1, 0]
+        feature_subscription: [1, 0]
+        feature_queryable: [1, 0]
+        feature_query: [1, 0]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download Zenoh artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.zenoh_build.outputs.artifact-name }}
+
+      - name: Unzip Zenoh artifacts
+        run: unzip ${{ needs.zenoh_build.outputs.artifact-name }} -d zenoh-standalone
+
+      - id: run-zenoh
+        name: Run Zenoh router
+        run: |
+          RUST_LOG=debug ./zenoh-standalone/zenohd &
+          echo "zenohd-pid=$!" >> $GITHUB_OUTPUT
+
+      - name: Build project
+        run: |
+          sudo apt install -y ninja-build
+          CMAKE_GENERATOR=Ninja make
+          python3 ./build/tests/modularity.py --pub $Z_FEATURE_PUBLICATION --sub $Z_FEATURE_SUBSCRIPTION --queryable $Z_FEATURE_QUERYABLE --query $Z_FEATURE_QUERY
+        timeout-minutes: 5
+        env:
+          Z_FEATURE_PUBLICATION: ${{ matrix.feature_publication }}
+          Z_FEATURE_SUBSCRIPTION: ${{ matrix.feature_subscription }}
+          Z_FEATURE_QUERYABLE: ${{ matrix.feature_queryable }}
+          Z_FEATURE_QUERY: ${{ matrix.feature_query }}
+
+      - name: Kill Zenoh router
+        if: always()
+        run: kill ${{ steps.run-zenoh.outputs.zenohd-pid }}
+
+  st_build:
+    needs: zenoh_build
+    name: Build and test in single thread on ubuntu-latest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download Zenoh artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.zenoh_build.outputs.artifact-name }}
+
+      - name: Unzip Zenoh artifacts
+        run: unzip ${{ needs.zenoh_build.outputs.artifact-name }} -d zenoh-standalone
+
+      - id: run-zenoh
+        name: Run Zenoh router
+        run: |
+          RUST_LOG=debug ./zenoh-standalone/zenohd &
+          echo "zenohd-pid=$!" >> $GITHUB_OUTPUT
+
+      - name: Build project and run test
+        run: |
+          sudo apt install -y ninja-build
+          CMAKE_GENERATOR=Ninja make
+          python3 ./build/tests/single_thread.py
+        timeout-minutes: 5
+        env:
+          Z_FEATURE_MULTI_THREAD: 0
+
+      - name: Kill Zenoh router
+        if: always()
+        run: kill ${{ steps.run-zenoh.outputs.zenohd-pid }}
+
+  fragment_test:
+    needs: zenoh_build
+    name: Test multicast and unicast fragmentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download Zenoh artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.zenoh_build.outputs.artifact-name }}
+
+      - name: Unzip Zenoh artifacts
+        run: unzip ${{ needs.zenoh_build.outputs.artifact-name }} -d zenoh-standalone
+
+      - id: run-zenoh
+        name: Run Zenoh router
+        run: |
+          RUST_LOG=debug ./zenoh-standalone/zenohd &
+          echo "zenohd-pid=$!" >> $GITHUB_OUTPUT
+
+      - name: Build project and run test
+        run: |
+          sudo apt install -y ninja-build
+          cmake -DBATCH_UNICAST_SIZE=4096 -B build/ -G Ninja
+          CMAKE_GENERATOR=Ninja make
+          python3 ./build/tests/fragment.py
+        timeout-minutes: 5
+
+      - name: Kill Zenoh router
+        if: always()
+        run: kill ${{ steps.run-zenoh.outputs.zenohd-pid }}
+
+  attachment_test:
+    needs: zenoh_build
+    name: Test attachments
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download Zenoh artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.zenoh_build.outputs.artifact-name }}
+
+      - name: Unzip Zenoh artifacts
+        run: unzip ${{ needs.zenoh_build.outputs.artifact-name }} -d zenoh-standalone
+
+      - id: run-zenoh
+        name: Run Zenoh router
+        run: |
+          RUST_LOG=debug ./zenoh-standalone/zenohd &
+          echo "zenohd-pid=$!" >> $GITHUB_OUTPUT
+
+      - name: Build project and run test
+        run: |
+          sudo apt install -y ninja-build
+          CMAKE_GENERATOR=Ninja make
+          python3 ./build/tests/attachment.py
+        timeout-minutes: 5
+
+      - name: Kill Zenoh router
+        if: always()
+        run: kill ${{ steps.run-zenoh.outputs.zenohd-pid }}
+
+  no_routeur:
+    name: Test examples without router
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build & test pico
+        run: |
+          sudo apt install -y ninja-build
+          CMAKE_GENERATOR=Ninja make
+          python3 ./build/tests/no_router.py
+        timeout-minutes: 5
