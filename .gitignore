@@ -1,0 +1,16 @@
+# ROS build artifacts
+build/
+devel/
+install/
+log/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# VSCode settings
+.vscode/
+
+# 기타 시스템 파일
+.DS_Store
+
