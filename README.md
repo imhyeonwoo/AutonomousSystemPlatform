@@ -1,7 +1,7 @@
 ```markdown
 # 🚗 AutonomousVehiclePlatform
 
-ROS 기반 자율주행 시뮬레이션 통합 플랫폼입니다.  
+ROS 기반 자율주행/비행 시뮬레이션 통합 플랫폼입니다.  
 다양한 자율주행 구성 요소를 통합하여 실제 차량 및 시뮬레이터(Gazebo) 환경에서 테스트할 수 있도록 구성되어 있습니다.
 
 ---
@@ -36,12 +36,13 @@ AutonomousVehiclePlatform/
 - 상대 위치 계산 및 착륙 연동 가능
 
 ### ✅ Gazebo 통합 환경
-- 라바콘, 마커, 상자 등 시뮬레이션 오브젝트 구성
+- map 레퍼런스(Fixed Frame) 기준의 TF
 - `pose_tf_broadcaster`를 통한 TF 메시지 발신
 
 ---
 
 ## ⚙️ 사용 방법
+- How To Play.txt 참고
 
 ### 🔧 빌드 (ROS2 기준)
 
