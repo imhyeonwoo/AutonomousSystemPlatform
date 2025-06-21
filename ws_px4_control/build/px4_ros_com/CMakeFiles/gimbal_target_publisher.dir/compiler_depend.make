@@ -693,6 +693,12 @@ CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publi
   /opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/thread_safe_synchronization.hpp \
   /opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/detail/write_preferring_read_write_lock.hpp \
   /opt/ros/humble/include/rclcpp/rclcpp/wait_set_template.hpp \
+  /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/include/px4_msgs/px4_msgs/msg/vehicle_command.hpp \
+  /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/include/px4_msgs/px4_msgs/msg/detail/vehicle_command__struct.hpp \
+  /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/include/px4_msgs/px4_msgs/msg/detail/vehicle_command__builder.hpp \
+  /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/include/px4_msgs/px4_msgs/msg/detail/vehicle_command__traits.hpp \
+  /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/include/px4_msgs/px4_msgs/msg/detail/vehicle_command__type_support.hpp \
+  /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/include/px4_msgs/px4_msgs/msg/rosidl_generator_cpp__visibility_control.hpp \
   /opt/ros/humble/include/visualization_msgs/visualization_msgs/msg/marker_array.hpp \
   /opt/ros/humble/include/visualization_msgs/visualization_msgs/msg/detail/marker_array__struct.hpp \
   /opt/ros/humble/include/visualization_msgs/visualization_msgs/msg/detail/marker__struct.hpp \
@@ -719,17 +725,6 @@ CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publi
   /opt/ros/humble/include/visualization_msgs/visualization_msgs/msg/detail/mesh_file__traits.hpp \
   /opt/ros/humble/include/visualization_msgs/visualization_msgs/msg/detail/marker_array__type_support.hpp \
   /opt/ros/humble/include/visualization_msgs/visualization_msgs/msg/rosidl_generator_cpp__visibility_control.hpp \
-  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/point.hpp \
-  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__builder.hpp \
-  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__type_support.hpp \
-  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/rosidl_generator_cpp__visibility_control.hpp \
-  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/transform_stamped.hpp \
-  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform_stamped__struct.hpp \
-  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform__struct.hpp \
-  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform_stamped__builder.hpp \
-  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform_stamped__traits.hpp \
-  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform__traits.hpp \
-  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform_stamped__type_support.hpp \
   /opt/ros/humble/include/tf2_ros/tf2_ros/buffer.h \
   /opt/ros/humble/include/tf2_ros/tf2_ros/async_buffer_interface.h \
   /opt/ros/humble/include/tf2_ros/tf2_ros/visibility_control.h \
@@ -745,6 +740,14 @@ CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publi
   /opt/ros/humble/include/tf2/tf2/visibility_control.h \
   /opt/ros/humble/include/tf2/tf2/LinearMath/Quaternion.hpp \
   /opt/ros/humble/include/tf2/tf2/LinearMath/QuadWord.hpp \
+  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/transform_stamped.hpp \
+  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform_stamped__struct.hpp \
+  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform__struct.hpp \
+  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform_stamped__builder.hpp \
+  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform_stamped__traits.hpp \
+  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform__traits.hpp \
+  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform_stamped__type_support.hpp \
+  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/rosidl_generator_cpp__visibility_control.hpp \
   /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/velocity_stamped.hpp \
   /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/velocity_stamped__struct.hpp \
   /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__struct.hpp \
@@ -801,6 +804,9 @@ CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publi
   /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/pose.hpp \
   /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose__builder.hpp \
   /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose__type_support.hpp \
+  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/point.hpp \
+  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__builder.hpp \
+  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__type_support.hpp \
   /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/point32.hpp \
   /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point32__struct.hpp \
   /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point32__builder.hpp \
@@ -844,6 +850,12 @@ CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publi
   /usr/include/kdl/utilities/kdl-config.h \
   /usr/include/kdl/frames.inl \
   /opt/ros/humble/include/tf2/tf2/LinearMath/Transform.hpp \
+  /opt/ros/humble/include/tf2/tf2/utils.h \
+  /opt/ros/humble/include/tf2/tf2/utils.hpp \
+  /opt/ros/humble/include/tf2/tf2/impl/utils.hpp \
+  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/quaternion.hpp \
+  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/quaternion__builder.hpp \
+  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/quaternion__type_support.hpp \
   /opt/ros/humble/include/ament_index_cpp/ament_index_cpp/get_package_share_directory.hpp \
   /opt/ros/humble/include/ament_index_cpp/ament_index_cpp/visibility_control.h \
   /usr/include/c++/11/fstream \
@@ -862,7 +874,11 @@ CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publi
 
 /opt/ros/humble/include/ament_index_cpp/ament_index_cpp/visibility_control.h:
 
+/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/quaternion.hpp:
+
 /opt/ros/humble/include/ament_index_cpp/ament_index_cpp/get_package_share_directory.hpp:
+
+/opt/ros/humble/include/tf2/tf2/impl/utils.hpp:
 
 /usr/include/kdl/frames.inl:
 
@@ -900,7 +916,9 @@ CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publi
 
 /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point32__traits.hpp:
 
-/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/point32.hpp:
+/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__builder.hpp:
+
+/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/point.hpp:
 
 /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose__type_support.hpp:
 
@@ -956,6 +974,14 @@ CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publi
 
 /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/twist__struct.hpp:
 
+/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/rosidl_generator_cpp__visibility_control.hpp:
+
+/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform_stamped__builder.hpp:
+
+/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform__struct.hpp:
+
+/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/transform_stamped.hpp:
+
 /opt/ros/humble/include/tf2/tf2/LinearMath/QuadWord.hpp:
 
 /opt/ros/humble/include/tf2/tf2/LinearMath/MinMax.hpp:
@@ -980,18 +1006,6 @@ CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publi
 
 /opt/ros/humble/include/tf2_ros/tf2_ros/buffer.h:
 
-/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform_stamped__builder.hpp:
-
-/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/transform__struct.hpp:
-
-/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/transform_stamped.hpp:
-
-/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/rosidl_generator_cpp__visibility_control.hpp:
-
-/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__builder.hpp:
-
-/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/point.hpp:
-
 /opt/ros/humble/include/visualization_msgs/visualization_msgs/msg/rosidl_generator_cpp__visibility_control.hpp:
 
 /opt/ros/humble/include/visualization_msgs/visualization_msgs/msg/detail/mesh_file__traits.hpp:
@@ -1011,6 +1025,14 @@ CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publi
 /opt/ros/humble/include/visualization_msgs/visualization_msgs/msg/detail/marker_array__struct.hpp:
 
 /opt/ros/humble/include/visualization_msgs/visualization_msgs/msg/marker_array.hpp:
+
+/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/include/px4_msgs/px4_msgs/msg/detail/vehicle_command__traits.hpp:
+
+/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/point32.hpp:
+
+/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/include/px4_msgs/px4_msgs/msg/detail/vehicle_command__builder.hpp:
+
+/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/include/px4_msgs/px4_msgs/msg/vehicle_command.hpp:
 
 /opt/ros/humble/include/rclcpp/rclcpp/wait_set_policies/thread_safe_synchronization.hpp:
 
@@ -1542,6 +1564,8 @@ CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publi
 
 /opt/ros/humble/include/rclcpp/rclcpp/event.hpp:
 
+/opt/ros/humble/include/tf2/tf2/utils.h:
+
 /usr/include/c++/11/unordered_set:
 
 /usr/include/strings.h:
@@ -1561,6 +1585,8 @@ CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publi
 /opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/detail/describe_parameters__struct.hpp:
 
 /opt/ros/humble/include/libstatistics_collector/libstatistics_collector/moving_average_statistics/types.hpp:
+
+/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/include/px4_msgs/px4_msgs/msg/rosidl_generator_cpp__visibility_control.hpp:
 
 /usr/include/locale.h:
 
@@ -1860,6 +1886,8 @@ CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publi
 
 /usr/include/c++/11/iterator:
 
+/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/include/px4_msgs/px4_msgs/msg/detail/vehicle_command__type_support.hpp:
+
 /usr/include/c++/11/bits/exception.h:
 
 /opt/ros/humble/include/rclcpp/rclcpp/detail/subscription_callback_type_helper.hpp:
@@ -1907,6 +1935,8 @@ CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publi
 /usr/include/x86_64-linux-gnu/bits/floatn-common.h:
 
 /usr/include/c++/11/bits/stl_algobase.h:
+
+/opt/ros/humble/include/tf2/tf2/utils.hpp:
 
 /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/point_stamped.hpp:
 
@@ -1975,6 +2005,8 @@ CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publi
 /usr/include/c++/11/bits/std_mutex.h:
 
 /usr/include/c++/11/bits/node_handle.h:
+
+/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/quaternion__builder.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
 
@@ -2230,6 +2262,8 @@ CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publi
 
 /opt/ros/humble/include/rmw/rmw/event_callback_type.h:
 
+/opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/quaternion__type_support.hpp:
+
 /opt/ros/humble/include/rcl/rcl/node.h:
 
 /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3_stamped__struct.hpp:
@@ -2373,6 +2407,8 @@ CMakeFiles/gimbal_target_publisher.dir/src/examples/offboard/gimbal_target_publi
 /opt/ros/humble/include/rclcpp/rclcpp/experimental/ros_message_intra_process_buffer.hpp:
 
 /opt/ros/humble/include/rosidl_runtime_cpp/rosidl_runtime_cpp/bounded_vector.hpp:
+
+/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_msgs/include/px4_msgs/px4_msgs/msg/detail/vehicle_command__struct.hpp:
 
 /opt/ros/humble/include/rcl_interfaces/rcl_interfaces/srv/describe_parameters.hpp:
 

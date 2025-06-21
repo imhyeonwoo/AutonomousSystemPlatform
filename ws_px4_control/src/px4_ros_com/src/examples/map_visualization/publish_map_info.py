@@ -84,7 +84,7 @@ class MapInfoPublisher(Node):
             m.pose.orientation.y = qy
             m.pose.orientation.z = qz
             m.pose.orientation.w = qw
-            m.scale.x = m.scale.y = 2.0       # 20 cm 정사각형
+            m.scale.x = m.scale.y = 1.0       # 20 cm 정사각형
             m.scale.z = 0.005                  # 5 mm 두께
             m.color.r = 0.0
             m.color.g = 1.0
