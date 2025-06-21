@@ -8,7 +8,7 @@ ROS 기반 자율주행 시뮬레이션 통합 플랫폼입니다.
 
 ## 📁 프로젝트 구조
 
-```
+
 AutonomousVehiclePlatform/
 ├── PX4-Autopilot_ASP/             # PX4 기반 드론 시뮬레이션
 ├── ws_aruco/                      # ArUco 마커 기반 위치 인식
