@@ -1,5 +1,0 @@
-# signature from original file location
-OVERRIDE_SIGNATURE 0x4E2D
-
-uint8[<=3] payload
-

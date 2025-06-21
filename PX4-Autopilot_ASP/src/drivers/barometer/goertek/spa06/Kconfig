@@ -1,5 +1,0 @@
-menuconfig DRIVERS_BAROMETER_GOERTEK_SPA06
-	bool "spa06"
-	default n
-	---help---
-		Enable support for spa06
