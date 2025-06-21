@@ -1,8 +1,8 @@
-// gimbal_target_publisher.cpp (Final Corrected Version)
+// gimbal_target_publisher.cpp (Final Corrected Version with TF Ready Check)
 //
 // 기능:
-// 1. 가장 가까운 마커를 탐색
-// 2. 드론/카메라/마커의 ENU 좌표를 기반으로 짐벌의 목표 Pitch/Yaw 각도를 직접 계산
+// 1. TF 데이터가 준비될 때까지 안전하게 대기하는 로직 추가
+// 2. 가장 가까운 마커를 탐색하여 짐벌의 목표 Pitch/Yaw 각도를 직접 계산
 // 3. Pitch/Yaw 각도 정의 및 관습 차이를 보정하여 MAVLINK_TARGETING 모드로 짐벌 제어
 // 4. RViz와 터미널을 통한 디버깅 기능 유지
 
@@ -75,13 +75,22 @@ private:
   uint64_t usec() { return get_clock()->now().nanoseconds() / 1000ULL; }
 
   void onTimer() {
+    // =========================== TF READY CHECK ===========================
+    // TF 버퍼에 필요한 좌표계 정보가 수신될 때까지 안전하게 대기한다.
+    if (!tf_buf_.canTransform(map_frame_, base_frame_, tf2::TimePointZero) ||
+        !tf_buf_.canTransform(map_frame_, cam_frame_, tf2::TimePointZero)) {
+      RCLCPP_INFO_ONCE(get_logger(), "Waiting for required transforms to become available...");
+      return;
+    }
+    // ======================================================================
+
     // 1. 필요한 모든 위치/자세 정보 수집 (map 좌표계 기준)
     geometry_msgs::msg::TransformStamped tf_drone, tf_cam;
     try {
-      tf_drone = tf_buf_.lookupTransform(map_frame_, base_frame_, tf2::TimePointZero, 20ms);
-      tf_cam = tf_buf_.lookupTransform(map_frame_, cam_frame_, tf2::TimePointZero, 20ms);
+      tf_drone = tf_buf_.lookupTransform(map_frame_, base_frame_, tf2::TimePointZero);
+      tf_cam = tf_buf_.lookupTransform(map_frame_, cam_frame_, tf2::TimePointZero);
     } catch (const tf2::TransformException& ex) {
-      RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 2000, "TF lookup failed: %s", ex.what());
+      RCLCPP_ERROR(get_logger(), "Could not transform: %s", ex.what());
       return;
     }
 
@@ -99,51 +108,37 @@ private:
     if (!best_marker) return;
 
     // 3. 짐벌의 목표 Pitch/Yaw 각도 계산
-    // 3.1 드론의 현재 Yaw 각도 (map 기준)
     tf2::Quaternion q_drone;
     tf2::fromMsg(tf_drone.transform.rotation, q_drone);
     double drone_roll, drone_pitch, drone_yaw;
     tf2::Matrix3x3(q_drone).getRPY(drone_roll, drone_pitch, drone_yaw);
 
-    // 3.2 카메라->마커 방향 벡터 (map 기준)
     const double vec_e = best_marker->e - cam_e;
     const double vec_n = best_marker->n - cam_n;
     const double vec_u = best_marker->u - cam_u;
 
-    // 3.3 목표 Pitch 각도 계산 (Up: +, Down: -)
     const double horizontal_dist = std::hypot(vec_e, vec_n);
-    // =========================== PITCH FIX ===========================
-    // 표준 Pitch 정의(위를 보면 +, 아래를 보면 -)에 맞는 올바른 공식
     double target_pitch_rad = std::atan2(vec_u, horizontal_dist); 
-    // =================================================================
 
-    // 3.4 목표 Yaw 각도 계산
-    // 월드 기준 목표 Yaw (East=0, North=PI/2, CCW+)
     double target_world_yaw_rad = std::atan2(vec_n, vec_e);
-    // 드론 기준 상대 Yaw
     double target_body_yaw_rad = target_world_yaw_rad - drone_yaw;
     
-    // Yaw 각도를 -PI ~ PI 범위로 정규화
     while (target_body_yaw_rad > M_PI) target_body_yaw_rad -= 2.0 * M_PI;
     while (target_body_yaw_rad < -M_PI) target_body_yaw_rad += 2.0 * M_PI;
 
-    // 3.5 라디안을 도로 변환
     double gimbal_pitch_deg = target_pitch_rad * 180.0 / M_PI;
-    // =========================== YAW FIX ===========================
-    // PX4/MAVLink의 Yaw 관습(시계방향 CW+)에 맞추기 위해 부호를 뒤집는다.
     double gimbal_yaw_deg = -target_body_yaw_rad * 180.0 / M_PI;
-    // ===============================================================
 
     // 4. 제어 명령 전송 (직접 각도 제어 모드)
     px4_msgs::msg::VehicleCommand cmd{};
     cmd.timestamp = usec();
     cmd.target_system = 1;
-    cmd.target_component = 1; // 또는 짐벌 컴포넌트 ID 154
-    cmd.command = px4_msgs::msg::VehicleCommand::VEHICLE_CMD_DO_MOUNT_CONTROL; // 205
-    cmd.param1 = gimbal_pitch_deg;  // Pitch (deg)
-    cmd.param2 = 0.0;               // Roll (deg) - 보통 0
-    cmd.param3 = gimbal_yaw_deg;    // Yaw (deg) - 드론 기준 상대 각도
-    cmd.param7 = 2.0;               // MAV_MOUNT_MODE_MAVLINK_TARGETING
+    cmd.target_component = 1;
+    cmd.command = px4_msgs::msg::VehicleCommand::VEHICLE_CMD_DO_MOUNT_CONTROL;
+    cmd.param1 = gimbal_pitch_deg;
+    cmd.param2 = 0.0;
+    cmd.param3 = gimbal_yaw_deg;
+    cmd.param7 = 2.0;
     cmd_pub_->publish(cmd);
 
     // 5. 디버깅 정보 시각화 및 로깅

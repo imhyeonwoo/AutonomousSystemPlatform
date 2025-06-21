@@ -2,3 +2,4 @@
 broadcast = opencv_tests.broadcast:main
 rosfacedetect = opencv_tests.rosfacedetect:main
 source = opencv_tests.source:main
+

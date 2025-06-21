@@ -29,7 +29,7 @@ include_directories(
 )
 
 # 실행 파일 추가
-# -------------------multi_tracker_node-------------------
+# -------------------(1) multi_tracker_node-------------------
 add_executable(multi_tracker_node src/multi_tracker_node.cpp)
 ament_target_dependencies(multi_tracker_node
   rclcpp
@@ -44,14 +44,6 @@ ament_target_dependencies(multi_tracker_node
   tf2_geometry_msgs
 )
 
-# --------------------aruco pose_node--------------------
-add_executable(aruco_pose_node src/aruco_pose_node.cpp)
-ament_target_dependencies(aruco_pose_node
-  rclcpp sensor_msgs geometry_msgs std_msgs
-  OpenCV cv_bridge tf2 tf2_ros tf2_geometry_msgs)
-
-
-install(TARGETS aruco_pose_node DESTINATION lib/${PROJECT_NAME})
 
 
 # 런치 설정
