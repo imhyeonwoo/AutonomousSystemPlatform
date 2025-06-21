@@ -1,9 +1,9 @@
-// gimbal_target_publisher.cpp (Direct Angle Control Version)
+// gimbal_target_publisher.cpp (Final Corrected Version)
 //
 // 기능:
 // 1. 가장 가까운 마커를 탐색
 // 2. 드론/카메라/마커의 ENU 좌표를 기반으로 짐벌의 목표 Pitch/Yaw 각도를 직접 계산
-// 3. 계산된 각도를 사용하여 MAVLINK_TARGETING 모드(param7=2.0)로 짐벌을 제어
+// 3. Pitch/Yaw 각도 정의 및 관습 차이를 보정하여 MAVLINK_TARGETING 모드로 짐벌 제어
 // 4. RViz와 터미널을 통한 디버깅 기능 유지
 
 #include <rclcpp/rclcpp.hpp>
@@ -52,7 +52,7 @@ public:
     cmd_pub_ = create_publisher<px4_msgs::msg::VehicleCommand>("/fmu/in/vehicle_command", 10);
     arrow_pub_ = create_publisher<visualization_msgs::msg::MarkerArray>("gimbal_arrow", vis_qos);
 
-    timer_ = create_wall_timer(50ms, [this]{ onTimer(); }); // 제어 주기를 50ms로 단축하여 반응성 향상
+    timer_ = create_wall_timer(50ms, [this]{ onTimer(); });
 
     RCLCPP_INFO(get_logger(), "Gimbal Direct Angle Controller started.");
   }
@@ -110,12 +110,15 @@ private:
     const double vec_n = best_marker->n - cam_n;
     const double vec_u = best_marker->u - cam_u;
 
-    // 3.3 목표 Pitch 각도 계산
+    // 3.3 목표 Pitch 각도 계산 (Up: +, Down: -)
     const double horizontal_dist = std::hypot(vec_e, vec_n);
-    double target_pitch_rad = -std::atan2(-vec_u, horizontal_dist);
+    // =========================== PITCH FIX ===========================
+    // 표준 Pitch 정의(위를 보면 +, 아래를 보면 -)에 맞는 올바른 공식
+    double target_pitch_rad = std::atan2(vec_u, horizontal_dist); 
+    // =================================================================
 
     // 3.4 목표 Yaw 각도 계산
-    // 월드 기준 목표 Yaw (East=0, North=PI/2)
+    // 월드 기준 목표 Yaw (East=0, North=PI/2, CCW+)
     double target_world_yaw_rad = std::atan2(vec_n, vec_e);
     // 드론 기준 상대 Yaw
     double target_body_yaw_rad = target_world_yaw_rad - drone_yaw;
@@ -126,7 +129,10 @@ private:
 
     // 3.5 라디안을 도로 변환
     double gimbal_pitch_deg = target_pitch_rad * 180.0 / M_PI;
-    double gimbal_yaw_deg = target_body_yaw_rad * 180.0 / M_PI;
+    // =========================== YAW FIX ===========================
+    // PX4/MAVLink의 Yaw 관습(시계방향 CW+)에 맞추기 위해 부호를 뒤집는다.
+    double gimbal_yaw_deg = -target_body_yaw_rad * 180.0 / M_PI;
+    // ===============================================================
 
     // 4. 제어 명령 전송 (직접 각도 제어 모드)
     px4_msgs::msg::VehicleCommand cmd{};
@@ -141,7 +147,6 @@ private:
     cmd_pub_->publish(cmd);
 
     // 5. 디버깅 정보 시각화 및 로깅
-    // RViz 화살표 (이전과 동일)
     visualization_msgs::msg::MarkerArray arr;
     visualization_msgs::msg::Marker arrow;
     arrow.header.frame_id = map_frame_;
@@ -158,7 +163,6 @@ private:
     arr.markers.push_back(arrow);
     arrow_pub_->publish(arr);
 
-    // 터미널 로그
     RCLCPP_INFO_THROTTLE(get_logger(), *get_clock(), 1000, 
         "Target: %s | Cmd (P,Y): (%.1f, %.1f) deg",
         best_marker->name.c_str(), gimbal_pitch_deg, gimbal_yaw_deg);
