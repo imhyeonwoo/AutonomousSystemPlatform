@@ -1,15 +1,9 @@
-// gimbal_target_publisher.cpp (Final Corrected Version with Stability Fix)
-//
-// 기능:
-// 1. 제어 루프 안정성 확보: 목표 벡터 계산 기준점을 '드론 중심'으로 변경하여 피드백 루프 발산 문제 해결
-// 2. TF 데이터가 준비될 때까지 안전하게 대기하는 로직 추가
-// 3. 가장 가까운 마커를 탐색하여 짐벌의 목표 Pitch/Yaw 각도를 직접 계산
-// 4. Pitch/Yaw 각도 정의 및 관습 차이를 보정하여 MAVLINK_TARGETING 모드로 짐벌 제어
-// 5. RViz와 터미널을 통한 디버깅 기능 유지
+// gimbal_target_publisher.cpp (Build Fix Final Version)
 
 #include <rclcpp/rclcpp.hpp>
 #include <px4_msgs/msg/vehicle_command.hpp>
 #include <visualization_msgs/msg/marker_array.hpp>
+#include <std_msgs/msg/string.hpp>
 
 #include <tf2_ros/buffer.h>
 #include <tf2_ros/transform_listener.h>
@@ -32,7 +26,7 @@ class GimbalAngleController : public rclcpp::Node {
 public:
   GimbalAngleController() : Node("gimbal_target_publisher"), tf_buf_(this->get_clock()), tf_lis_(tf_buf_) {
     declare_parameter("map_frame", "map");
-    declare_parameter("base_frame", "x500_gimbal_0"); // 드론의 베이스 프레임
+    declare_parameter("base_frame", "x500_gimbal_0");
     declare_parameter("camera_frame", "x500_gimbal_0/camera_link");
     declare_parameter("marker_csv", "");
 
@@ -52,6 +46,15 @@ public:
 
     cmd_pub_ = create_publisher<px4_msgs::msg::VehicleCommand>("/fmu/in/vehicle_command", 10);
     arrow_pub_ = create_publisher<visualization_msgs::msg::MarkerArray>("gimbal_arrow", vis_qos);
+
+    mode_sub_ = this->create_subscription<std_msgs::msg::String>(
+        "/gimbal_mode", 10,
+        [this](const std_msgs::msg::String::SharedPtr msg){
+            if (this->current_gimbal_mode_ != msg->data) {
+                RCLCPP_INFO(this->get_logger(), "Gimbal mode changed to: %s", msg->data.c_str());
+            }
+            this->current_gimbal_mode_ = msg->data;
+        });
 
     timer_ = create_wall_timer(50ms, [this]{ onTimer(); });
 
@@ -76,12 +79,24 @@ private:
   uint64_t usec() { return get_clock()->now().nanoseconds() / 1000ULL; }
 
   void onTimer() {
+    if (current_gimbal_mode_ == "LOOK_DOWN") {
+        px4_msgs::msg::VehicleCommand cmd{};
+        cmd.timestamp = usec();
+        cmd.target_system = 1; cmd.target_component = 1;
+        cmd.command = px4_msgs::msg::VehicleCommand::VEHICLE_CMD_DO_MOUNT_CONTROL;
+        cmd.param1 = -90.0f;
+        cmd.param3 = 0.0f;
+        cmd.param7 = 2.0f;
+        cmd_pub_->publish(cmd);
+        return;
+    }
+
     if (!tf_buf_.canTransform(map_frame_, base_frame_, tf2::TimePointZero) ||
         !tf_buf_.canTransform(map_frame_, cam_frame_, tf2::TimePointZero)) {
       RCLCPP_INFO_ONCE(get_logger(), "Waiting for required transforms to become available...");
       return;
     }
-
+    
     geometry_msgs::msg::TransformStamped tf_drone, tf_cam;
     try {
       tf_drone = tf_buf_.lookupTransform(map_frame_, base_frame_, tf2::TimePointZero);
@@ -91,7 +106,6 @@ private:
       return;
     }
 
-    // 가장 가까운 목표 마커 선택 (카메라 기준)
     const double cam_e = tf_cam.transform.translation.x;
     const double cam_n = tf_cam.transform.translation.y;
     const double cam_u = tf_cam.transform.translation.z;
@@ -104,22 +118,16 @@ private:
     }
     if (!best_marker) return;
 
-    // 3. 짐벌의 목표 Pitch/Yaw 각도 계산
     tf2::Quaternion q_drone;
     tf2::fromMsg(tf_drone.transform.rotation, q_drone);
     double drone_roll, drone_pitch, drone_yaw;
     tf2::Matrix3x3(q_drone).getRPY(drone_roll, drone_pitch, drone_yaw);
 
-    // ================== 안정성 수정: 벡터 계산 기준점 변경 ==================
-    // 수평 벡터(E, N)는 안정적인 '드론 중심'을 기준으로 계산
     const double drone_e = tf_drone.transform.translation.x;
     const double drone_n = tf_drone.transform.translation.y;
     const double vec_e = best_marker->e - drone_e;
     const double vec_n = best_marker->n - drone_n;
-
-    // 수직 벡터(U)는 실제 높이 차이가 중요하므로 '카메라' 기준을 유지
     const double vec_u = best_marker->u - cam_u;
-    // =====================================================================
 
     const double horizontal_dist = std::hypot(vec_e, vec_n);
     double target_pitch_rad = std::atan2(vec_u, horizontal_dist); 
@@ -133,7 +141,6 @@ private:
     double gimbal_pitch_deg = target_pitch_rad * 180.0 / M_PI;
     double gimbal_yaw_deg = -target_body_yaw_rad * 180.0 / M_PI;
 
-    // 4. 제어 명령 전송
     px4_msgs::msg::VehicleCommand cmd{};
     cmd.timestamp = usec();
     cmd.target_system = 1;
@@ -145,7 +152,6 @@ private:
     cmd.param7 = 2.0;
     cmd_pub_->publish(cmd);
 
-    // 5. 디버깅 시각화 (카메라->마커 화살표는 그대로 유지하여 직관성 확보)
     visualization_msgs::msg::MarkerArray arr;
     visualization_msgs::msg::Marker arrow;
     arrow.header.frame_id = map_frame_;
@@ -170,7 +176,11 @@ private:
   // Member variables
   std::vector<Marker> markers_;
   rclcpp::Publisher<px4_msgs::msg::VehicleCommand>::SharedPtr cmd_pub_;
+  // =========================== 오타 수정 ===========================
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr arrow_pub_;
+  // ===============================================================
+  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr mode_sub_;
+  std::string current_gimbal_mode_ = "TRACK";
   rclcpp::TimerBase::SharedPtr timer_;
   tf2_ros::Buffer tf_buf_;
   tf2_ros::TransformListener tf_lis_;
