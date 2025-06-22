@@ -56,10 +56,14 @@ source install/setup.bash
 
 ```bash
 # ArUco 마커 추적 노드 실행
-ros2 launch multi_tracker x1_aruco_detector.launch.py
+cd ws_aruco
+source install/setup.bash
+ros2 launch multi_tracker x500_aruco_detector.launch.py
 
 # PX4 오프보드 제어 실행
-ros2 run ofb_ctrl offboard_control.py
+cd ws_px4_control
+source install/setup.bash
+ros2 run px4_ros_com offboard_waypoint_trigger
 ```
 
 ---
@@ -71,7 +75,7 @@ ros2 run ofb_ctrl offboard_control.py
 | OS              | Ubuntu 22.04           |
 | ROS             | ROS2 Humble            |
 | 시뮬레이터      | Gazebo Classic         |
-| PX4 펌웨어      | PX4-Autopilot (custom) |
+| PX4 펌웨어      | PX4-Autopilot_ASP (custom) |
 | 언어            | Python 3.10 / C++17    |
 
 ---
