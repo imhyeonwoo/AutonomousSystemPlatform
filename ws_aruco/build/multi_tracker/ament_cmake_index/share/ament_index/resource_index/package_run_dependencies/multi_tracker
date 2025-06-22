@@ -1,1 +1,1 @@
-rclcpp;sensor_msgs;geometry_msgs;std_msgs;OpenCV;cv_bridge;Eigen3;image_transport;ament_lint_auto;ament_lint_common
+rclcpp;sensor_msgs;geometry_msgs;std_msgs;OpenCV;cv_bridge;Eigen3;image_transport;visualization_msgs;ament_lint_auto;ament_lint_common

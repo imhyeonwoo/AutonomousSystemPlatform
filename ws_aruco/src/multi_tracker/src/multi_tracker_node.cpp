@@ -1,15 +1,21 @@
-// ws_aruco/src/multi_tracker/src/simple_marker_tracker.cpp
-// 개선판 SimpleMarkerTracker + 이미지 오버레이 / 가공영상 퍼블리시 추가
+// simple_marker_tracker.cpp (Final Corrected Version for Non-Standard Camera Frame)
+//
+// 기능:
+// 1. Gazebo의 비표준 카메라 좌표계(-X가 전방)를 정확히 반영하여 좌표 변환 수행
+// 2. 실시간 TF를 사용하여 짐벌의 움직임을 반영
+// 3. 카메라로 Aruco 마커를 인식하여 'map' 기준의 정확한 절대좌표(ENU)를 계산 및 발행
+// 4. 감지된 마커 위치에 좌표 텍스트 라벨(Marker)을 RViz에 발행 (추가된 기능)
 
 #include <memory>
-#include <unordered_map>
+#include <string>
+#include <vector>
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/image.hpp"
 #include "sensor_msgs/msg/camera_info.hpp"
 #include "geometry_msgs/msg/pose_stamped.hpp"
 #include "geometry_msgs/msg/point_stamped.hpp"
 #include "std_msgs/msg/int32.hpp"
-#include "tf2_msgs/msg/tf_message.hpp"
+#include "visualization_msgs/msg/marker.hpp"  // ===== 수정/추가된 부분 =====
 
 #include "cv_bridge/cv_bridge.h"
 #include "sensor_msgs/image_encodings.hpp"
@@ -17,7 +23,8 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/calib3d.hpp>
 
-#include <tf2/LinearMath/Transform.h>
+#include <tf2_ros/buffer.h>
+#include <tf2_ros/transform_listener.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 
 class SimpleMarkerTracker : public rclcpp::Node
@@ -25,224 +32,196 @@ class SimpleMarkerTracker : public rclcpp::Node
 public:
   SimpleMarkerTracker()
   : Node("x500_aruco_detector"),
-    static_pose_received_(false)
+    tf_buffer_(this->get_clock()),
+    tf_listener_(tf_buffer_)
   {
-    // ──────────────────────── 파라미터 선언 & 읽기 ────────────────────────
-    declare_parameter<std::string>("image_topic",
-        "/world/default/model/x500_gimbal_0/link/camera_link/sensor/camera/image");
-    declare_parameter<std::string>("pose_static_topic",
-        "/model/x500_gimbal_0/pose_static");
-    declare_parameter<std::string>("camera_info_topic",
-        "/world/default/model/x500_gimbal_0/link/camera_link/sensor/camera/camera_info");
-    declare_parameter<std::string>("pose_topic",   "/marker_pose");
-    declare_parameter<std::string>("id_topic",     "/marker_id");
+    // 파라미터 선언 및 읽기
+    declare_parameter<std::string>("image_topic", "/world/default/model/x500_gimbal_0/link/camera_link/sensor/camera/image");
+    declare_parameter<std::string>("camera_info_topic", "/world/default/model/x500_gimbal_0/link/camera_link/sensor/camera/camera_info");
+    declare_parameter<std::string>("camera_frame", "x500_gimbal_0/camera_link");
+    declare_parameter<std::string>("map_frame", "map");
+    declare_parameter<std::string>("pose_topic", "/marker_pose");
+    declare_parameter<std::string>("id_topic", "/marker_id");
     declare_parameter<std::string>("enu_point_topic", "/marker_enu_point");
+    declare_parameter<std::string>("text_marker_topic", "/marker_label"); // ===== 수정/추가된 부분 =====
     declare_parameter<std::string>("image_proc_topic", "/marker/image_proc");
-    declare_parameter<int>("aruco_dict_id",        cv::aruco::DICT_4X4_50);
-    declare_parameter<double>("marker_size",       0.25);
-    declare_parameter<double>("ema_alpha",         1.0);
+    declare_parameter<int>("aruco_dict_id", cv::aruco::DICT_4X4_50);
+    declare_parameter<double>("marker_size", 0.25);
 
-    get_parameter("image_topic",         image_topic_);
-    get_parameter("pose_static_topic",   pose_static_topic_);
-    get_parameter("camera_info_topic",   camera_info_topic_);
-    get_parameter("pose_topic",          pose_topic_);
-    get_parameter("id_topic",            id_topic_);
-    get_parameter("enu_point_topic",     enu_point_topic_);
-    get_parameter("image_proc_topic",    image_proc_topic_);
-    get_parameter("aruco_dict_id",       dict_id_);
-    get_parameter("marker_size",         marker_size_);
-    get_parameter("ema_alpha",           ema_alpha_);
+    get_parameter("image_topic", image_topic_);
+    get_parameter("camera_info_topic", camera_info_topic_);
+    get_parameter("camera_frame", camera_frame_);
+    get_parameter("map_frame", map_frame_);
+    get_parameter("pose_topic", pose_topic_);
+    get_parameter("id_topic", id_topic_);
+    get_parameter("enu_point_topic", enu_point_topic_);
+    get_parameter("text_marker_topic", text_marker_topic_); // ===== 수정/추가된 부분 =====
+    get_parameter("image_proc_topic", image_proc_topic_);
+    get_parameter("dict_id", dict_id_);
+    get_parameter("marker_size", marker_size_);
 
-    // ──────────────────────────── QoS 설정 ────────────────────────────
-    auto img_qos  = rclcpp::SensorDataQoS(rclcpp::KeepLast(5));
-    auto pose_qos = rclcpp::QoS(rclcpp::KeepLast(10)).reliable();
+    // QoS 설정
+    auto img_qos  = rclcpp::SensorDataQoS(rclcpp::KeepLast(1));
+    auto default_qos = rclcpp::QoS(rclcpp::KeepLast(10)).reliable();
 
-    // ─────────────────────────── 구독자 ────────────────────────────────
+    // 구독자
     img_sub_ = create_subscription<sensor_msgs::msg::Image>(
-      image_topic_, img_qos,
-      std::bind(&SimpleMarkerTracker::imageCb, this, std::placeholders::_1));
+      image_topic_, img_qos, std::bind(&SimpleMarkerTracker::imageCb, this, std::placeholders::_1));
     cam_info_sub_ = create_subscription<sensor_msgs::msg::CameraInfo>(
-      camera_info_topic_, pose_qos,
-      std::bind(&SimpleMarkerTracker::camInfoCb, this, std::placeholders::_1));
-    pose_static_sub_ = create_subscription<tf2_msgs::msg::TFMessage>(
-      pose_static_topic_, pose_qos,
-      std::bind(&SimpleMarkerTracker::poseStaticCb, this, std::placeholders::_1));
+      camera_info_topic_, default_qos, std::bind(&SimpleMarkerTracker::camInfoCb, this, std::placeholders::_1));
 
-    // ───────────────────────── 퍼블리셔 ────────────────────────────────
-    pose_pub_ = create_publisher<geometry_msgs::msg::PoseStamped>(pose_topic_, pose_qos);
-    id_pub_   = create_publisher<std_msgs::msg::Int32>(id_topic_, pose_qos);
-    enu_pub_  = create_publisher<geometry_msgs::msg::PointStamped>(enu_point_topic_, pose_qos);
+    // 퍼블리셔
+    pose_pub_ = create_publisher<geometry_msgs::msg::PoseStamped>(pose_topic_, default_qos);
+    id_pub_   = create_publisher<std_msgs::msg::Int32>(id_topic_, default_qos);
+    enu_pub_  = create_publisher<geometry_msgs::msg::PointStamped>(enu_point_topic_, default_qos);
+    text_marker_pub_ = create_publisher<visualization_msgs::msg::Marker>(text_marker_topic_, default_qos); // ===== 수정/추가된 부분 =====
     img_pub_  = create_publisher<sensor_msgs::msg::Image>(image_proc_topic_, img_qos);
 
-    // ───────────────────────── ArUco 설정 ─────────────────────────────
+    // ArUco 설정
     dict_   = cv::aruco::getPredefinedDictionary(dict_id_);
     params_ = cv::aruco::DetectorParameters::create();
-    params_->cornerRefinementMethod        = cv::aruco::CORNER_REFINE_SUBPIX;
-    params_->cornerRefinementWinSize       = 5;
-    params_->cornerRefinementMaxIterations = 30;
+    params_->cornerRefinementMethod = cv::aruco::CORNER_REFINE_NONE;
 
-    RCLCPP_INFO(get_logger(),
-      "SimpleMarkerTracker ready (dict=%d, size=%.2f m). Processed images on '%s'",
-      dict_id_, marker_size_, image_proc_topic_.c_str());
+    RCLCPP_INFO(this->get_logger(), "Aruco Absolute Pose Estimator ready.");
   }
 
 private:
-  // ──────────────────────── 멤버 변수 ─────────────────────────────
-  // 구독 & 퍼블리시
-  rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr      img_sub_;
+  // 멤버 변수
+  rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr img_sub_;
   rclcpp::Subscription<sensor_msgs::msg::CameraInfo>::SharedPtr cam_info_sub_;
-  rclcpp::Subscription<tf2_msgs::msg::TFMessage>::SharedPtr     pose_static_sub_;
   rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr pose_pub_;
-  rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr            id_pub_;
+  rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr id_pub_;
   rclcpp::Publisher<geometry_msgs::msg::PointStamped>::SharedPtr enu_pub_;
-  rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr         img_pub_;
+  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr text_marker_pub_; // ===== 수정/추가된 부분 =====
+  rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr img_pub_;
 
-  // 파라미터 값
-  std::string image_topic_, pose_static_topic_, camera_info_topic_;
-  std::string pose_topic_, id_topic_, enu_point_topic_, image_proc_topic_;
-  int    dict_id_;
-  double marker_size_, ema_alpha_;
+  tf2_ros::Buffer tf_buffer_;
+  tf2_ros::TransformListener tf_listener_;
 
-  // 카메라 보정
+  std::string image_topic_, camera_info_topic_, camera_frame_, map_frame_;
+  std::string pose_topic_, id_topic_, enu_point_topic_, text_marker_topic_, image_proc_topic_;
+  int dict_id_;
+  double marker_size_;
+
   cv::Mat K_, D_;
-
-  // ArUco
-  cv::Ptr<cv::aruco::Dictionary>        dict_;
+  cv::Ptr<cv::aruco::Dictionary> dict_;
   cv::Ptr<cv::aruco::DetectorParameters> params_;
 
-  // map→camera static transform
-  tf2::Transform T_map_camera_;
-  bool           static_pose_received_;
-
-  // ──────────────────────── 콜백 함수 ──────────────────────────────
   void camInfoCb(const sensor_msgs::msg::CameraInfo::SharedPtr msg)
   {
-    if (!K_.empty()) return;
-    K_ = cv::Mat(3,3,CV_64F,const_cast<double*>(msg->k.data())).clone();
-    D_ = cv::Mat(msg->d.size(),1,CV_64F,const_cast<double*>(msg->d.data())).clone();
-    RCLCPP_INFO(get_logger(),"Camera intrinsics set");
-  }
-
-  void poseStaticCb(const tf2_msgs::msg::TFMessage::SharedPtr msg)
-  {
-    for (const auto &stamped : msg->transforms) {
-      if (stamped.child_frame_id == "x500_gimbal_0") {
-        const auto &t = stamped.transform;
-        T_map_camera_.setOrigin({t.translation.x, t.translation.y, t.translation.z});
-        T_map_camera_.setRotation({t.rotation.x, t.rotation.y, t.rotation.z, t.rotation.w});
-        static_pose_received_ = true;
-        // RCLCPP_INFO(get_logger(),"Received static transform map→camera");
-        break;
-      }
+    if (K_.empty()) {
+      K_ = cv::Mat(3,3,CV_64F,const_cast<double*>(msg->k.data())).clone();
+      D_ = cv::Mat(msg->d.size(),1,CV_64F,const_cast<double*>(msg->d.data())).clone();
+      RCLCPP_INFO(get_logger(),"Camera intrinsics received.");
     }
   }
 
   void imageCb(const sensor_msgs::msg::Image::SharedPtr msg)
   {
-    if (!static_pose_received_ || K_.empty()) {
-      return; // 필수 정보가 아직 없음
+    if (K_.empty()) {
+      RCLCPP_WARN_ONCE(get_logger(), "Waiting for camera info...");
+      return;
     }
 
-    // CvImage 변환 (항상 BGR8 로 변환)
+    geometry_msgs::msg::TransformStamped tf_map_to_cam;
+    try {
+      tf_map_to_cam = tf_buffer_.lookupTransform(map_frame_, camera_frame_, tf2::TimePointZero);
+    } catch (const tf2::TransformException & ex) {
+      RCLCPP_WARN(get_logger(), "Could not transform %s to %s: %s",
+        map_frame_.c_str(), camera_frame_.c_str(), ex.what());
+      return;
+    }
+
     auto cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
 
-    // ───── ArUco 검출 ─────
     std::vector<int> ids;
     std::vector<std::vector<cv::Point2f>> corners;
     cv::aruco::detectMarkers(cv_ptr->image, dict_, corners, ids, params_);
-
-    // 마커 외곽선 그리기 (검출 실패해도 draw 함수는 안전)
-    cv::aruco::drawDetectedMarkers(cv_ptr->image, corners, ids);
-
+    
     if (!ids.empty()) {
-      // 자세 추정
       std::vector<cv::Vec3d> rvecs, tvecs;
       cv::aruco::estimatePoseSingleMarkers(corners, marker_size_, K_, D_, rvecs, tvecs);
 
-      // 카메라 원점(map 좌표)
-      const double cx = T_map_camera_.getOrigin().x();
-      const double cy = T_map_camera_.getOrigin().y();
-      const double cz = T_map_camera_.getOrigin().z();
-
       for (size_t i = 0; i < ids.size(); ++i) {
-        int id = ids[i];
+        tf2::Vector3 t_vec_in_cam_frame(-tvecs[i][2], tvecs[i][0], -tvecs[i][1]);
+        
+        tf2::Transform T_map_to_cam;
+        tf2::fromMsg(tf_map_to_cam.transform, T_map_to_cam);
+        
+        tf2::Vector3 V_offset_in_map = T_map_to_cam.getBasis() * t_vec_in_cam_frame;
+        tf2::Vector3 P_marker_in_map = T_map_to_cam.getOrigin() + V_offset_in_map;
 
-        // camera→marker 변환
-        tf2::Transform T_cam_marker = toTf(rvecs[i], tvecs[i]);
-        tf2::Vector3 cam_vec = T_cam_marker.getOrigin();
-
-        // 좌표계 맞춤 (x+, y-, z-)
-        double out_x = cx + cam_vec.x();
-        double out_y = cy - cam_vec.y();
-        double out_z = cz - cam_vec.z();
-
-        // ───── 퍼블리시 ─────
-        publishData(msg->header.stamp, id, out_x, out_y, out_z, T_cam_marker);
-
-        // ───── 이미지 오버레이 ─────
+        publishData(msg->header.stamp, ids[i], P_marker_in_map);
+        
+        cv::aruco::drawDetectedMarkers(cv_ptr->image, corners, ids);
         cv::aruco::drawAxis(cv_ptr->image, K_, D_, rvecs[i], tvecs[i], marker_size_ * 0.5);
-
-        // 좌표 텍스트
         char buf[128];
-        std::snprintf(buf, sizeof(buf), "ID:%d  X:%.2f  Y:%.2f  Z:%.2f", id, out_x, out_y, out_z);
+        std::snprintf(buf, sizeof(buf), "ID:%d E:%.2f N:%.2f U:%.2f", ids[i],
+            P_marker_in_map.x(), P_marker_in_map.y(), P_marker_in_map.z());
         cv::putText(cv_ptr->image, buf, {10, 30 + static_cast<int>(30*i)},
                     cv::FONT_HERSHEY_SIMPLEX, 0.7, {0,255,255}, 2);
       }
     }
-
-    // ───── 가공 영상 퍼블리시 ─────
-    sensor_msgs::msg::Image::SharedPtr out_msg = cv_ptr->toImageMsg();
-    img_pub_->publish(*out_msg);
+    img_pub_->publish(*cv_ptr->toImageMsg());
   }
 
-  // 데이터 퍼블리시 헬퍼
-  void publishData(const rclcpp::Time &stamp, int id,
-                   double x, double y, double z,
-                   const tf2::Transform &T_cam_marker)
+  // ===== 수정/추가된 부분: 텍스트 마커 발행 로직 추가 =====
+  void publishData(const rclcpp::Time &stamp, int id, const tf2::Vector3 &P_marker_in_map)
   {
-    // PoseStamped (map frame)
-    geometry_msgs::msg::PoseStamped pose_msg;
-    pose_msg.header.stamp = stamp;
-    pose_msg.header.frame_id = "map";
-    pose_msg.pose.position.x = x;
-    pose_msg.pose.position.y = y;
-    pose_msg.pose.position.z = z;
-
-    tf2::Transform T_map_marker = T_map_camera_ * T_cam_marker;
-    pose_msg.pose.orientation = tf2::toMsg(T_map_marker.getRotation());
-
-    pose_pub_->publish(pose_msg);
-
-    // ENU Point
+    // ENU PointStamped 발행 (기존 기능 유지)
     geometry_msgs::msg::PointStamped pt_msg;
-    pt_msg.header = pose_msg.header;
-    pt_msg.point.x = x;
-    pt_msg.point.y = y;
-    pt_msg.point.z = z;
+    pt_msg.header.stamp = stamp;
+    pt_msg.header.frame_id = map_frame_;
+    pt_msg.point.x = P_marker_in_map.x();
+    pt_msg.point.y = P_marker_in_map.y();
+    pt_msg.point.z = P_marker_in_map.z();
     enu_pub_->publish(pt_msg);
 
-    // ID
+    // ID 발행 (기존 기능 유지)
     std_msgs::msg::Int32 id_msg; id_msg.data = id;
     id_pub_->publish(id_msg);
-  }
+    
+    // --- 텍스트 마커 생성 및 발행 (새로운 기능) ---
+    visualization_msgs::msg::Marker text_marker;
+    text_marker.header.frame_id = map_frame_;
+    text_marker.header.stamp = stamp;
+    text_marker.ns = "aruco_labels";
+    text_marker.id = id; // 마커 ID를 ArUco ID와 동일하게 설정
+    text_marker.type = visualization_msgs::msg::Marker::TEXT_VIEW_FACING;
+    text_marker.action = visualization_msgs::msg::Marker::ADD;
 
-  // cv::Vec3d → tf2 변환
-  static tf2::Transform toTf(const cv::Vec3d &r, const cv::Vec3d &t)
-  {
-    cv::Mat R; cv::Rodrigues(r, R);
-    tf2::Matrix3x3 tfR(
-      R.at<double>(0,0), R.at<double>(0,1), R.at<double>(0,2),
-      R.at<double>(1,0), R.at<double>(1,1), R.at<double>(1,2),
-      R.at<double>(2,0), R.at<double>(2,1), R.at<double>(2,2));
-    tf2::Quaternion q; tfR.getRotation(q);
-    return tf2::Transform(q, tf2::Vector3(t[0], t[1], t[2]));
+    // 텍스트 위치: 마커 위치에서 Z축으로 약간 위
+    text_marker.pose.position.x = P_marker_in_map.x();
+    text_marker.pose.position.y = P_marker_in_map.y();
+    text_marker.pose.position.z = P_marker_in_map.z() + 0.5; // 50cm 위에 표시
+    text_marker.pose.orientation.w = 1.0;
+
+    // 텍스트 크기 및 색상
+    text_marker.scale.z = 0.3; // 텍스트 높이 30cm
+    text_marker.color.r = 1.0;
+    text_marker.color.g = 1.0;
+    text_marker.color.b = 0.0; // 노란색
+    text_marker.color.a = 1.0; // 불투명
+
+    // 텍스트 내용 생성: "ID: 5 (10.23, -5.81, 0.10)" 형식
+    char buf[128];
+    std::snprintf(buf, sizeof(buf), "ID: %d\n(%.2f, %.2f, %.2f)", id,
+        P_marker_in_map.x(), P_marker_in_map.y(), P_marker_in_map.z());
+    text_marker.text = buf;
+
+    // 마커가 1초 후 사라지도록 설정 (감지가 끊겼을 때 잔상이 남지 않음)
+    text_marker.lifetime = rclcpp::Duration::from_seconds(1.0);
+
+    text_marker_pub_->publish(text_marker);
   }
 };
 
 int main(int argc, char **argv)
 {
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<SimpleMarkerTracker>());
+  auto node = std::make_shared<SimpleMarkerTracker>();
+  node->set_parameter(rclcpp::Parameter("use_sim_time", true));
+  rclcpp::spin(node);
   rclcpp::shutdown();
   return 0;
 }

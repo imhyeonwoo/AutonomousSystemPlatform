@@ -17,6 +17,8 @@
   <depend>cv_bridge</depend>
   <depend>Eigen3</depend>
   <depend>image_transport</depend>
+  <!-- 추가 -->
+  <depend>visualization_msgs</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
