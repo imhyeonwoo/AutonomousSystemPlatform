@@ -1,10 +1,11 @@
-// gimbal_target_publisher.cpp (Final Corrected Version with TF Ready Check)
+// gimbal_target_publisher.cpp (Final Corrected Version with Stability Fix)
 //
 // 기능:
-// 1. TF 데이터가 준비될 때까지 안전하게 대기하는 로직 추가
-// 2. 가장 가까운 마커를 탐색하여 짐벌의 목표 Pitch/Yaw 각도를 직접 계산
-// 3. Pitch/Yaw 각도 정의 및 관습 차이를 보정하여 MAVLINK_TARGETING 모드로 짐벌 제어
-// 4. RViz와 터미널을 통한 디버깅 기능 유지
+// 1. 제어 루프 안정성 확보: 목표 벡터 계산 기준점을 '드론 중심'으로 변경하여 피드백 루프 발산 문제 해결
+// 2. TF 데이터가 준비될 때까지 안전하게 대기하는 로직 추가
+// 3. 가장 가까운 마커를 탐색하여 짐벌의 목표 Pitch/Yaw 각도를 직접 계산
+// 4. Pitch/Yaw 각도 정의 및 관습 차이를 보정하여 MAVLINK_TARGETING 모드로 짐벌 제어
+// 5. RViz와 터미널을 통한 디버깅 기능 유지
 
 #include <rclcpp/rclcpp.hpp>
 #include <px4_msgs/msg/vehicle_command.hpp>
@@ -75,16 +76,12 @@ private:
   uint64_t usec() { return get_clock()->now().nanoseconds() / 1000ULL; }
 
   void onTimer() {
-    // =========================== TF READY CHECK ===========================
-    // TF 버퍼에 필요한 좌표계 정보가 수신될 때까지 안전하게 대기한다.
     if (!tf_buf_.canTransform(map_frame_, base_frame_, tf2::TimePointZero) ||
         !tf_buf_.canTransform(map_frame_, cam_frame_, tf2::TimePointZero)) {
       RCLCPP_INFO_ONCE(get_logger(), "Waiting for required transforms to become available...");
       return;
     }
-    // ======================================================================
 
-    // 1. 필요한 모든 위치/자세 정보 수집 (map 좌표계 기준)
     geometry_msgs::msg::TransformStamped tf_drone, tf_cam;
     try {
       tf_drone = tf_buf_.lookupTransform(map_frame_, base_frame_, tf2::TimePointZero);
@@ -94,7 +91,7 @@ private:
       return;
     }
 
-    // 2. 가장 가까운 목표 마커 선택
+    // 가장 가까운 목표 마커 선택 (카메라 기준)
     const double cam_e = tf_cam.transform.translation.x;
     const double cam_n = tf_cam.transform.translation.y;
     const double cam_u = tf_cam.transform.translation.z;
@@ -113,9 +110,16 @@ private:
     double drone_roll, drone_pitch, drone_yaw;
     tf2::Matrix3x3(q_drone).getRPY(drone_roll, drone_pitch, drone_yaw);
 
-    const double vec_e = best_marker->e - cam_e;
-    const double vec_n = best_marker->n - cam_n;
+    // ================== 안정성 수정: 벡터 계산 기준점 변경 ==================
+    // 수평 벡터(E, N)는 안정적인 '드론 중심'을 기준으로 계산
+    const double drone_e = tf_drone.transform.translation.x;
+    const double drone_n = tf_drone.transform.translation.y;
+    const double vec_e = best_marker->e - drone_e;
+    const double vec_n = best_marker->n - drone_n;
+
+    // 수직 벡터(U)는 실제 높이 차이가 중요하므로 '카메라' 기준을 유지
     const double vec_u = best_marker->u - cam_u;
+    // =====================================================================
 
     const double horizontal_dist = std::hypot(vec_e, vec_n);
     double target_pitch_rad = std::atan2(vec_u, horizontal_dist); 
@@ -129,7 +133,7 @@ private:
     double gimbal_pitch_deg = target_pitch_rad * 180.0 / M_PI;
     double gimbal_yaw_deg = -target_body_yaw_rad * 180.0 / M_PI;
 
-    // 4. 제어 명령 전송 (직접 각도 제어 모드)
+    // 4. 제어 명령 전송
     px4_msgs::msg::VehicleCommand cmd{};
     cmd.timestamp = usec();
     cmd.target_system = 1;
@@ -141,7 +145,7 @@ private:
     cmd.param7 = 2.0;
     cmd_pub_->publish(cmd);
 
-    // 5. 디버깅 정보 시각화 및 로깅
+    // 5. 디버깅 시각화 (카메라->마커 화살표는 그대로 유지하여 직관성 확보)
     visualization_msgs::msg::MarkerArray arr;
     visualization_msgs::msg::Marker arrow;
     arrow.header.frame_id = map_frame_;

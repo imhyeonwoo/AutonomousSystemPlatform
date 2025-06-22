@@ -1,267 +1,248 @@
-#include "multi_tracker/multi_tracker_node.hpp"
-#include <sstream>
+// ws_aruco/src/multi_tracker/src/simple_marker_tracker.cpp
+// 개선판 SimpleMarkerTracker + 이미지 오버레이 / 가공영상 퍼블리시 추가
 
-MultiTrackerNode::MultiTrackerNode()
-    : Node("multi_tracker_node")
+#include <memory>
+#include <unordered_map>
+#include "rclcpp/rclcpp.hpp"
+#include "sensor_msgs/msg/image.hpp"
+#include "sensor_msgs/msg/camera_info.hpp"
+#include "geometry_msgs/msg/pose_stamped.hpp"
+#include "geometry_msgs/msg/point_stamped.hpp"
+#include "std_msgs/msg/int32.hpp"
+#include "tf2_msgs/msg/tf_message.hpp"
+
+#include "cv_bridge/cv_bridge.h"
+#include "sensor_msgs/image_encodings.hpp"
+#include <opencv2/aruco.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/calib3d.hpp>
+
+#include <tf2/LinearMath/Transform.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
+
+class SimpleMarkerTracker : public rclcpp::Node
 {
-    RCLCPP_INFO(this->get_logger(), "Starting MultiTrackerNode");
+public:
+  SimpleMarkerTracker()
+  : Node("x500_aruco_detector"),
+    static_pose_received_(false)
+  {
+    // ──────────────────────── 파라미터 선언 & 읽기 ────────────────────────
+    declare_parameter<std::string>("image_topic",
+        "/world/default/model/x500_gimbal_0/link/camera_link/sensor/camera/image");
+    declare_parameter<std::string>("pose_static_topic",
+        "/model/x500_gimbal_0/pose_static");
+    declare_parameter<std::string>("camera_info_topic",
+        "/world/default/model/x500_gimbal_0/link/camera_link/sensor/camera/camera_info");
+    declare_parameter<std::string>("pose_topic",   "/marker_pose");
+    declare_parameter<std::string>("id_topic",     "/marker_id");
+    declare_parameter<std::string>("enu_point_topic", "/marker_enu_point");
+    declare_parameter<std::string>("image_proc_topic", "/marker/image_proc");
+    declare_parameter<int>("aruco_dict_id",        cv::aruco::DICT_4X4_50);
+    declare_parameter<double>("marker_size",       0.25);
+    declare_parameter<double>("ema_alpha",         1.0);
 
-    loadParameters();
+    get_parameter("image_topic",         image_topic_);
+    get_parameter("pose_static_topic",   pose_static_topic_);
+    get_parameter("camera_info_topic",   camera_info_topic_);
+    get_parameter("pose_topic",          pose_topic_);
+    get_parameter("id_topic",            id_topic_);
+    get_parameter("enu_point_topic",     enu_point_topic_);
+    get_parameter("image_proc_topic",    image_proc_topic_);
+    get_parameter("aruco_dict_id",       dict_id_);
+    get_parameter("marker_size",         marker_size_);
+    get_parameter("ema_alpha",           ema_alpha_);
 
-    RCLCPP_INFO(this->get_logger(), "Loaded vehicle_type: %s", _vehicle_type.c_str());
+    // ──────────────────────────── QoS 설정 ────────────────────────────
+    auto img_qos  = rclcpp::SensorDataQoS(rclcpp::KeepLast(5));
+    auto pose_qos = rclcpp::QoS(rclcpp::KeepLast(10)).reliable();
 
-    // RMW QoS settings
-	auto image_qos = rclcpp::QoS(1).best_effort(); 
-    auto pose_qos = rclcpp::QoS(rclcpp::KeepLast(10)).reliable();  
+    // ─────────────────────────── 구독자 ────────────────────────────────
+    img_sub_ = create_subscription<sensor_msgs::msg::Image>(
+      image_topic_, img_qos,
+      std::bind(&SimpleMarkerTracker::imageCb, this, std::placeholders::_1));
+    cam_info_sub_ = create_subscription<sensor_msgs::msg::CameraInfo>(
+      camera_info_topic_, pose_qos,
+      std::bind(&SimpleMarkerTracker::camInfoCb, this, std::placeholders::_1));
+    pose_static_sub_ = create_subscription<tf2_msgs::msg::TFMessage>(
+      pose_static_topic_, pose_qos,
+      std::bind(&SimpleMarkerTracker::poseStaticCb, this, std::placeholders::_1));
 
-    _detectorParams = cv::aruco::DetectorParameters::create();
-	_dictionary = cv::aruco::getPredefinedDictionary(_param_dictionary);
+    // ───────────────────────── 퍼블리셔 ────────────────────────────────
+    pose_pub_ = create_publisher<geometry_msgs::msg::PoseStamped>(pose_topic_, pose_qos);
+    id_pub_   = create_publisher<std_msgs::msg::Int32>(id_topic_, pose_qos);
+    enu_pub_  = create_publisher<geometry_msgs::msg::PointStamped>(enu_point_topic_, pose_qos);
+    img_pub_  = create_publisher<sensor_msgs::msg::Image>(image_proc_topic_, img_qos);
 
-    _image_sub = this->create_subscription<sensor_msgs::msg::Image>(
-        _image_topic, image_qos,
-        std::bind(&MultiTrackerNode::image_callback, this, std::placeholders::_1));
+    // ───────────────────────── ArUco 설정 ─────────────────────────────
+    dict_   = cv::aruco::getPredefinedDictionary(dict_id_);
+    params_ = cv::aruco::DetectorParameters::create();
+    params_->cornerRefinementMethod        = cv::aruco::CORNER_REFINE_SUBPIX;
+    params_->cornerRefinementWinSize       = 5;
+    params_->cornerRefinementMaxIterations = 30;
 
-    _camera_info_sub = this->create_subscription<sensor_msgs::msg::CameraInfo>(
-        _camera_info_topic, image_qos,
-        std::bind(&MultiTrackerNode::camera_info_callback, this, std::placeholders::_1));
+    RCLCPP_INFO(get_logger(),
+      "SimpleMarkerTracker ready (dict=%d, size=%.2f m). Processed images on '%s'",
+      dict_id_, marker_size_, image_proc_topic_.c_str());
+  }
 
-    _target_id_pub = this->create_publisher<std_msgs::msg::Int32>(_target_id_topic, pose_qos);
-    _image_pub = this->create_publisher<sensor_msgs::msg::Image>(_image_proc_topic, image_qos);
-    _target_pose_pub = this->create_publisher<geometry_msgs::msg::PoseStamped>(_target_pose_topic, pose_qos);
+private:
+  // ──────────────────────── 멤버 변수 ─────────────────────────────
+  // 구독 & 퍼블리시
+  rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr      img_sub_;
+  rclcpp::Subscription<sensor_msgs::msg::CameraInfo>::SharedPtr cam_info_sub_;
+  rclcpp::Subscription<tf2_msgs::msg::TFMessage>::SharedPtr     pose_static_sub_;
+  rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr pose_pub_;
+  rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr            id_pub_;
+  rclcpp::Publisher<geometry_msgs::msg::PointStamped>::SharedPtr enu_pub_;
+  rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr         img_pub_;
 
-}
+  // 파라미터 값
+  std::string image_topic_, pose_static_topic_, camera_info_topic_;
+  std::string pose_topic_, id_topic_, enu_point_topic_, image_proc_topic_;
+  int    dict_id_;
+  double marker_size_, ema_alpha_;
 
-void MultiTrackerNode::loadParameters()
-{
-    declare_parameter<std::string>("vehicle_type", "x500");
-    declare_parameter<int>("aruco_id", 0);
-	declare_parameter<int>("dictionary", 0); // DICT_4X4_50
-	declare_parameter<double>("marker_size", 0.5);
+  // 카메라 보정
+  cv::Mat K_, D_;
 
-    get_parameter("vehicle_type", _vehicle_type);
-    get_parameter("aruco_id", _param_aruco_id);
-    get_parameter("dictionary", _param_dictionary);
-    get_parameter("marker_size", _param_marker_size);
+  // ArUco
+  cv::Ptr<cv::aruco::Dictionary>        dict_;
+  cv::Ptr<cv::aruco::DetectorParameters> params_;
 
-    declare_parameter<std::string>("image_topic", "");
-    declare_parameter<std::string>("camera_info_topic", "");
-    declare_parameter<std::string>("target_id_topic", "/target_id");
-    declare_parameter<std::string>("image_proc_topic", "/image_proc");
-    declare_parameter<std::string>("target_pose_topic", "/target_pose");
+  // map→camera static transform
+  tf2::Transform T_map_camera_;
+  bool           static_pose_received_;
 
-    get_parameter("image_topic", _image_topic);
-    get_parameter("camera_info_topic", _camera_info_topic);
-    get_parameter("target_id_topic", _target_id_topic);
-    get_parameter("image_proc_topic", _image_proc_topic);
-    get_parameter("target_pose_topic", _target_pose_topic);
-}
+  // ──────────────────────── 콜백 함수 ──────────────────────────────
+  void camInfoCb(const sensor_msgs::msg::CameraInfo::SharedPtr msg)
+  {
+    if (!K_.empty()) return;
+    K_ = cv::Mat(3,3,CV_64F,const_cast<double*>(msg->k.data())).clone();
+    D_ = cv::Mat(msg->d.size(),1,CV_64F,const_cast<double*>(msg->d.data())).clone();
+    RCLCPP_INFO(get_logger(),"Camera intrinsics set");
+  }
 
-void MultiTrackerNode::image_callback(const sensor_msgs::msg::Image::SharedPtr msg)
-{
-    try {
-        cv_bridge::CvImagePtr cv_ptr;
-        try {
-            cv_ptr = cv_bridge::toCvCopy(msg, msg->encoding);
-            if (msg->encoding == "rgb8") {
-                cv::cvtColor(cv_ptr->image, cv_ptr->image, cv::COLOR_RGB2BGR);
-            }
-        } catch (const cv_bridge::Exception& e) {
-            RCLCPP_ERROR(this->get_logger(), "cv_bridge exception: %s", e.what());
-            return;
-        }
-
-        std::vector<int> ids;
-        std::vector<std::vector<cv::Point2f>> corners;
-        cv::aruco::detectMarkers(cv_ptr->image, _dictionary, corners, ids, _detectorParams);
-        cv::aruco::drawDetectedMarkers(cv_ptr->image, corners, ids);
-
-        if (!_camera_matrix.empty() && !_dist_coeffs.empty()) {
-            std::vector<std::vector<cv::Point2f>> undistortedCorners;
-
-            for (const auto& corner : corners) {
-                std::vector<cv::Point2f> undistortedCorner;
-                cv::undistortPoints(corner, undistortedCorner, _camera_matrix, _dist_coeffs, cv::noArray(), _camera_matrix);
-                undistortedCorners.push_back(undistortedCorner);
-            }
-
-            for (size_t i = 0; i < ids.size(); i++) {
-                std_msgs::msg::Int32 id_msg;
-                id_msg.data = ids[i];
-                _target_id_pub->publish(id_msg);
-
-                float half_size = _param_marker_size / 2.0f;
-                std::vector<cv::Point3f> objectPoints = {
-                    cv::Point3f(-half_size,  half_size, 0),
-                    cv::Point3f( half_size,  half_size, 0),
-                    cv::Point3f( half_size, -half_size, 0),
-                    cv::Point3f(-half_size, -half_size, 0)
-                };
-
-                cv::Vec3d rvec, tvec;
-                cv::solvePnP(objectPoints, undistortedCorners[i], _camera_matrix, cv::noArray(), rvec, tvec);
-                cv::drawFrameAxes(cv_ptr->image, _camera_matrix, cv::noArray(), rvec, tvec, _param_marker_size);
-
-                cv::Mat rot_mat;
-                cv::Rodrigues(rvec, rot_mat);
-
-                // 역변환: 마커 기준 카메라 pose
-                cv::Mat rot_mat_inv = rot_mat.t();
-                cv::Mat tvec_inv = -rot_mat_inv * cv::Mat(tvec);
-
-                // RDF → RFU 변환
-                cv::Mat cv_to_ros = (cv::Mat_<double>(3,3) <<
-                    1,  0,  0,
-                    0, -1,  0,
-                    0,  0,  1);
-
-                rot_mat = cv_to_ros * rot_mat_inv;
-                cv::Mat tvec_ros_mat = cv_to_ros * tvec_inv;
-                cv::Vec3d tvec_ros;
-                tvec_ros[0] = tvec_ros_mat.at<double>(0);
-                tvec_ros[1] = tvec_ros_mat.at<double>(1);
-                tvec_ros[2] = tvec_ros_mat.at<double>(2);
-
-                // 카메라 → 차량 변환 (X1 기준)
-                tf2::Transform T_vehicle_to_camera;
-                T_vehicle_to_camera.setOrigin(tf2::Vector3(0.45, 0.0, 0.2));  // 차량 기준 카메라 위치
-                T_vehicle_to_camera.setRotation(tf2::Quaternion(0, 0, 0, 1)); // 동일 방향 가정
-
-                // 마커 기준 카메라 pose
-                tf2::Matrix3x3 tf_rot(
-                    rot_mat.at<double>(0, 0), rot_mat.at<double>(0, 1), rot_mat.at<double>(0, 2),
-                    rot_mat.at<double>(1, 0), rot_mat.at<double>(1, 1), rot_mat.at<double>(1, 2),
-                    rot_mat.at<double>(2, 0), rot_mat.at<double>(2, 1), rot_mat.at<double>(2, 2)
-                );
-                tf2::Quaternion q_cam;
-                tf_rot.getRotation(q_cam);
-
-                tf2::Transform T_camera_to_marker;
-                T_camera_to_marker.setOrigin(tf2::Vector3(tvec_ros[0], tvec_ros[1], tvec_ros[2]));
-                T_camera_to_marker.setRotation(q_cam);
-
-                // 마커 기준 차량 pose
-                tf2::Transform T_vehicle_to_marker = T_camera_to_marker * T_vehicle_to_camera.inverse();
-
-                // 차량 좌표계 → RViz 좌표계 (FLU → RFU)
-                tf2::Matrix3x3 flu_to_rviz_mat(
-                    0, 1, 0,
-                    1, 0, 0,
-                    0, 0, 1
-                );
-
-                tf2::Vector3 pos_FLU = T_vehicle_to_marker.getOrigin();
-                tf2::Vector3 pos_RFU = flu_to_rviz_mat * pos_FLU;
-
-                tf2::Matrix3x3 rot_FLU(T_vehicle_to_marker.getRotation());
-                tf2::Matrix3x3 rot_RFU = flu_to_rviz_mat * rot_FLU * flu_to_rviz_mat.inverse();
-
-                tf2::Quaternion q_RFU;
-                rot_RFU.getRotation(q_RFU);
-
-                geometry_msgs::msg::PoseStamped target_pose;
-                // target_pose.header.stamp = msg->header.stamp;
-                // target_pose.header.frame_id = "map";
-
-                // target_pose.pose.position.x = pos_RFU.x();
-                // target_pose.pose.position.y = pos_RFU.y();
-                // target_pose.pose.position.z = pos_RFU.z();
-
-                // target_pose.pose.orientation.x = q_RFU.x();
-                // target_pose.pose.orientation.y = q_RFU.y();
-                // target_pose.pose.orientation.z = q_RFU.z();
-                // target_pose.pose.orientation.w = q_RFU.w();
-                target_pose.header.stamp = msg->header.stamp;
-                target_pose.header.frame_id = "map";
-
-                target_pose.pose.position.x = pos_RFU.x();
-                target_pose.pose.position.y = pos_RFU.y();
-                target_pose.pose.position.z = pos_RFU.z();
-
-                target_pose.pose.orientation.x = q_RFU.x();
-                target_pose.pose.orientation.y = q_RFU.y();
-                target_pose.pose.orientation.z = q_RFU.z();
-                target_pose.pose.orientation.w = q_RFU.w();
-
-                _target[0] = pos_RFU.x();
-                _target[1] = pos_RFU.y();
-                _target[2] = pos_RFU.z();
-
-                _target_pose_pub->publish(target_pose);
-            }
-        } else {
-            RCLCPP_ERROR(this->get_logger(), "Camera intrinsics are not initialized.");
-        }
-
-        annotate_image(cv_ptr);
-
-        cv_bridge::CvImage out_msg;
-        out_msg.header = msg->header;
-        out_msg.encoding = sensor_msgs::image_encodings::BGR8;
-        out_msg.image = cv_ptr->image;
-        _image_pub->publish(*out_msg.toImageMsg().get());
-
-    } catch (const cv_bridge::Exception& e) {
-        RCLCPP_ERROR(this->get_logger(), "cv_bridge exception: %s", e.what());
+  void poseStaticCb(const tf2_msgs::msg::TFMessage::SharedPtr msg)
+  {
+    for (const auto &stamped : msg->transforms) {
+      if (stamped.child_frame_id == "x500_gimbal_0") {
+        const auto &t = stamped.transform;
+        T_map_camera_.setOrigin({t.translation.x, t.translation.y, t.translation.z});
+        T_map_camera_.setRotation({t.rotation.x, t.rotation.y, t.rotation.z, t.rotation.w});
+        static_pose_received_ = true;
+        // RCLCPP_INFO(get_logger(),"Received static transform map→camera");
+        break;
+      }
     }
-}
+  }
 
+  void imageCb(const sensor_msgs::msg::Image::SharedPtr msg)
+  {
+    if (!static_pose_received_ || K_.empty()) {
+      return; // 필수 정보가 아직 없음
+    }
 
+    // CvImage 변환 (항상 BGR8 로 변환)
+    auto cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
 
-void MultiTrackerNode::camera_info_callback(const sensor_msgs::msg::CameraInfo::SharedPtr msg)
+    // ───── ArUco 검출 ─────
+    std::vector<int> ids;
+    std::vector<std::vector<cv::Point2f>> corners;
+    cv::aruco::detectMarkers(cv_ptr->image, dict_, corners, ids, params_);
+
+    // 마커 외곽선 그리기 (검출 실패해도 draw 함수는 안전)
+    cv::aruco::drawDetectedMarkers(cv_ptr->image, corners, ids);
+
+    if (!ids.empty()) {
+      // 자세 추정
+      std::vector<cv::Vec3d> rvecs, tvecs;
+      cv::aruco::estimatePoseSingleMarkers(corners, marker_size_, K_, D_, rvecs, tvecs);
+
+      // 카메라 원점(map 좌표)
+      const double cx = T_map_camera_.getOrigin().x();
+      const double cy = T_map_camera_.getOrigin().y();
+      const double cz = T_map_camera_.getOrigin().z();
+
+      for (size_t i = 0; i < ids.size(); ++i) {
+        int id = ids[i];
+
+        // camera→marker 변환
+        tf2::Transform T_cam_marker = toTf(rvecs[i], tvecs[i]);
+        tf2::Vector3 cam_vec = T_cam_marker.getOrigin();
+
+        // 좌표계 맞춤 (x+, y-, z-)
+        double out_x = cx + cam_vec.x();
+        double out_y = cy - cam_vec.y();
+        double out_z = cz - cam_vec.z();
+
+        // ───── 퍼블리시 ─────
+        publishData(msg->header.stamp, id, out_x, out_y, out_z, T_cam_marker);
+
+        // ───── 이미지 오버레이 ─────
+        cv::aruco::drawAxis(cv_ptr->image, K_, D_, rvecs[i], tvecs[i], marker_size_ * 0.5);
+
+        // 좌표 텍스트
+        char buf[128];
+        std::snprintf(buf, sizeof(buf), "ID:%d  X:%.2f  Y:%.2f  Z:%.2f", id, out_x, out_y, out_z);
+        cv::putText(cv_ptr->image, buf, {10, 30 + static_cast<int>(30*i)},
+                    cv::FONT_HERSHEY_SIMPLEX, 0.7, {0,255,255}, 2);
+      }
+    }
+
+    // ───── 가공 영상 퍼블리시 ─────
+    sensor_msgs::msg::Image::SharedPtr out_msg = cv_ptr->toImageMsg();
+    img_pub_->publish(*out_msg);
+  }
+
+  // 데이터 퍼블리시 헬퍼
+  void publishData(const rclcpp::Time &stamp, int id,
+                   double x, double y, double z,
+                   const tf2::Transform &T_cam_marker)
+  {
+    // PoseStamped (map frame)
+    geometry_msgs::msg::PoseStamped pose_msg;
+    pose_msg.header.stamp = stamp;
+    pose_msg.header.frame_id = "map";
+    pose_msg.pose.position.x = x;
+    pose_msg.pose.position.y = y;
+    pose_msg.pose.position.z = z;
+
+    tf2::Transform T_map_marker = T_map_camera_ * T_cam_marker;
+    pose_msg.pose.orientation = tf2::toMsg(T_map_marker.getRotation());
+
+    pose_pub_->publish(pose_msg);
+
+    // ENU Point
+    geometry_msgs::msg::PointStamped pt_msg;
+    pt_msg.header = pose_msg.header;
+    pt_msg.point.x = x;
+    pt_msg.point.y = y;
+    pt_msg.point.z = z;
+    enu_pub_->publish(pt_msg);
+
+    // ID
+    std_msgs::msg::Int32 id_msg; id_msg.data = id;
+    id_pub_->publish(id_msg);
+  }
+
+  // cv::Vec3d → tf2 변환
+  static tf2::Transform toTf(const cv::Vec3d &r, const cv::Vec3d &t)
+  {
+    cv::Mat R; cv::Rodrigues(r, R);
+    tf2::Matrix3x3 tfR(
+      R.at<double>(0,0), R.at<double>(0,1), R.at<double>(0,2),
+      R.at<double>(1,0), R.at<double>(1,1), R.at<double>(1,2),
+      R.at<double>(2,0), R.at<double>(2,1), R.at<double>(2,2));
+    tf2::Quaternion q; tfR.getRotation(q);
+    return tf2::Transform(q, tf2::Vector3(t[0], t[1], t[2]));
+  }
+};
+
+int main(int argc, char **argv)
 {
-	if (!_camera_matrix.empty() && !_dist_coeffs.empty()) {
-		return;
-	}
-
-	// Always update the camera matrix and distortion coefficients from the new message
-	_camera_matrix = cv::Mat(3, 3, CV_64F, const_cast<double*>(msg->k.data())).clone();   // Use clone to ensure a deep copy
-	_dist_coeffs = cv::Mat(msg->d.size(), 1, CV_64F, const_cast<double*>(msg->d.data())).clone();   // Use clone to ensure a deep copy
-
-	// Log the first row of the camera matrix to verify correct values
-	RCLCPP_INFO(this->get_logger(), "Camera matrix updated:\n[%f, %f, %f]\n[%f, %f, %f]\n[%f, %f, %f]",
-		    _camera_matrix.at<double>(0, 0), _camera_matrix.at<double>(0, 1), _camera_matrix.at<double>(0, 2),
-		    _camera_matrix.at<double>(1, 0), _camera_matrix.at<double>(1, 1), _camera_matrix.at<double>(1, 2),
-		    _camera_matrix.at<double>(2, 0), _camera_matrix.at<double>(2, 1), _camera_matrix.at<double>(2, 2));
-	RCLCPP_INFO(this->get_logger(), "Camera Matrix: fx=%f, fy=%f, cx=%f, cy=%f",
-		    _camera_matrix.at<double>(0, 0), // fx
-		    _camera_matrix.at<double>(1, 1), // fy
-		    _camera_matrix.at<double>(0, 2), // cx
-		    _camera_matrix.at<double>(1, 2)  // cy
-		   );
-
-	// Check if focal length is zero after update
-	if (_camera_matrix.at<double>(0, 0) == 0) {
-		RCLCPP_ERROR(this->get_logger(), "Focal length is zero after update!");
-
-	} else {
-		RCLCPP_INFO(this->get_logger(), "Updated camera intrinsics from camera_info topic.");
-	}
-}
-
-//cv_bridge 사용
-void MultiTrackerNode::annotate_image(cv_bridge::CvImagePtr image)
-{
-	// Annotate the image with the target position and marker size
-	std::ostringstream stream;
-	stream << std::fixed << std::setprecision(2);
-	stream << "X: "  << _target[0] << " Y: " << _target[1]  << " Z: " << _target[2];
-	std::string text_xyz = stream.str();
-
-
-	int fontFace = cv::FONT_HERSHEY_SIMPLEX;
-	double fontScale = 1;
-	int thickness = 2;
-	int baseline = 0;
-	cv::Size textSize = cv::getTextSize(text_xyz, fontFace, fontScale, thickness, &baseline);
-	baseline += thickness;
-	cv::Point textOrg((image->image.cols - textSize.width - 10), (image->image.rows - 10));
-	cv::putText(image->image, text_xyz, textOrg, fontFace, fontScale, cv::Scalar(0, 255, 255), thickness, 8);
-}
-
-int main(int argc, char * argv[])
-{
-    rclcpp::init(argc, argv);
-    rclcpp::spin(std::make_shared<MultiTrackerNode>());
-    rclcpp::shutdown();
-    return 0;
+  rclcpp::init(argc, argv);
+  rclcpp::spin(std::make_shared<SimpleMarkerTracker>());
+  rclcpp::shutdown();
+  return 0;
 }

@@ -1,9 +1,10 @@
+# ~/workspace/AutonomousVehiclePlatform/ws_gazebo/src/gazebo_env_setup/launch/topic_bridge.launch.py
 from launch import LaunchDescription
 from launch.actions import ExecuteProcess
 
 def generate_launch_description():
     return LaunchDescription([
-        # TF 및 clock bridge
+        # TF 및 clock bridge ----------------------------------------------
         ExecuteProcess(
             cmd=[
                 'ros2', 'run', 'ros_gz_bridge', 'parameter_bridge',
@@ -16,32 +17,13 @@ def generate_launch_description():
             output='screen'
         ),
 
-        # X1 카메라 (image + camera_info)
+        # X1 LiDAR (point cloud) -----------------------------------------
         ExecuteProcess(
             cmd=[
                 'ros2', 'run', 'ros_gz_bridge', 'parameter_bridge',
-                '/world/default/model/X1_asp/link/base_link/sensor/camera_front/image@sensor_msgs/msg/Image[gz.msgs.Image',
-                '/world/default/model/X1_asp/link/base_link/sensor/camera_front/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo'
+                '/world/default/model/X1_asp/link/base_link/sensor/gpu_lidar/scan/points'
+                '@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked'
             ],
             output='screen'
         ),
-
-        # X1 LiDAR (point cloud)
-        ExecuteProcess(
-            cmd=[
-                'ros2', 'run', 'ros_gz_bridge', 'parameter_bridge',
-                '/world/default/model/X1_asp/link/base_link/sensor/gpu_lidar/scan/points@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked'
-            ],
-            output='screen'
-        ),
-
-        # x500 카메라 (image + camera_info)
-        ExecuteProcess(
-            cmd=[
-                'ros2', 'run', 'ros_gz_bridge', 'parameter_bridge',
-                '/world/default/model/x500_gimbal_0/link/camera_link/sensor/camera/image@sensor_msgs/msg/Image[gz.msgs.Image',
-                '/world/default/model/x500_gimbal_0/link/camera_link/sensor/camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo'
-            ],
-            output='screen'
-        )
     ])

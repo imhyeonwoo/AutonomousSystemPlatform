@@ -75,7 +75,10 @@
         "__tree": "cpp",
         "filesystem": "cpp",
         "fstream": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "__node_handle": "cpp",
+        "queue": "cpp",
+        "stack": "cpp"
     },
     "cmake.sourceDirectory": "/home/ihw/workspace/AutonomousVehiclePlatform/PX4-Autopilot_ASP/msg"
 }
