@@ -163,7 +163,12 @@ class MapInfoPublisher(Node):
             t.pose.position.z = z + self.text_z_offset
             t.scale.z = self.text_height
             t.color.r, t.color.g, t.color.b, t.color.a = 0.0, 1.0, 0.0, 1.0
-            t.text = name
+            
+            # ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+            # ★★        여기가 수정된 부분입니다        ★★
+            # ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+            # 텍스트에 이름과 (E, N, U) 좌표를 함께 표시 (소수점 2자리까지)
+            t.text = f"{name}\n({x:.2f}, {y:.2f}, {z:.2f})"
             out.markers.append(t)
 
         self.marker_pub.publish(out)
