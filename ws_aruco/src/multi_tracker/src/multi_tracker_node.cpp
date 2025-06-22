@@ -1,10 +1,11 @@
-// simple_marker_tracker.cpp (Final Corrected Version for Non-Standard Camera Frame)
+// simple_marker_tracker.cpp (State-based Marker Size Version)
 //
 // 기능:
 // 1. Gazebo의 비표준 카메라 좌표계(-X가 전방)를 정확히 반영하여 좌표 변환 수행
 // 2. 실시간 TF를 사용하여 짐벌의 움직임을 반영
 // 3. 카메라로 Aruco 마커를 인식하여 'map' 기준의 정확한 절대좌표(ENU)를 계산 및 발행
-// 4. 감지된 마커 위치에 좌표 텍스트 라벨(Marker)을 RViz에 발행 (추가된 기능)
+// 4. 감지된 마커 위치에 좌표 텍스트 라벨(Marker)을 RViz에 발행
+// 5. /gimbal_mode 토픽을 구독하여 비행 상태에 따라 동적으로 마커 크기를 변경 (추가된 기능)
 
 #include <memory>
 #include <string>
@@ -15,7 +16,8 @@
 #include "geometry_msgs/msg/pose_stamped.hpp"
 #include "geometry_msgs/msg/point_stamped.hpp"
 #include "std_msgs/msg/int32.hpp"
-#include "visualization_msgs/msg/marker.hpp"  // ===== 수정/추가된 부분 =====
+#include "visualization_msgs/msg/marker.hpp"
+#include "std_msgs/msg/string.hpp" // ===== 수정/추가된 부분: String 메시지 헤더 =====
 
 #include "cv_bridge/cv_bridge.h"
 #include "sensor_msgs/image_encodings.hpp"
@@ -43,10 +45,12 @@ public:
     declare_parameter<std::string>("pose_topic", "/marker_pose");
     declare_parameter<std::string>("id_topic", "/marker_id");
     declare_parameter<std::string>("enu_point_topic", "/marker_enu_point");
-    declare_parameter<std::string>("text_marker_topic", "/marker_label"); // ===== 수정/추가된 부분 =====
+    declare_parameter<std::string>("text_marker_topic", "/marker_label");
     declare_parameter<std::string>("image_proc_topic", "/marker/image_proc");
     declare_parameter<int>("aruco_dict_id", cv::aruco::DICT_4X4_50);
-    declare_parameter<double>("marker_size", 0.25);
+    // ===== 수정/추가된 부분: 마커 크기 파라미터 이름 및 추가 =====
+    declare_parameter<double>("default_marker_size", 1.0);
+    declare_parameter<double>("final_marker_size", 0.5);
 
     get_parameter("image_topic", image_topic_);
     get_parameter("camera_info_topic", camera_info_topic_);
@@ -55,10 +59,15 @@ public:
     get_parameter("pose_topic", pose_topic_);
     get_parameter("id_topic", id_topic_);
     get_parameter("enu_point_topic", enu_point_topic_);
-    get_parameter("text_marker_topic", text_marker_topic_); // ===== 수정/추가된 부분 =====
+    get_parameter("text_marker_topic", text_marker_topic_);
     get_parameter("image_proc_topic", image_proc_topic_);
     get_parameter("dict_id", dict_id_);
-    get_parameter("marker_size", marker_size_);
+    // ===== 수정/추가된 부분: 파라미터 읽기 =====
+    get_parameter("default_marker_size", default_marker_size_);
+    get_parameter("final_marker_size", final_marker_size_);
+
+    // ===== 수정/추가된 부분: 현재 마커 크기 변수 초기화 =====
+    current_marker_size_ = default_marker_size_;
 
     // QoS 설정
     auto img_qos  = rclcpp::SensorDataQoS(rclcpp::KeepLast(1));
@@ -70,29 +79,34 @@ public:
     cam_info_sub_ = create_subscription<sensor_msgs::msg::CameraInfo>(
       camera_info_topic_, default_qos, std::bind(&SimpleMarkerTracker::camInfoCb, this, std::placeholders::_1));
 
+    // ===== 수정/추가된 부분: /gimbal_mode 토픽을 구독하기 위한 구독자 추가 =====
+    gimbal_mode_sub_ = create_subscription<std_msgs::msg::String>(
+      "/gimbal_mode", default_qos, std::bind(&SimpleMarkerTracker::gimbalModeCb, this, std::placeholders::_1));
+
     // 퍼블리셔
     pose_pub_ = create_publisher<geometry_msgs::msg::PoseStamped>(pose_topic_, default_qos);
     id_pub_   = create_publisher<std_msgs::msg::Int32>(id_topic_, default_qos);
     enu_pub_  = create_publisher<geometry_msgs::msg::PointStamped>(enu_point_topic_, default_qos);
-    text_marker_pub_ = create_publisher<visualization_msgs::msg::Marker>(text_marker_topic_, default_qos); // ===== 수정/추가된 부분 =====
+    text_marker_pub_ = create_publisher<visualization_msgs::msg::Marker>(text_marker_topic_, default_qos);
     img_pub_  = create_publisher<sensor_msgs::msg::Image>(image_proc_topic_, img_qos);
 
     // ArUco 설정
     dict_   = cv::aruco::getPredefinedDictionary(dict_id_);
     params_ = cv::aruco::DetectorParameters::create();
-    params_->cornerRefinementMethod = cv::aruco::CORNER_REFINE_NONE;
+    params_->cornerRefinementMethod = cv::aruco::CORNER_REFINE_SUBPIX; // 정확도 향상을 위해 변경 권장
 
-    RCLCPP_INFO(this->get_logger(), "Aruco Absolute Pose Estimator ready.");
+    RCLCPP_INFO(this->get_logger(), "Aruco Absolute Pose Estimator ready. Default marker size: %.2f", current_marker_size_);
   }
 
 private:
   // 멤버 변수
   rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr img_sub_;
   rclcpp::Subscription<sensor_msgs::msg::CameraInfo>::SharedPtr cam_info_sub_;
+  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr gimbal_mode_sub_; // ===== 수정/추가된 부분 =====
   rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr pose_pub_;
   rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr id_pub_;
   rclcpp::Publisher<geometry_msgs::msg::PointStamped>::SharedPtr enu_pub_;
-  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr text_marker_pub_; // ===== 수정/추가된 부분 =====
+  rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr text_marker_pub_;
   rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr img_pub_;
 
   tf2_ros::Buffer tf_buffer_;
@@ -101,11 +115,28 @@ private:
   std::string image_topic_, camera_info_topic_, camera_frame_, map_frame_;
   std::string pose_topic_, id_topic_, enu_point_topic_, text_marker_topic_, image_proc_topic_;
   int dict_id_;
-  double marker_size_;
+  // ===== 수정/추가된 부분: 마커 크기 관련 멤버 변수 =====
+  double default_marker_size_, final_marker_size_, current_marker_size_;
 
   cv::Mat K_, D_;
   cv::Ptr<cv::aruco::Dictionary> dict_;
   cv::Ptr<cv::aruco::DetectorParameters> params_;
+
+  // ===== 수정/추가된 부분: /gimbal_mode 토픽을 처리할 콜백 함수 =====
+  void gimbalModeCb(const std_msgs::msg::String::SharedPtr msg)
+  {
+    if (msg->data == "LOOK_DOWN") {
+      if (current_marker_size_ != final_marker_size_) {
+        RCLCPP_INFO(get_logger(), "LOOK_DOWN mode detected. Changing marker size to %.2f", final_marker_size_);
+        current_marker_size_ = final_marker_size_;
+      }
+    } else {
+      if (current_marker_size_ != default_marker_size_) {
+        RCLCPP_INFO(get_logger(), "Exiting LOOK_DOWN mode. Reverting marker size to %.2f", default_marker_size_);
+        current_marker_size_ = default_marker_size_;
+      }
+    }
+  }
 
   void camInfoCb(const sensor_msgs::msg::CameraInfo::SharedPtr msg)
   {
@@ -140,7 +171,8 @@ private:
     
     if (!ids.empty()) {
       std::vector<cv::Vec3d> rvecs, tvecs;
-      cv::aruco::estimatePoseSingleMarkers(corners, marker_size_, K_, D_, rvecs, tvecs);
+      // ===== 수정/추가된 부분: 고정된 크기 대신 동적 'current_marker_size_' 사용 =====
+      cv::aruco::estimatePoseSingleMarkers(corners, current_marker_size_, K_, D_, rvecs, tvecs);
 
       for (size_t i = 0; i < ids.size(); ++i) {
         tf2::Vector3 t_vec_in_cam_frame(-tvecs[i][2], tvecs[i][0], -tvecs[i][1]);
@@ -154,7 +186,8 @@ private:
         publishData(msg->header.stamp, ids[i], P_marker_in_map);
         
         cv::aruco::drawDetectedMarkers(cv_ptr->image, corners, ids);
-        cv::aruco::drawAxis(cv_ptr->image, K_, D_, rvecs[i], tvecs[i], marker_size_ * 0.5);
+        // ===== 수정/추가된 부분: 축을 그릴 때도 동적 크기 사용 =====
+        cv::aruco::drawAxis(cv_ptr->image, K_, D_, rvecs[i], tvecs[i], current_marker_size_ * 0.5);
         char buf[128];
         std::snprintf(buf, sizeof(buf), "ID:%d E:%.2f N:%.2f U:%.2f", ids[i],
             P_marker_in_map.x(), P_marker_in_map.y(), P_marker_in_map.z());
@@ -165,7 +198,6 @@ private:
     img_pub_->publish(*cv_ptr->toImageMsg());
   }
 
-  // ===== 수정/추가된 부분: 텍스트 마커 발행 로직 추가 =====
   void publishData(const rclcpp::Time &stamp, int id, const tf2::Vector3 &P_marker_in_map)
   {
     // ENU PointStamped 발행 (기존 기능 유지)
