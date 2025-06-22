@@ -1,4 +1,4 @@
-// offboard_waypoint_trigger.cpp (Build Fix Final Version)
+// offboard_waypoint_trigger.cpp (Preemption Enabled Version)
 
 #include <rclcpp/rclcpp.hpp>
 #include <px4_msgs/msg/offboard_control_mode.hpp>
@@ -77,10 +77,11 @@ public:
 
     timer_=create_wall_timer(50ms,[this]{onTimer();});
 
-    RCLCPP_INFO(get_logger(),"웨이포인트 %zu 로드. /next_waypoint 사용", wps_.size());
+    RCLCPP_INFO(get_logger(),"웨이포인트 %zu 로드. /next_waypoint 사용 (이동 중에도 트리거 가능)", wps_.size());
   }
 
 private:
+  // loadCSV, enuNow, onTimer, init, takeoff 함수는 기존과 동일
   bool loadCSV(const std::string& p){
     std::ifstream f(p); if(!f.is_open()) return false;
     std::string l; bool first=true;
@@ -109,7 +110,7 @@ private:
       case State::INIT: init(); break;
       case State::TAKEOFF: takeoff(); break;
       case State::MISSION: mission(); break;
-      case State::LAND: break; // 착륙 중에는 아무것도 하지 않음
+      case State::LAND: break;
       default: break;
     }
   }
@@ -135,13 +136,49 @@ private:
     }
   }
 
+  // ===================================================================================
+  // ===== mission() 함수 수정: 이동 중에도 트리거를 확인하도록 로직 변경 =====
+  // ===================================================================================
   void mission(){
-    if(wp_idx_>=wps_.size()){ sendCmd(px4_msgs::msg::VehicleCommand::VEHICLE_CMD_NAV_LAND); state_=State::LAND; return; }
+    if(wp_idx_ >= wps_.size()){
+      sendCmd(px4_msgs::msg::VehicleCommand::VEHICLE_CMD_NAV_LAND);
+      state_ = State::LAND;
+      RCLCPP_INFO(get_logger(), "모든 WP 완료 → 착륙");
+      return;
+    }
 
+    // --- 1. 트리거 확인 및 다음 웨이포인트로 전환 ---
+    // 'reached_' 상태와 상관없이 항상 트리거를 먼저 확인합니다.
+    if(trig_next_){
+      trig_next_ = false; 
+      reached_ = false; // 새로운 목표로 가야 하므로 '미도착' 상태로 리셋
+      ++wp_idx_;
+      
+      if(wp_idx_ >= wps_.size()) { // 모든 WP를 마친 경우
+          // 위에서 처리되므로 이 코드는 사실상 실행되지 않지만, 안전을 위해 둠
+          sendCmd(px4_msgs::msg::VehicleCommand::VEHICLE_CMD_NAV_LAND);
+          state_ = State::LAND;
+          RCLCPP_INFO(get_logger(), "Trigger 수신, 모든 WP 완료 → 착륙");
+          return;
+      }
+
+      if(wp_idx_ == wps_.size() - 1) {
+        RCLCPP_INFO(get_logger(),"Trigger 수신! → 마지막 WP(%zu)로 이동하며 아래를 주시합니다.", wp_idx_);
+        std_msgs::msg::String gimbal_mode_msg;
+        gimbal_mode_msg.data = "LOOK_DOWN";
+        gimbal_mode_pub_->publish(gimbal_mode_msg);
+      } else {
+        RCLCPP_INFO(get_logger(),"Trigger 수신! → WP %zu 로 이동", wp_idx_);
+      }
+    }
+
+    // --- 2. 현재 목표 웨이포인트에 대한 행동 수행 ---
     const auto tgt = wps_[wp_idx_];
 
     if(!reached_){
-      auto enu=enuNow(); if(!enu) return;
+      // '미도착' 상태: 목표점을 향해 계속 비행
+      auto enu = enuNow();
+      if(!enu) return;
       double dx =  tgt.n - enu->n;
       double dy =  tgt.e - enu->e;
       double dz = -(tgt.u - enu->u);
@@ -149,35 +186,23 @@ private:
       sendCtrl();
       publishSet(last_pos_->x + dx, last_pos_->y + dy, last_pos_->z + dz);
 
+      // 목표점에 도달했는지 확인
       if(std::hypot(dx,dy) < 1.0 && std::fabs(dz) < 1.0){
-        reached_ = true;
+        reached_ = true; // '도착' 상태로 변경
+        // 호버링할 위치를 현재 위치로 고정
         hold_x_ = last_pos_->x + dx;
         hold_y_ = last_pos_->y + dy;
         hold_z_ = last_pos_->z + dz;
-        RCLCPP_INFO(get_logger(),"WP %zu 도달 → Hover", wp_idx_);
+        RCLCPP_INFO(get_logger(),"WP %zu 도달 → Hover. 다음 Trigger 대기 중...", wp_idx_);
       }
-      return;
-    }
-
-    sendCtrl();
-    publishSet(hold_x_, hold_y_, hold_z_);
-
-    if(trig_next_){
-      trig_next_=false; 
-      reached_=false; 
-      ++wp_idx_;
-      
-      if(wp_idx_ == wps_.size() - 1) {
-        RCLCPP_INFO(get_logger(),"마지막-1 WP Trigger 수신! → 마지막 WP로 이동하며 아래를 주시합니다.");
-        std_msgs::msg::String gimbal_mode_msg;
-        gimbal_mode_msg.data = "LOOK_DOWN";
-        gimbal_mode_pub_->publish(gimbal_mode_msg);
-      } else if (wp_idx_ < wps_.size()) {
-        RCLCPP_INFO(get_logger(),"Trigger 수신! → WP %zu 로 이동", wp_idx_);
-      }
+    } else {
+      // '도착' 상태: 다음 트리거가 올 때까지 현재 위치에서 호버링
+      sendCtrl();
+      publishSet(hold_x_, hold_y_, hold_z_);
     }
   }
 
+  // sendCtrl, publishSet, hover, sendCmd, usec, pubMarkers 함수는 기존과 동일
   void sendCtrl(){ px4_msgs::msg::OffboardControlMode m{}; m.timestamp=usec(); m.position=true; off_ctrl_pub_->publish(m);}
   void publishSet(double x,double y,double z, float yaw = NAN){ px4_msgs::msg::TrajectorySetpoint sp{}; sp.timestamp=usec(); sp.position[0]=x; sp.position[1]=y; sp.position[2]=z; sp.yaw=yaw; traj_pub_->publish(sp);}
   void hover(double x,double y,double z){ publishSet(x,y,z); }
@@ -197,6 +222,7 @@ private:
     marker_pub_->publish(arr);
   }
 
+  // 멤버 변수들은 기존과 동일
   rclcpp::Publisher<px4_msgs::msg::OffboardControlMode>::SharedPtr off_ctrl_pub_;
   rclcpp::Publisher<px4_msgs::msg::TrajectorySetpoint>::SharedPtr  traj_pub_;
   rclcpp::Publisher<px4_msgs::msg::VehicleCommand>::SharedPtr      cmd_pub_;
