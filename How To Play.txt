@@ -63,3 +63,10 @@ source install/setup.bash
 ros2 run ugv_controller path_follower_node
 
 
+# ========================================================
+#                   Aruco Detector
+# ========================================================
+
+cd ws_aruco
+source install/setup.bash
+ros2 launch multi_tracker x500_aruco_detector.launch.py
