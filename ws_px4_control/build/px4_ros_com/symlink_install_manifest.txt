@@ -1,5 +1,6 @@
 /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/lib/px4_ros_com/gimbal_target_publisher
 /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/include/px4_ros_com/frame_transforms.h
+/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com//launch/global_navigation.launch.py
 /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com//launch/offboard_control.launch.py
 /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com//launch/offboard_control_launch.yaml
 /home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/install/px4_ros_com/share/px4_ros_com//launch/sensor_combined_listener.launch.py

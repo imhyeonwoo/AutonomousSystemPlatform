@@ -1,5 +1,6 @@
 /home/ihw/workspace/AutonomousVehiclePlatform/ws_gazebo/install/gazebo_env_setup/lib/gazebo_env_setup/pose_tf_broadcaster
 /home/ihw/workspace/AutonomousVehiclePlatform/ws_gazebo/install/gazebo_env_setup/share/gazebo_env_setup/launch/pose_tf_broadcaster.launch.py
+/home/ihw/workspace/AutonomousVehiclePlatform/ws_gazebo/install/gazebo_env_setup/share/gazebo_env_setup/launch/simulation_interface.launch.py
 /home/ihw/workspace/AutonomousVehiclePlatform/ws_gazebo/install/gazebo_env_setup/share/gazebo_env_setup/launch/topic_bridge.launch.py
 /home/ihw/workspace/AutonomousVehiclePlatform/ws_gazebo/install/gazebo_env_setup/share/ament_index/resource_index/package_run_dependencies/gazebo_env_setup
 /home/ihw/workspace/AutonomousVehiclePlatform/ws_gazebo/install/gazebo_env_setup/share/ament_index/resource_index/parent_prefix_path/gazebo_env_setup
