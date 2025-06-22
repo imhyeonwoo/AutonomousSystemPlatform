@@ -37,7 +37,7 @@ ros2 run px4_ros_com gimbal_target_publisher
 => launch 파일로 묶음
 cd ws_px4_control
 source install/setup.bash
-ros2 launch px4_ros_com
+ros2 launch px4_ros_com global_navigation.launch.py
 
 ----------------------------------------------------------
 --------------------<단순 Waypoint 추종>--------------------
