@@ -1,0 +1,43 @@
+<Bridge>
+cd ws_gazebo/
+source install/setup.bash
+ros2 launch gazebo_env_setup simulation_interface.launch.py
+
+<QGroundControl>
+./Q./QGroundControl.AppImage 
+
+<PX4 Gazebo>
+cd PX4-Autopilot_ASP
+make px4_sitl gz_x500_gimbal
+
+<TF Broadcast>
+cd ws_gazebo/
+source install/setup.bash
+ros2 launch gazebo_env_setup pose_tf_broadcaster.launch.py
+
+<Rviz2 with saved config file>
+rviz2
+
+<Map Visualization + Gimbal Camera Control>
+cd ws_px4_control
+source install/setup.bash
+ros2 launch px4_ros_com global_navigation.launch.py
+
+<Aruco Detector>
+cd ws_aruco
+source install/setup.bash
+ros2 launch multi_tracker x500_aruco_detector.launch.py
+
+<UAV Control>
+cd ws_px4_control
+source install/setup.bash
+ros2 run px4_ros_com offboard_waypoint_trigger
+
+
+(temp)<UAV Motion Command>
+ros2 topic pub /next_waypoint std_msgs/Bool "data: true" --once
+
+<UGV Control>
+cd ws_ugv_control/
+source install/setup.bash
+ros2 run ugv_controller path_follower_node
