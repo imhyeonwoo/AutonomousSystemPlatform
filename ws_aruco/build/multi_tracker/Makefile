@@ -210,6 +210,43 @@ multi_tracker_node/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/multi_tracker_node.dir/build.make CMakeFiles/multi_tracker_node.dir/build
 .PHONY : multi_tracker_node/fast
 
+#=============================================================================
+# Target rules for targets named marker_logger_node
+
+# Build rule for target.
+marker_logger_node: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 marker_logger_node
+.PHONY : marker_logger_node
+
+# fast build rule for target.
+marker_logger_node/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker_logger_node.dir/build.make CMakeFiles/marker_logger_node.dir/build
+.PHONY : marker_logger_node/fast
+
+src/marker_logger_node.o: src/marker_logger_node.cpp.o
+.PHONY : src/marker_logger_node.o
+
+# target to build an object file
+src/marker_logger_node.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker_logger_node.dir/build.make CMakeFiles/marker_logger_node.dir/src/marker_logger_node.cpp.o
+.PHONY : src/marker_logger_node.cpp.o
+
+src/marker_logger_node.i: src/marker_logger_node.cpp.i
+.PHONY : src/marker_logger_node.i
+
+# target to preprocess a source file
+src/marker_logger_node.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker_logger_node.dir/build.make CMakeFiles/marker_logger_node.dir/src/marker_logger_node.cpp.i
+.PHONY : src/marker_logger_node.cpp.i
+
+src/marker_logger_node.s: src/marker_logger_node.cpp.s
+.PHONY : src/marker_logger_node.s
+
+# target to generate assembly for a file
+src/marker_logger_node.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/marker_logger_node.dir/build.make CMakeFiles/marker_logger_node.dir/src/marker_logger_node.cpp.s
+.PHONY : src/marker_logger_node.cpp.s
+
 src/multi_tracker_node.o: src/multi_tracker_node.cpp.o
 .PHONY : src/multi_tracker_node.o
 
@@ -249,7 +286,11 @@ help:
 	@echo "... test"
 	@echo "... multi_tracker_uninstall"
 	@echo "... uninstall"
+	@echo "... marker_logger_node"
 	@echo "... multi_tracker_node"
+	@echo "... src/marker_logger_node.o"
+	@echo "... src/marker_logger_node.i"
+	@echo "... src/marker_logger_node.s"
 	@echo "... src/multi_tracker_node.o"
 	@echo "... src/multi_tracker_node.i"
 	@echo "... src/multi_tracker_node.s"

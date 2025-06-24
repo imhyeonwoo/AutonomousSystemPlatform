@@ -1,4 +1,5 @@
 /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/multi_tracker/lib/multi_tracker/multi_tracker_node
+/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/multi_tracker/lib/multi_tracker/marker_logger_node
 /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/multi_tracker/share/multi_tracker//launch/x1_aruco_detector.launch.py
 /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/multi_tracker/share/multi_tracker//launch/x500_aruco_detector.launch.py
 /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/install/multi_tracker/share/ament_index/resource_index/package_run_dependencies/multi_tracker

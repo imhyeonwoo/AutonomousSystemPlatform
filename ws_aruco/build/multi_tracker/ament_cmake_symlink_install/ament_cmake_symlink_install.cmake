@@ -310,7 +310,7 @@ message(STATUS "Execute custom install script")
 
 # begin of custom install code
 
-# install("TARGETS" "multi_tracker_node" "DESTINATION" "lib/multi_tracker")
+# install("TARGETS" "multi_tracker_node" "marker_logger_node" "DESTINATION" "lib/multi_tracker")
 include("/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/multi_tracker/ament_cmake_symlink_install_targets_0_${CMAKE_INSTALL_CONFIG_NAME}.cmake")
 
 # install(DIRECTORY "launch" "DESTINATION" "share/multi_tracker/")

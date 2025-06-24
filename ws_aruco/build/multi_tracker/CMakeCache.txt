@@ -367,6 +367,9 @@ fastrtps_DIR:PATH=/opt/ros/humble/share/fastrtps/cmake
 //The directory containing a CMake configuration file for fastrtps_cmake_module.
 fastrtps_cmake_module_DIR:PATH=/opt/ros/humble/share/fastrtps_cmake_module/cmake
 
+//The directory containing a CMake configuration file for filesystem.
+filesystem_DIR:PATH=filesystem_DIR-NOTFOUND
+
 //The directory containing a CMake configuration file for fmt.
 fmt_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/fmt
 

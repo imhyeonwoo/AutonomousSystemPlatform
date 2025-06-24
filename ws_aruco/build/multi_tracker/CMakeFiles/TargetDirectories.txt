@@ -1,6 +1,7 @@
 /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/multi_tracker/CMakeFiles/uninstall.dir
 /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/multi_tracker/CMakeFiles/multi_tracker_uninstall.dir
 /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/multi_tracker/CMakeFiles/multi_tracker_node.dir
+/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/multi_tracker/CMakeFiles/marker_logger_node.dir
 /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/multi_tracker/CMakeFiles/test.dir
 /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/multi_tracker/CMakeFiles/edit_cache.dir
 /home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/multi_tracker/CMakeFiles/rebuild_cache.dir

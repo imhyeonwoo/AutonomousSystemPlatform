@@ -22,6 +22,7 @@ find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 # 추가
 find_package(visualization_msgs REQUIRED)
+find_package(tf2_ros REQUIRED)
 
 # include 디렉토리 설정
 include_directories(
@@ -48,10 +49,17 @@ ament_target_dependencies(multi_tracker_node
   visualization_msgs
 )
 
+# -------------------(2) marker_logger_node-------------------
+add_executable(marker_logger_node src/marker_logger_node.cpp)
+ament_target_dependencies(marker_logger_node
+  rclcpp std_msgs geometry_msgs
+  tf2 tf2_ros tf2_geometry_msgs)
 
 
 # 런치 설정
-install(TARGETS multi_tracker_node
+install(TARGETS 
+  multi_tracker_node
+  marker_logger_node
   DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY launch
