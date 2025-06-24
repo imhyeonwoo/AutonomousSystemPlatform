@@ -1,4 +1,0 @@
-[ 12%] Built target frame_transforms
-[ 25%] Built target offboard_waypoint_map
-[35m[1mConsolidate compiler generated dependencies of target offboard_waypoint[0m
-[ 31%] [32mBuilding CXX object CMakeFiles/offboard_waypoint.dir/src/examples/offboard/offboard_waypoint.cpp.o[0m

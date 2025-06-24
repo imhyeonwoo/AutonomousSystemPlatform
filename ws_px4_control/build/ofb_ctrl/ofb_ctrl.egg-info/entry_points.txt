@@ -1,4 +1,0 @@
-[console_scripts]
-offboard_control_node = ofb_ctrl.offboard_control:main
-waypoint_offboard_node = ofb_ctrl.waypoint_offboard_node:main
-

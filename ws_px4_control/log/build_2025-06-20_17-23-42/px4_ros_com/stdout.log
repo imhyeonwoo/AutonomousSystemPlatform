@@ -1,7 +1,0 @@
-[ 42%] Built target frame_transforms
-[ 42%] Built target vehicle_gps_position_listener
-[ 42%] Built target offboard_control_srv
-[ 57%] Built target debug_vect_advertiser
-[ 71%] Built target sensor_combined_listener
-[ 78%] [32mBuilding CXX object CMakeFiles/offboard_waypoint_map.dir/src/examples/offboard/offboard_waypoint_map.cpp.o[0m
-[ 92%] Built target offboard_control

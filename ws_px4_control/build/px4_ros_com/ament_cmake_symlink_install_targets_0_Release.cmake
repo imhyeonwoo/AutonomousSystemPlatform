@@ -1,1 +1,0 @@
-ament_cmake_symlink_install_targets("TARGET_FILES" "/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com/gimbal_target_publisher" "TARGETS" "gimbal_target_publisher" "DESTINATION" "lib/px4_ros_com")

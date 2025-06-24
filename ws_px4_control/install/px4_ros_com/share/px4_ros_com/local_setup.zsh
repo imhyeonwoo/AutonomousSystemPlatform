@@ -1,1 +1,0 @@
-/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com/ament_cmake_environment_hooks/local_setup.zsh

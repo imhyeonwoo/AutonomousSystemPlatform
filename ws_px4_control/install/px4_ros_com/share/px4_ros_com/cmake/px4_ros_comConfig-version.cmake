@@ -1,1 +1,0 @@
-/home/ihw/workspace/AutonomousVehiclePlatform/ws_px4_control/build/px4_ros_com/ament_cmake_core/px4_ros_comConfig-version.cmake
