@@ -1,1 +1,0 @@
-/home/ihw/workspace/AutonomousVehiclePlatform/ws_ugv_control/src/ugv_controller/scripts/course_csv_creator.py

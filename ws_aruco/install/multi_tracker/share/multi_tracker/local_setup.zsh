@@ -1,1 +1,0 @@
-/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/multi_tracker/ament_cmake_environment_hooks/local_setup.zsh

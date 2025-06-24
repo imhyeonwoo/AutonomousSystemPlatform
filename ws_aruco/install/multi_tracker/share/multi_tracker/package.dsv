@@ -1,8 +1,0 @@
-source;share/multi_tracker/hook/cmake_prefix_path.ps1
-source;share/multi_tracker/hook/cmake_prefix_path.dsv
-source;share/multi_tracker/hook/cmake_prefix_path.sh
-source;share/multi_tracker/local_setup.bash
-source;share/multi_tracker/local_setup.dsv
-source;share/multi_tracker/local_setup.ps1
-source;share/multi_tracker/local_setup.sh
-source;share/multi_tracker/local_setup.zsh

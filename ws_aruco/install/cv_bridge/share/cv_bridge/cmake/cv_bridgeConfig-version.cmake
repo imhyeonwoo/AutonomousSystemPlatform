@@ -1,1 +1,0 @@
-/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/cv_bridge/ament_cmake_core/cv_bridgeConfig-version.cmake

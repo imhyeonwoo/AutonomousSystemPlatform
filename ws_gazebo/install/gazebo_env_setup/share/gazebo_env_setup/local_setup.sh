@@ -1,1 +1,0 @@
-/home/ihw/workspace/AutonomousVehiclePlatform/ws_gazebo/build/gazebo_env_setup/ament_cmake_environment_hooks/local_setup.sh

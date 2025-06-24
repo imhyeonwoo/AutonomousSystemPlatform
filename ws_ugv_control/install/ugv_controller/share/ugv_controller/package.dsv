@@ -1,8 +1,0 @@
-source;share/ugv_controller/hook/cmake_prefix_path.ps1
-source;share/ugv_controller/hook/cmake_prefix_path.dsv
-source;share/ugv_controller/hook/cmake_prefix_path.sh
-source;share/ugv_controller/local_setup.bash
-source;share/ugv_controller/local_setup.dsv
-source;share/ugv_controller/local_setup.ps1
-source;share/ugv_controller/local_setup.sh
-source;share/ugv_controller/local_setup.zsh

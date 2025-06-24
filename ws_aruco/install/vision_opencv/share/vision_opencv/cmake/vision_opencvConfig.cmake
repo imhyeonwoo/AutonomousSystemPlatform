@@ -1,1 +1,0 @@
-/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/build/vision_opencv/ament_cmake_core/vision_opencvConfig.cmake

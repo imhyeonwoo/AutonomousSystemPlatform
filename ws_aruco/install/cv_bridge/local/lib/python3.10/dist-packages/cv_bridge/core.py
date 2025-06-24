@@ -1,1 +1,0 @@
-/home/ihw/workspace/AutonomousVehiclePlatform/ws_aruco/src/vision_opencv/cv_bridge/python/cv_bridge/core.py

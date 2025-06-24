@@ -1,4 +1,0 @@
-source;share/ugv_controller/local_setup.bash
-source;share/ugv_controller/local_setup.dsv
-source;share/ugv_controller/local_setup.sh
-source;share/ugv_controller/local_setup.zsh

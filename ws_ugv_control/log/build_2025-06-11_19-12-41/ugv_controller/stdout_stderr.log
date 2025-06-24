@@ -1,7 +1,0 @@
-[35m[1mConsolidate compiler generated dependencies of target path_follower_node[0m
-[ 50%] [32mBuilding CXX object CMakeFiles/path_follower_node.dir/src/path_follower_node.cpp.o[0m
-gmake[2]: *** wait: No child processes.  Stop.
-gmake[2]: *** Waiting for unfinished jobs....
-gmake[2]: *** wait: No child processes.  Stop.
-gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/path_follower_node.dir/all] Error 2
-gmake: *** [Makefile:146: all] Interrupt
