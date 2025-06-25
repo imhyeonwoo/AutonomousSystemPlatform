@@ -62,7 +62,7 @@ public:
     declare_parameter("kp_horizontal",        1.2);   // ★ 0.8  → 1.0
     declare_parameter("kd_horizontal",        0.45);   // ★ 0.3  → 0.5
     declare_parameter("descent_speed_min",    0.6);   // ★ 추가
-    declare_parameter("descent_speed_max",    1.4);   // ★ 추가
+    declare_parameter("descent_speed_max",    1.2);   // ★ 추가
 
     map_frame_        = get_parameter("map_frame").as_string();
     base_frame_       = get_parameter("base_frame").as_string();
