@@ -97,9 +97,12 @@ ament_target_dependencies(gimbal_target_publisher
   rclcpp px4_msgs visualization_msgs std_msgs
   tf2_ros tf2_geometry_msgs px4_msgs)
 
-install(TARGETS gimbal_target_publisher
-  DESTINATION lib/${PROJECT_NAME})
-
+# ── (9) offboard_waypoint_map_landing (정밀 착륙 버전) ── ★ 추가
+add_executable(offboard_waypoint_map_landing
+src/examples/offboard/offboard_waypoint_map_landing.cpp)
+ament_target_dependencies(offboard_waypoint_map_landing
+rclcpp px4_msgs tf2_ros tf2_geometry_msgs geometry_msgs
+std_msgs nav_msgs visualization_msgs)
 
 
 #################################
@@ -115,6 +118,8 @@ install(TARGETS
   # offboard_waypoint
   offboard_waypoint_map
   offboard_waypoint_trigger
+  gimbal_target_publisher
+  offboard_waypoint_map_landing
   EXPORT export_frame_transforms
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
