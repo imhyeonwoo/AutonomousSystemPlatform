@@ -1,6 +1,8 @@
 // simple_marker_tracker.cpp
 //   – State-based marker-size switching
 //   – Stores up to 10 unique ArUco IDs (0-9 only), then writes CSV to ~/workspace/ws_PX4
+//   - [MODIFIED] Added time synchronization for TF lookup to improve accuracy.
+//   - [MODIFIED] Added distance-based filtering to reject unreliable detections.
 
 #include <memory>
 #include <string>
@@ -52,6 +54,8 @@ public:
     declare_parameter<int>("aruco_dict_id", cv::aruco::DICT_4X4_50);
     declare_parameter<double>("default_marker_size", 1.0);
     declare_parameter<double>("final_marker_size", 0.5);
+    // ★ [NEW] Add parameter for max detection distance
+    declare_parameter<double>("max_detection_distance", 15.0);
 
     get_parameter("image_topic", image_topic_);
     get_parameter("camera_info_topic", camera_info_topic_);
@@ -65,6 +69,8 @@ public:
     get_parameter("aruco_dict_id", dict_id_);
     get_parameter("default_marker_size", default_marker_size_);
     get_parameter("final_marker_size", final_marker_size_);
+    // ★ [NEW] Get parameter value
+    get_parameter("max_detection_distance", max_detection_distance_);
 
     current_marker_size_ = default_marker_size_;
 
@@ -106,6 +112,8 @@ public:
 
     RCLCPP_INFO(get_logger(), "Aruco tracker ready (marker %.2fm default).",
                 current_marker_size_);
+    RCLCPP_INFO(get_logger(), "Max detection distance set to: %.2f m.",
+                max_detection_distance_);
   }
 
 private:
@@ -128,6 +136,8 @@ private:
       text_marker_topic_, image_proc_topic_;
   int    dict_id_;
   double default_marker_size_, final_marker_size_, current_marker_size_;
+  // ★ [NEW] Member variable for the new parameter
+  double max_detection_distance_;
 
   /* ---------- camera intrinsic ---------- */
   cv::Mat K_, D_;
@@ -180,10 +190,12 @@ private:
 
     geometry_msgs::msg::TransformStamped tf_map2cam;
     try {
+      // ★ [MODIFIED] Use image timestamp for TF lookup instead of TimePointZero
       tf_map2cam = tf_buffer_.lookupTransform(map_frame_, camera_frame_,
-                                              tf2::TimePointZero);
+                                              msg->header.stamp,
+                                              rclcpp::Duration::from_seconds(0.1));
     } catch (const tf2::TransformException &e) {
-      RCLCPP_WARN(get_logger(), "TF error: %s", e.what());
+      RCLCPP_WARN(get_logger(), "TF lookup error: %s", e.what());
       return;
     }
 
@@ -205,7 +217,11 @@ private:
         tf2::fromMsg(tf_map2cam.transform, T);
         tf2::Vector3 p_map = T.getOrigin() + T.getBasis() * t_cam;
 
-        publishData(msg->header.stamp, ids[i], p_map);
+        // ★ [NEW] Get drone's current position in the map frame
+        tf2::Vector3 drone_p_map = T.getOrigin();
+
+        // ★ [MODIFIED] Pass drone's position to publishData for filtering
+        publishData(msg->header.stamp, ids[i], p_map, drone_p_map);
 
         cv::aruco::drawDetectedMarkers(cv_ptr->image, corners, ids);
         cv::aruco::drawAxis(cv_ptr->image, K_, D_, rvecs[i], tvecs[i],
@@ -215,9 +231,18 @@ private:
     img_pub_->publish(*cv_ptr->toImageMsg());
   }
 
+  // ★ [MODIFIED] Function signature changed to accept drone's position
   void publishData(const rclcpp::Time &stamp, int id,
-                   const tf2::Vector3 &p_map)
+                   const tf2::Vector3 &p_map, const tf2::Vector3& drone_p_map)
   {
+    // ★ [NEW] Distance-based filtering logic
+    double distance = drone_p_map.distance(p_map);
+    if (distance > max_detection_distance_) {
+      RCLCPP_DEBUG(get_logger(), "Marker ID %d ignored (distance: %.2f m > %.2f m)",
+                   id, distance, max_detection_distance_);
+      return; // If too far, do not publish or store data
+    }
+
     /* --- PointStamped --- */
     geometry_msgs::msg::PointStamped pt;
     pt.header.stamp    = stamp;
@@ -252,21 +277,21 @@ private:
     text_marker_pub_->publish(label);
 
     /* ---------- store/update (IDs 0-9 only) ---------- */
-    if (id < 0 || id > 9) return;          // ★ 저장 제한
+    if (id < 0 || id > 9) return;
 
     auto it = std::find(stored_ids_.begin(), stored_ids_.end(), id);
     if (it == stored_ids_.end()) {
-      if (stored_ids_.size() < 9) {        // 0~8번째까지는 저장만
+      if (stored_ids_.size() < 9) {
         stored_ids_.push_back(id);
         stored_positions_.push_back(p_map);
-      } else if (stored_ids_.size() == 9) { // 10번째(마지막) ID 저장 후 CSV
+      } else if (stored_ids_.size() == 9) {
         stored_ids_.push_back(id);
         stored_positions_.push_back(p_map);
         writeCsv();
       }
     } else {
       size_t idx = std::distance(stored_ids_.begin(), it);
-      stored_positions_[idx] = p_map;      // 좌표 갱신
+      stored_positions_[idx] = p_map;
     }
   }
 };
@@ -276,6 +301,7 @@ int main(int argc, char **argv)
 {
   rclcpp::init(argc, argv);
   auto node = std::make_shared<SimpleMarkerTracker>();
+  // 시뮬레이션 시간을 사용하도록 설정 (Gazebo 등 시뮬레이터와 연동 시 필수)
   node->set_parameter(rclcpp::Parameter("use_sim_time", true));
   rclcpp::spin(node);
   rclcpp::shutdown();
