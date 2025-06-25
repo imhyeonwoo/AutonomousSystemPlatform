@@ -1,6 +1,5 @@
 // offboard_waypoint_map.cpp
 // PX4 ROS 2 – UAV 오프보드 미션 (UGV ↔ UAV hand-shake)
-// 2025-06-22 ChatGPT – CSV 웨이포인트 + 전체 비행 로직
 
 #include <rclcpp/rclcpp.hpp>
 #include <px4_msgs/msg/offboard_control_mode.hpp>

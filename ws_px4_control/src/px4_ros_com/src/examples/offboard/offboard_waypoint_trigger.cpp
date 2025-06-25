@@ -51,7 +51,7 @@ public:
     declare_parameter("takeoff_alt",5.0);
     declare_parameter("wp_csv","");
     declare_parameter("approach_alt",1.5);
-    declare_parameter("descent_speed",0.3);
+    declare_parameter("descent_speed",1.0);
     declare_parameter("touchdown_alt",0.15);
     declare_parameter("landing_h_thresh",0.2);
     declare_parameter("kp_horizontal",0.8);
