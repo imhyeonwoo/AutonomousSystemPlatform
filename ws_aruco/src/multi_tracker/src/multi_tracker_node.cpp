@@ -1,4 +1,3 @@
-// simple_marker_tracker.cpp
 //   – State-based marker-size switching
 //   – Stores up to 10 unique ArUco IDs (0-9 only), then writes CSV to ~/workspace/ws_PX4
 //   - [MODIFIED] Added time synchronization for TF lookup to improve accuracy.
