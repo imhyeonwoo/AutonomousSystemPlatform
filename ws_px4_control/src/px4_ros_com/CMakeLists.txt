@@ -105,6 +105,13 @@ rclcpp px4_msgs tf2_ros tf2_geometry_msgs geometry_msgs
 std_msgs nav_msgs visualization_msgs)
 
 
+# ── (10) offboard_waypoint_map_speed  ── ★ 추가
+add_executable(offboard_waypoint_map_speed
+src/examples/offboard/offboard_waypoint_map_speed.cpp)
+ament_target_dependencies(offboard_waypoint_map_speed
+rclcpp px4_msgs tf2_ros tf2_geometry_msgs geometry_msgs
+std_msgs nav_msgs visualization_msgs)
+
 #################################
 # ▒▒  install / export section ▒▒
 #################################
@@ -120,6 +127,7 @@ install(TARGETS
   offboard_waypoint_trigger
   gimbal_target_publisher
   offboard_waypoint_map_landing
+  offboard_waypoint_map_speed
   EXPORT export_frame_transforms
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
