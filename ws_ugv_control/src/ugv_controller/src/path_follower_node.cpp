@@ -32,10 +32,16 @@ public:
     max_speed_3_(6.0),    // mission3 최대 속도 6.0 m/s
     lookahead_radius_(3.0), axle_offset_(0.2559),
     slow_radius_(10.0), stop_radius_(0.5),
-    accel_(0.8), decel_(1.5), current_speed_(0.0)
+    accel_(0.8), decel_(1.5), current_speed_(0.0),
+    max_gap_(1.0)         // ← 두 웨이포인트 간 허용 최대 거리 [m]
   {
-    /* ---------- ① 경로 로드 ---------- */
-    load_path();
+    /* ---------- 파라미터 선언 및 읽기 ---------- */
+    declare_parameter("max_gap", max_gap_);
+    get_parameter("max_gap", max_gap_);
+
+    /* ---------- ① 경로 로드 & 밀도화 ---------- */
+    load_path();      // CSV 읽기
+    densify_path();   // mission3→4 구간 보간
 
     /* ---------- ② 퍼블리셔 ---------- */
     path_pub_ = create_publisher<nav_msgs::msg::Path>(
@@ -94,7 +100,52 @@ private:
       double x, y; int m;
       if (ss >> x >> y >> m) path_.push_back({x, y, m});
     }
-    RCLCPP_INFO(get_logger(), "Loaded %zu waypoints", path_.size());
+    RCLCPP_INFO(get_logger(), "Loaded %zu original waypoints", path_.size());
+  }
+
+  /* ---------- mission3 → 4 구간 자동 보간 ---------- */
+  void densify_path()
+  {
+    if (path_.size() < 2) return;
+
+    std::vector<Waypoint> dense;
+    dense.reserve(path_.size() * 2);   // 대략 두 배 여유
+    dense.push_back(path_.front());
+
+    for (size_t i = 1; i < path_.size(); ++i) {
+      const auto &p0 = path_[i - 1];
+      const auto &p1 = path_[i];
+
+      // mission 3 → 4 구간만 보간
+      bool do_densify = (p0.mission == 3 && p1.mission == 4);
+
+      if (!do_densify) {
+        dense.push_back(p1);
+        continue;
+      }
+
+      double dx = p1.x - p0.x;
+      double dy = p1.y - p0.y;
+      double dist = std::hypot(dx, dy);
+      int n_seg = static_cast<int>(std::ceil(dist / max_gap_));
+
+      if (n_seg > 1) {
+        for (int k = 1; k < n_seg; ++k) {
+          double t = static_cast<double>(k) / n_seg;
+          Waypoint mid{
+            p0.x + t * dx,
+            p0.y + t * dy,
+            3                       // 중간 점은 mission 3
+          };
+          dense.push_back(mid);
+        }
+      }
+      dense.push_back(p1);
+    }
+
+    path_.swap(dense);
+    RCLCPP_INFO(get_logger(), "Path densified → %zu waypoints (gap ≤ %.2f m)",
+                path_.size(), max_gap_);
   }
 
   /* ---------- Path + MarkerArray ---------- */
@@ -286,6 +337,7 @@ private:
   double max_speed_1_, max_speed_3_;
   double lookahead_radius_, axle_offset_;
   double slow_radius_, stop_radius_, accel_, decel_, current_speed_;
+  double max_gap_;                  // ← 추가: 보간 간격 파라미터
   std::vector<Waypoint> path_;
 
   rclcpp::Subscription<tf2_msgs::msg::TFMessage>::SharedPtr tf_sub_;
