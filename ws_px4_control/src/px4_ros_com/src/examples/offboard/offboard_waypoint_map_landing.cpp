@@ -60,10 +60,10 @@ public:
     declare_parameter("wp_csv",               "");
 
     // [수정] 접근 고도를 높여서 수평 제어에 더 많은 시간을 부여합니다.
-    declare_parameter("approach_alt",         0.5);
+    declare_parameter("approach_alt",         1.0);
 
     // [수정] 수평 오차 기준을 약간 완화하여 '머뭇거리는' 현상을 방지하고, Descent 단계로 부드럽게 넘어가게 합니다.
-    declare_parameter("landing_h_thresh",     0.4);
+    declare_parameter("landing_h_thresh",     3.0);
 
     // [유지] 착지 고도는 안전하게 유지합니다.
     declare_parameter("touchdown_alt",        0.15);
