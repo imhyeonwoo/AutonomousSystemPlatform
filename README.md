@@ -67,11 +67,10 @@ source install/setup.bash
 ros2 run px4_ros_com offboard_waypoint_map_landing
 ```
 
-## 📺 데모 영상
-
+### 🚗 데모 영상
 [![Demo Video](https://img.youtube.com/vi/iVzSpW8ZjFI/0.jpg)](https://www.youtube.com/watch?v=iVzSpW8ZjFI)
 
-👉 클릭해서 유튜브 영상 보기
+👉 [유튜브에서 보기](https://www.youtube.com/watch?v=iVzSpW8ZjFI)
 
 ## 영상 설명
 - 영상 속에서 빨간색 화살표 : 실시간으로 구하는 gimbal camera의 Desired Pose(gimbal arrow)
