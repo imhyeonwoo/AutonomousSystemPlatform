@@ -51,6 +51,7 @@ cd [워크스페이스 경로]
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 source install/setup.bash
 ```
+- 소스 수정 시 설치 디렉토리에 즉시 반영되도록 심볼릭 링크로 설치하고, 최적화 빌드를 통해 실행 성능을 높이기 위해 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release를 사용
 
 ### 🚀 실행 예시
 
