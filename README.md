@@ -67,7 +67,7 @@ source install/setup.bash
 ros2 run px4_ros_com offboard_waypoint_map_landing
 ```
 
-### 🚗 데모 영상
+### 🚗 주요 기능 시연 영상(짐벌 카메라 제어)
 [![Demo Video](https://img.youtube.com/vi/iVzSpW8ZjFI/0.jpg)](https://www.youtube.com/watch?v=iVzSpW8ZjFI)
 
 👉 [유튜브에서 보기](https://www.youtube.com/watch?v=iVzSpW8ZjFI)
@@ -76,6 +76,7 @@ ros2 run px4_ros_com offboard_waypoint_map_landing
 - 영상 속에서 빨간색 화살표 : 실시간으로 구하는 gimbal camera의 Desired Pose(gimbal arrow)
 - 초록색 네모 마커 : Aruco Marker들의 Ground Truth Postion/Pose
 - 노란색 PointStamped : multi_tracker_node에서 구한 Aruco Marker의 ENU Position
+- 짐벌 카메라만 제어 시 uav의 다리가 카메라 시야를 방해하는 것을 방지하기 위해 ArUco 마커의 ENU 좌표를 기반으로 짐벌이 바라봐야 할 방향을 계산한 뒤, 이를 PX4 짐벌 제어 토픽으로 퍼블리시하여 드론 짐벌 카메라가 목표 지점을 향하도록 구현
 - 데모 영상은 ros2 topic pub /next_waypoint std_msgs/Bool "data: true" --once 명령어를 통해 직접 다음 웨이포인트로 이동하는 트리거를 발행(테스트용)
 ---
 
