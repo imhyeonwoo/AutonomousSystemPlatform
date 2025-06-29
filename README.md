@@ -79,6 +79,19 @@ ros2 run px4_ros_com offboard_waypoint_map_landing
 - 데모 영상은 ros2 topic pub /next_waypoint std_msgs/Bool "data: true" --once 명령어를 통해 직접 다음 웨이포인트로 이동하는 트리거를 발행(테스트용)
 ---
 
+---
+
+### 🎥 전체 영상
+[![Full Video](https://img.youtube.com/vi/EWC01EeUu1A/0.jpg)](https://www.youtube.com/watch?v=EWC01EeUu1A)
+
+👉 [유튜브에서 보기](https://www.youtube.com/watch?v=EWC01EeUu1A)
+
+## 영상 설명
+- 데모 영상과 달리 UGV의 Self-Driving 포함
+- UAV의 Full-Autonomous-Driving 포함
+- Gimbal Camera -> 실시간으로 가장 가까운 위치의 Aruco Marker 찾아 봄
+- PD 제어와 오차 비례 하강 속도 제어를 통해 정밀하고 빠른 착륙 구현
+
 ## 🛠️ 개발 환경
 
 | 항목            | 버전/도구               |
@@ -95,12 +108,11 @@ ros2 run px4_ros_com offboard_waypoint_map_landing
 
 - [PX4 공식 문서](https://docs.px4.io/)
 - [ROS2 공식 문서](https://docs.ros.org/en/humble/)
-- [ArUco 마커 생성기](https://chev.me/arucogen/)
 
 ---
 
 ## 🤝 기여 및 문의
 
-본 프로젝트는 개인 또는 팀의 학습 및 연구 목적을 기반으로 개발 중입니다.  
-기여를 원하신다면 언제든지 PR 또는 Issue로 연락주세요!
+imhyeonwoo21@gmail.com
+imhyeonwoo21@konkuk.ac.kr
 ```
