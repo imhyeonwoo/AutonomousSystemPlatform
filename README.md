@@ -62,7 +62,7 @@ ros2 launch multi_tracker x500_aruco_detector.launch.py
 # PX4 오프보드 제어 실행
 cd ws_px4_control
 source install/setup.bash
-ros2 run px4_ros_com offboard_waypoint_trigger
+ros2 run px4_ros_com offboard_waypoint_map_landing
 ```
 
 ---
