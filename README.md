@@ -91,6 +91,7 @@ ros2 run px4_ros_com offboard_waypoint_map_landing
 - UAV의 Full-Autonomous-Driving 포함
 - Gimbal Camera -> 실시간으로 가장 가까운 위치의 Aruco Marker 찾아 봄
 - PD 제어와 오차 비례 하강 속도 제어를 통해 정밀하고 빠른 착륙 구현
+- rviz2 config file 첨부함
 
 ## 🛠️ 개발 환경
 
@@ -98,7 +99,7 @@ ros2 run px4_ros_com offboard_waypoint_map_landing
 |-----------------|------------------------|
 | OS              | Ubuntu 22.04           |
 | ROS             | ROS2 Humble            |
-| 시뮬레이터      | Gazebo Classic         |
+| 시뮬레이터      | Gazebo Sim         |
 | PX4 펌웨어      | PX4-Autopilot_ASP (custom) |
 | 언어            | Python 3.10 / C++17    |
 
