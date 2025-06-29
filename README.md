@@ -72,7 +72,10 @@ ros2 run px4_ros_com offboard_waypoint_map_landing
 
 👉 클릭해서 유튜브 영상 보기
 
-
+-영상 속에서 빨간색 화살표 : 실시간으로 구하는 gimbal camera의 Desired Pose(gimbal arrow)
+-초록색 네모 마커 : Aruco Marker들의 Ground Truth Postion/Pose
+-노란색 PointStamped : multi_tracker_node에서 구한 Aruco Marker의 ENU Position
+-데모 영상은 ros2 topic pub /next_waypoint std_msgs/Bool "data: true" --once 명령어를 통해 직접 다음 웨이포인트로 이동하는 트리거를 발행(테스트용)
 ---
 
 ## 🛠️ 개발 환경
