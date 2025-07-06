@@ -115,6 +115,6 @@ ros2 run px4_ros_com offboard_waypoint_map_landing
 
 ## 🤝 기여 및 문의
 
-imhyeonwoo21@gmail.com
-imhyeonwoo21@konkuk.ac.kr
+- imhyeonwoo21@gmail.com
+- imhyeonwoo21@konkuk.ac.kr
 ```
