@@ -9,13 +9,13 @@ This repository was created for personal git management of the 2025-1 Autonomous
 
 
 AutonomousVehiclePlatform/
-├── PX4-Autopilot_ASP/             # PX4 기반 드론 시뮬레이션
-├── ws_aruco/                      # ArUco 마커 기반 위치 인식
-├── ws_gazebo/                     # Gazebo 시뮬레이터 환경 설정
-├── ws_px4_control/                # PX4 드론 제어 (ROS2)
-├── ws_ugv_control/                # 지상 차량(UGV) 제어 및 경로 추종
-├── run_all_bridges.sh            # 브릿지 실행 스크립트
-└── .gitignore                    # 빌드 파일 무시 설정
+├── PX4-Autopilot_ASP/             #  PX4-based drone simulation
+├── ws_aruco/                      #  ArUco marker-based localization
+├── ws_gazebo/                     # Gazebo simulator environment setup
+├── ws_px4_control/                # PX4 drone control (ROS2)
+├── ws_ugv_control/                # UGV control and path tracking
+├── run_all_bridges.sh            # Bridge launch script
+└── .gitignore                    # Ignore build files
 ```
 
 ---
