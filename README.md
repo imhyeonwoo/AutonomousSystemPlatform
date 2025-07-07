@@ -41,8 +41,8 @@ AutonomousVehiclePlatform/
 ---
 
 ## ⚙️ How to Use
-- If you want the drone to hover at each waypoint before full-course autonomous flight, refer to How To Play.txt
-- To test the final implementation, refer to How To Play_FINAL.txt
+- If you want the drone to hover at each waypoint before full-course autonomous flight, refer to "How To Play.txt"
+- To test the final implementation, refer to "How To Play_FINAL.txt"
 
 ### 🔧 Build (ROS2 Humble)
 
