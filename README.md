@@ -1,4 +1,4 @@
-# AutonomousVehiclePlatform
+# AutonomousSystemPlatform
 
 A ROS-Based integrated platform for Autonomous Driving and Flight simulation.  
 This repository was created for personal git management of the 2025-1 Autonomous Vehicle Platform Final Project at Konkuk University.
