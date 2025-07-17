@@ -81,8 +81,6 @@ ros2 run px4_ros_com offboard_waypoint_map_landing
 ros2 topic pub /next_waypoint std_msgs/Bool "data: true" --once
 ---
 
----
-
 ### Full Demo Video
 [![Full Video](https://img.youtube.com/vi/EWC01EeUu1A/0.jpg)](https://www.youtube.com/watch?v=EWC01EeUu1A)
 
