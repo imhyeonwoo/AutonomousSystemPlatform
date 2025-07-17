@@ -118,4 +118,3 @@ ros2 topic pub /next_waypoint std_msgs/Bool "data: true" --once
 
 - imhyeonwoo21@gmail.com
 - imhyeonwoo21@konkuk.ac.kr
-```
