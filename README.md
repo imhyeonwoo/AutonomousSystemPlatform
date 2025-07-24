@@ -77,7 +77,7 @@ ros2 run px4_ros_com offboard_waypoint_map_landing
 - Green Square markers: Ground truth position/pose of ArUco markers
 - Yellow PointStamped: ENU position of ArUco markers estimated by the multi_tracker_node
 - The Desired Gimbal Direction is calculated based on the ENU coordinates of the ArUco markers to prevent the UAV landing gear from obstructing the camera's view. This direction is published to PX4 gimbal control topics so that the drone's gimbal camera points toward the target.
-- In this demo, the trigger to move to the next waypoint is manually sent using:
+- In this demo, the trigger to move to the next waypoint is manually sent using in other terminal:
 ```bash
 ros2 topic pub /next_waypoint std_msgs/Bool "data: true" --once
 ```
