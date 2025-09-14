@@ -3,19 +3,61 @@
 A ROS-Based integrated platform for Autonomous Driving and Flight simulation.  
 This repository was created for personal git management of the 2025-1 Autonomous Vehicle Platform Final Project at Konkuk University.
 
-```markdown
-## Project Structure
+---
+
+<details>
+<summary><b><span style="font-size: 1.25em">📁 Project Structure</span></b></summary>
 
 
-AutonomousVehiclePlatform/
-├── PX4-Autopilot_ASP/             #  PX4-based drone simulation
-├── ws_aruco/                      #  ArUco marker-based localization
-├── ws_gazebo/                     # Gazebo simulator environment setup
-├── ws_px4_control/                # PX4 drone control (ROS2)
-├── ws_ugv_control/                # UGV control and path tracking
-├── run_all_bridges.sh            # Bridge launch script
-└── .gitignore                    # Ignore build files
+```text
+AutonomousSystemPlatform/
+├── PX4-Autopilot_ASP/ # PX4-based drone simulation (firmware + Gazebo models)
+│
+├── ws_aruco/ # ArUco marker-based Localization
+│   ├── src/multi_tracker/
+│   │   ├── include/
+│   │   │   └── multi_tracker
+│   │   │       └── multi_tracker_node.hpp # Header for multi-marker tracker node
+│   │   ├── launch/
+│   │   │   ├── x1_aruco_detector.launch.py # ArUco detector launch (X1 platform)
+│   │   │   └── x500_aruco_detector.launch.py # ArUco detector launch (X500 platform)
+│   │   └── src/
+│   │       └── multi_tracker_node.cpp # Tracks multiple markers, publishes poses
+│   └── src/vision_opencv # cv_bridge/image_geometry dependencies
+│
+├── ws_gazebo/
+│   └── src/gazebo_env_setup # Gazebo environment setup and ROS2 bridges
+│       ├── launch/
+│       │   ├── pose_tf_broadcaster.launch.py # Launch TF broadcaster node
+│       │   ├── simulation_interface.launch # Integrated sim orchestration (Gazebo + bridges)
+│       │   └── topic_bridge.launch.py # DDS/ROS2 topic bridge launcher
+│       └── src/
+│           └── pose_tf_broadcaster.cpp # Publishes TF from sim to fixed frame
+│
+├── ws_px4_control/
+│   └── src/px4_ros_com/examples/
+│       ├── map_visualization/
+│       │   └── publish_map_info.py # Publishes map/grid info for RViz
+│       └── offboard/
+│           ├── gimbal_target_publisher.cpp # Publishes desired gimbal target orientation
+│           ├── offboard_control.cpp # Basic offboard setpoint control
+│           ├── offboard_control_srv.cpp # Offboard control via ROS2 service
+│           ├── offboard_waypoint_map.cpp # Waypoint flight in map frame
+│           ├── offboard_waypoint_map_landing.cpp # Waypoints + precision landing
+│           ├── offboard_waypoint_map_speed.cpp # Waypoints with speed profile control
+│           ├── offboard_waypoint_trigger.cpp # Trigger to advance to next waypoint
+│           ├── offboard_waypoint.txt # Sample waypoint list for offboard tests
+│           └── path_planner_node.py # Simple path planner generating setpoints
+│
+└── ws_ugv_control/
+    └── src/ugv_controller/
+        ├── launch/
+        │   └── path_follower.launch.py # Launch file for UGV controller
+        └── src/
+            └── path_follower_node.cpp # UGV waypoint/path following controller
 ```
+
+</details>
 
 ---
 
