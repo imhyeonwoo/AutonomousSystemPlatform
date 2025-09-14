@@ -111,6 +111,14 @@ ros2 topic pub /next_waypoint std_msgs/Bool "data: true" --once
 
 - [PX4 Official Docs](https://docs.px4.io/)
 - [ROS2 Official Docs](https://docs.ros.org/en/humble/)
+- Gazebo environment sourced from: https://github.com/imhyeonwoo/PX4-Autopilot_ASP
+
+---
+
+## License
+
+- Top-level license: Apache-2.0 (applies to code authored in this repository by the maintainer). See `LICENSE` and `NOTICE`.
+- Third-party components retain their original licenses (e.g., PX4 BSD-3-Clause, ROS vision_opencv Apache-2.0/BSD). See `THIRD_PARTY_NOTICES.md` and respective `LICENSE` files in each directory.
 
 ---
 
